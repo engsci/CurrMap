@@ -1,0 +1,4 @@
+%h3= @course["_id"]
+%p= @course["name"]
+- @course["staff"].keys.each do |p|
+  %a(href="/prof/#{p}")= p

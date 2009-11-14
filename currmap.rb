@@ -8,6 +8,12 @@ configure do
   $server = Couch::Server.new('localhost', 5984)
 end
 
+helpers do
+  def get_by_id(id)
+    JSON.parse($server.get("/currmap/#{id}").body)
+  end
+end
+
 get '/' do 
   haml :index
 end
@@ -23,6 +29,11 @@ get '/courses' do
 end
 
 get '/course/:code' do
-  course = $server.get("/currmap/#{params[:code]}").body
-  
+  @course = get_by_id params[:code]
+  haml :course
+end
+
+get '/prof/:name' do
+  @prof = get_by_id params[:name]
+  haml :prof
 end
