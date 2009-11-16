@@ -9,10 +9,10 @@ $(document).ready(
       function() {
         $(this).next().toggle();
       }).next().hide();
-    $(".activities").prepend("<p class=\"expand_all_activities\">Expand All</p>");
+    $(".activities").prepend("<p class=\"expand_all_activities\">Expand/Hide All</p>");
     $(".expand_all_activities").click(
       function() {
-        $(".activity_listing").next.show();
+        $(".activity_listing").next().toggle();
       }
     );
   });
