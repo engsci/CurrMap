@@ -1,4 +1,18 @@
-%h3= @course["_id"]
+%h2= @course["_id"]
 %p= @course["name"]
-- @course["staff"].keys.each do |p|
-  %a(href="/prof/#{p}")= p
+%p Professors:
+%ul
+  - @profs.each do |p|
+    %li
+      %h4.prof_name= p["name"]
+      .prof_info
+        - %w(phone website email).each do |f|
+          %p= "#{f.capitalize}: #{p[f]}" if p[f]
+%h3 Activities
+%dl.activities
+  - @course["activities"].keys.sort.each do |a|
+    %dl.activity_listing= a
+    %dd
+      %ul
+        - @course["activities"][a]["outcomes"].keys.each do |o|
+          %li= o
