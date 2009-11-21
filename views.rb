@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'json'
 require 'couch'
 
@@ -17,3 +18,5 @@ def add_views
   server = Couch::Server.new('localhost', 5984)
   server.put("/#{db}/_design/#{view}", views.to_json)
 end
+
+add_views
