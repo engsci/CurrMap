@@ -26,13 +26,6 @@ module CurrMap
       end
     end
     
-    # def method_missing(meth, *args)
-    #   if %w(name activities calendar\ entry weight class).member?(meth.to_s)
-    #     return @course[meth.to_s]
-    #   else
-    #     raise NoMethodError
-    #   end
-    # end
   end
   
 end
