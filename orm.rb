@@ -5,9 +5,9 @@ module CurrMap
   
   class << self
     attr_reader :server
-    @server = Couch::Server.new('localhost', 5984)
+    @@server = Couch::Server.new('localhost', 5984)
     def get_by_id(id)
-      JSON.parse(@server.get("/currmap/#{id}"))
+      return JSON.parse(@@server.get("/currmap/#{id}").body)
     end
   end
   
