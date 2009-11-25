@@ -34,6 +34,10 @@ class Course < CouchDoc
     @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
   end
   
+  def course_code
+    @couch_data["_id"]
+  end
+  
 end
 
 class Staff < CouchDoc
