@@ -15,6 +15,10 @@ helpers do
     JSON.parse($server.get("/currmap/#{id}").body)
   end
   
+  def get_all_courses
+    JSON.parse($server.get($all_courses_view).body)["rows"]
+  end
+  
   def display(template, *args)
     haml template, :layout => !request.xhr?, *args
   end
@@ -30,7 +34,7 @@ get '/stylesheets/:name.css' do
 end
 
 get '/courses' do
-  @courses = JSON.parse($server.get($all_courses_view).body)["rows"]
+  @courses = get_all_courses
   display :courses
 end
 
@@ -40,6 +44,6 @@ get '/course/:code' do
 end
 
 get '/prof/:name' do
-  @prof = get_by_id params[:name]
+  @prof = Staff.new params[:name]
   display :prof
 end
