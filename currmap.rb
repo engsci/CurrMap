@@ -3,9 +3,11 @@ require 'haml'
 require 'sass'
 require 'couch'
 require 'json'
+require 'orm'
 
 configure do
   $server = Couch::Server.new('localhost', 5984)
+  $all_courses_view = "/currmap/_design/testing/_view/Courses"
 end
 
 helpers do
@@ -28,15 +30,12 @@ get '/stylesheets/:name.css' do
 end
 
 get '/courses' do
-  @courses = JSON.parse($server.get("/currmap/_design/testing/_view/Courses").body)["rows"]
+  @courses = JSON.parse($server.get($all_courses_view).body)["rows"]
   display :courses
 end
 
 get '/course/:code' do
-  @course = get_by_id params[:code]
-  @profs = @course["staff"].keys.map do |prof|
-    get_by_id prof
-  end
+  @course = Course.new params[:code]
   display :course
 end
 
