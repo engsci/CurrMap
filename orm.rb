@@ -3,8 +3,12 @@ require 'couch'
 
 class CouchDoc
   
-  def initialize(id)
-    @couch_data = get_by_id id
+  def initialize(init)
+    if init.kind_of? Hash
+      @couch_data = init
+    else
+      @couch_data = get_by_id init
+    end
   end
   
   def get_by_id(id)
@@ -42,5 +46,12 @@ end
 
 class Staff < CouchDoc
   field_getters %w(email name phone website)
+  
+  def short_name
+    @couch_data["_id"]
+  end
 end
 
+class Resource < CouchDoc
+  field_getters %w(ISBN edition name author publisher type)
+end

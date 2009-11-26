@@ -8,6 +8,8 @@ require 'orm'
 configure do
   $server = Couch::Server.new('localhost', 5984)
   $all_courses_view = "/currmap/_design/testing/_view/Courses"
+  $all_staff_view = "/currmap/_design/testing/_view/Staff"
+  $all_resources_view = "/currmap/_design/testing/_view/Resources"
 end
 
 helpers do
@@ -15,10 +17,25 @@ helpers do
     JSON.parse($server.get("/currmap/#{id}").body)
   end
   
+      
   def get_all_courses
-    JSON.parse($server.get($all_courses_view).body)["rows"]
+    JSON.parse($server.get($all_courses_view).body)["rows"].map do |course|
+      Course.new course["value"]
+    end
   end
   
+  def get_all_staff
+    JSON.parse($server.get($all_staff_view).body)["rows"].map do |prof|
+      Staff.new prof["value"]
+    end
+  end
+  
+  def get_all_resources
+    JSON.parse($server.get($all_resources_view).body)["rows"].map do |res|
+      Resource.new res["value"]
+    end
+  end
+
   def display(template, *args)
     haml template, :layout => !request.xhr?, *args
   end
@@ -36,6 +53,16 @@ end
 get '/courses' do
   @courses = get_all_courses
   display :courses
+end
+
+get '/staff' do
+  @staff = get_all_staff
+  display :staff
+end
+
+get '/resources' do
+  @staff = get_all_resources
+  display :resources
 end
 
 get '/course/:code' do
