@@ -24,6 +24,12 @@ class CouchDoc
         end
       end
     end
+
+    def id_accessor name
+      define_method name do
+        return @couch_data["_id"]
+      end
+    end
     
   end
   
@@ -32,24 +38,19 @@ end
 class Course < CouchDoc
   attr_reader :staff
   field_getters %w(name activities weight calendar\ entry)
+  id_accessor :course_code  
   
   def initialize(course_code)
     super course_code
     @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
   end
   
-  def course_code
-    @couch_data["_id"]
-  end
-  
+
 end
 
 class Staff < CouchDoc
   field_getters %w(email name phone website)
-  
-  def short_name
-    @couch_data["_id"]
-  end
+  id_accessor :short_name
 end
 
 class Resource < CouchDoc
