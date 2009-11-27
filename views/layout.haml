@@ -8,9 +8,16 @@
     %title CurrMap
   %body
     #header
-      %h1 Curriculum Mapper
-      %a(href="/") Home
-      %a(href="/courses") All Courses 
+      %h1 CurrMap
+      %ul
+        %li
+          %a(href="/") Home
+        %li
+          %a(href="/courses") All Courses
+      %form
+        %label Search
+        %textarea
+       
     #content
       = yield
     #footer
