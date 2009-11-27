@@ -3,7 +3,7 @@ require 'haml'
 require 'sass'
 require 'couch'
 require 'json'
-require 'orm'
+Dir["./models/*.rb"].each { |file| require file}
 
 configure do
   $server = Couch::Server.new('localhost', 5984)
