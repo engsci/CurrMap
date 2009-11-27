@@ -1,6 +1,9 @@
 %h3 Courses
+
+%h4 Semester 
 %dl
   - @courses.each do |course|
     %dt
       %a(href="/course/#{course.course_code}")= course.course_code
     %dd= course.name
+    %dd= course.course_code[3,1]
