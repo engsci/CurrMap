@@ -10,9 +10,10 @@
           %p= "#{f.capitalize}: #{p.send(f)}" if p.send(f)
 %h3 Activities
 %dl.activities
-  - @course.activities.keys.sort.each do |a|
-    %dl.activity_listing= a
+  - @course.activities.each do |a|
+    %dl.activity_listing= a.key
     %dd
       %ul
-        - @course.activities[a]["outcomes"].keys.each do |o|
+        - a.outcomes.keys.each do |o|
           %li= o
+

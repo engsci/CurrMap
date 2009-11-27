@@ -1,0 +1,20 @@
+require 'orm'
+
+class Course < CouchDoc
+  attr_reader :staff
+  attr_reader :activities
+  field_getters %w(name weight calendar\ entry)
+  id_accessor :course_code  
+  
+  def initialize(course_code)
+    super course_code
+    @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
+    @activities = @couch_data["activities"].map do |key,activity|
+      if key =~ /^L\d+/
+        Lecture.new activity
+      elsif key =~ /^MT\d+/
+        Midterm.new activity
+      end
+    end
+  end
+end

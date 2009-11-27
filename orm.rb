@@ -35,24 +35,3 @@ class CouchDoc
   
 end
 
-class Course < CouchDoc
-  attr_reader :staff
-  field_getters %w(name activities weight calendar\ entry)
-  id_accessor :course_code  
-  
-  def initialize(course_code)
-    super course_code
-    @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
-  end
-  
-
-end
-
-class Staff < CouchDoc
-  field_getters %w(email name phone website)
-  id_accessor :short_name
-end
-
-class Resource < CouchDoc
-  field_getters %w(ISBN edition name author publisher type)
-end
