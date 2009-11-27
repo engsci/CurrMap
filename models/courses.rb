@@ -9,11 +9,15 @@ class Course < CouchDoc
   def initialize(course_code)
     super course_code
     @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
-    @activities = @couch_data["activities"].map do |key,activity|
-      if key =~ /^L\d+/
-        Lecture.new activity
-      elsif key =~ /^MT\d+/
-        Midterm.new activity
+    if @couch_data["activities"]
+      @activities = @couch_data["activities"].map do |key,activity|
+        if key =~ /^L\d+/
+          Lecture.new activity
+        elsif key =~ /^MT\d+/
+          Midterm.new activity
+        else
+          Activity.new activity
+        end
       end
     end
   end
