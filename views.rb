@@ -12,6 +12,12 @@ def add_views
     "views" => {
       "Courses" => {
         "map" => "function(doc) { if (doc[\"class\"] == \"Course\" ) { emit(doc[\"_id\"], doc); } }"
+      },
+      "Staff" => {
+        "map" => "function(doc) { if (doc[\"class\"] == \"Staff\" ) { emit(doc[\"_id\"], doc); } }"
+      },
+      "Resources" => {
+        "map" => "function(doc) { if (doc[\"class\"] == \"Resource\" ) { emit(doc[\"_id\"], doc); } }"
       }
     }
   }

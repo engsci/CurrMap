@@ -1,0 +1,5 @@
+%h3 Staff
+%ul
+  - @staff.each do |prof|
+    %li
+      %a(href="/prof/#{prof.short_name}")= prof.name

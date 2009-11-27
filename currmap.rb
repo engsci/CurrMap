@@ -3,9 +3,13 @@ require 'haml'
 require 'sass'
 require 'couch'
 require 'json'
+require 'orm'
 
 configure do
   $server = Couch::Server.new('localhost', 5984)
+  $all_courses_view = "/currmap/_design/testing/_view/Courses"
+  $all_staff_view = "/currmap/_design/testing/_view/Staff"
+  $all_resources_view = "/currmap/_design/testing/_view/Resources"
 end
 
 helpers do
@@ -13,6 +17,25 @@ helpers do
     JSON.parse($server.get("/currmap/#{id}").body)
   end
   
+      
+  def get_all_courses
+    JSON.parse($server.get($all_courses_view).body)["rows"].map do |course|
+      Course.new course["value"]
+    end
+  end
+  
+  def get_all_staff
+    JSON.parse($server.get($all_staff_view).body)["rows"].map do |prof|
+      Staff.new prof["value"]
+    end
+  end
+  
+  def get_all_resources
+    JSON.parse($server.get($all_resources_view).body)["rows"].map do |res|
+      Resource.new res["value"]
+    end
+  end
+
   def display(template, *args)
     haml template, :layout => !request.xhr?, *args
   end
@@ -28,19 +51,26 @@ get '/stylesheets/:name.css' do
 end
 
 get '/courses' do
-  @courses = JSON.parse($server.get("/currmap/_design/testing/_view/Courses").body)["rows"]
+  @courses = get_all_courses
   display :courses
 end
 
+get '/staff' do
+  @staff = get_all_staff
+  display :staff
+end
+
+get '/resources' do
+  @staff = get_all_resources
+  display :resources
+end
+
 get '/course/:code' do
-  @course = get_by_id params[:code]
-  @profs = @course["staff"].keys.map do |prof|
-    get_by_id prof
-  end
+  @course = Course.new params[:code]
   display :course
 end
 
 get '/prof/:name' do
-  @prof = get_by_id params[:name]
+  @prof = Staff.new params[:name]
   display :prof
 end
