@@ -1,0 +1,8 @@
+%h2 Resources
+-@resources = @collection
+%dl
+  - @resources.each do |r|
+    %dt= r.name || r._id
+    - if r.author
+      - r.author.each do |a| 
+        %dd= a

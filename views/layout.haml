@@ -11,18 +11,24 @@
   %body
     #header
       %h1 CurrMap
-      %ul
+      
+      %ul#menu
         %li
           %a(href="/") Home
         %li
-          %a(href="/courses") All Courses
+          %a(href="/courses") Courses
         %li
-          %a(href="/staff") All Staff
+          %a(href="/staffs") Staff
+        %li
+          %a(href="/resources") Resources
+        %li
+          %a(href="/collections") Collections
       %form
-        %label Search
-        %input(type="text")
+        %input(type="text" value="Search" size="40")
+      
        
     #content
+      = partial(:breadcrumb)
       = yield
     #footer
     

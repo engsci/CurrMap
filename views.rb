@@ -13,16 +13,20 @@ def add_views
       "Courses" => {
         "map" => "function(doc) { if (doc[\"class\"] == \"Course\" ) { emit(doc[\"_id\"], doc); } }"
       },
-      "Staff" => {
+      "Staffs" => {
         "map" => "function(doc) { if (doc[\"class\"] == \"Staff\" ) { emit(doc[\"_id\"], doc); } }"
       },
       "Resources" => {
         "map" => "function(doc) { if (doc[\"class\"] == \"Resource\" ) { emit(doc[\"_id\"], doc); } }"
+      },
+      "Collections" => {
+        "map" => "function(doc) { if (doc[\"class\"] == \"Collection\" ) { emit(doc[\"_id\"], doc); } }"
       }
     }
   }
 
   server = Couch::Server.new('localhost', 5984)
+  views["_rev"] = JSON.parse(server.get("/#{db}/_design/#{view}").body)["_rev"]
   server.put("/#{db}/_design/#{view}", views.to_json)
 end
 

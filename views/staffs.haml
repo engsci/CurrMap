@@ -1,0 +1,6 @@
+%h3 Staff
+-@staff = @collection
+%ul
+  - @staff.each do |prof|
+    %li
+      %a(href="/staff/#{prof.short_name}" rel="facebox")= prof.name

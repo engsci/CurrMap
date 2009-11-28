@@ -1,3 +1,0 @@
-%h4= @prof.name
-- %w(phone website email).each do |f|
-  %p= "#{f.capitalize}: #{@prof.send(f)}" if @prof.send(f)

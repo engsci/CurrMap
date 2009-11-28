@@ -3,13 +3,17 @@ require 'haml'
 require 'sass'
 require 'couch'
 require 'json'
+
 Dir["./models/*.rb"].each { |file| require file}
+
+def get_view(view)
+  return File.join("/", $db, "_design", $design_doc, "_view", view+"s")
+end
 
 configure do
   $server = Couch::Server.new('localhost', 5984)
-  $all_courses_view = "/currmap/_design/testing/_view/Courses"
-  $all_staff_view = "/currmap/_design/testing/_view/Staff"
-  $all_resources_view = "/currmap/_design/testing/_view/Resources"
+  $db = 'currmap'
+  $design_doc = 'testing'
 end
 
 helpers do
@@ -17,24 +21,12 @@ helpers do
     JSON.parse($server.get("/currmap/#{id}").body)
   end
   
-  def get_all_courses
-    JSON.parse($server.get($all_courses_view).body)["rows"].map do |course|
-      Course.new course["value"]
+  def get_all(target_class)
+    JSON.parse($server.get(get_view(target_class)).body)["rows"].map do |doc|
+      Object.const_get(target_class).new doc["value"]
     end
   end
   
-  def get_all_staff
-    JSON.parse($server.get($all_staff_view).body)["rows"].map do |prof|
-      Staff.new prof["value"]
-    end
-  end
-  
-  def get_all_resources
-    JSON.parse($server.get($all_resources_view).body)["rows"].map do |res|
-      Resource.new res["value"]
-    end
-  end
-
   def display(template, *args)
     haml template, :layout => !request.xhr?, *args
   end
@@ -50,32 +42,17 @@ get '/stylesheets/:name.css' do
 end
 
 get '/courses' do
-  @courses = get_all_courses
-  @courses = @courses.sort_by { |x| [x.year,x.semester,x.name]}
+  @collection = get_all "Course"
+  @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
   display :courses
 end
 
-get '/staff' do
-  @staff = get_all_staff
-  display :staff
+get '/:class/:id' do
+  @object = Object.const_get(params[:class].capitalize).new params[:id]
+  display params[:class].to_sym
 end
 
-get '/resources' do
-  @staff = get_all_resources
-  display :resources
-end
-
-get '/resource/:id' do
-  @resource = Resource.new params[:id]
-  display :resource
-end
-
-get '/course/:code' do
-  @course = Course.new params[:code]
-  display :course
-end
-
-get '/prof/:name' do
-  @prof = Staff.new params[:name]
-  display :prof
+get '/:class' do
+  @collection= get_all params[:class].chop.capitalize
+  display params[:class].to_sym
 end
