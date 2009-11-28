@@ -19,6 +19,10 @@ class CouchDoc
     @couch_data[meth.to_s]
   end
   
+  def to_hash
+    return @couch_data
+  end
+  
   class << self
 
     def id_accessor name
