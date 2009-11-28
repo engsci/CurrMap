@@ -17,7 +17,6 @@ helpers do
     JSON.parse($server.get("/currmap/#{id}").body)
   end
   
-      
   def get_all_courses
     JSON.parse($server.get($all_courses_view).body)["rows"].map do |course|
       Course.new course["value"]
@@ -47,7 +46,7 @@ end
 
 get '/stylesheets/:name.css' do
   content_type 'text/css', :charset => 'utf-8' 
-    sass :"stylesheets/#{params[:name]}"
+  sass :"stylesheets/#{params[:name]}"
 end
 
 get '/courses' do
