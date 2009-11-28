@@ -19,5 +19,15 @@ class CouchDoc
     @couch_data[meth.to_s]
   end
   
+  class << self
+
+    def id_accessor name
+      define_method name do
+        return @couch_data["_id"]
+      end
+    end
+    
+  end
+  
 end
 
