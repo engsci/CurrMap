@@ -6,6 +6,10 @@ require 'json'
 
 Dir["./models/*.rb"].each { |file| require file}
 
+class String
+  def to_class
+    Object.const_get self
+  end
 end
 
 configure do
