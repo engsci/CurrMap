@@ -51,6 +51,7 @@ end
 
 get '/courses' do
   @courses = get_all_courses
+  @courses = @courses.sort_by { |x| [x.year,x.semester,x.name]}
   display :courses
 end
 
@@ -62,6 +63,11 @@ end
 get '/resources' do
   @staff = get_all_resources
   display :resources
+end
+
+get '/resource/:id' do
+  @resource = Resource.new params[:id]
+  display :resource
 end
 
 get '/course/:code' do

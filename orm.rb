@@ -12,7 +12,7 @@ class CouchDoc
   end
   
   def get_by_id(id)
-    return JSON.parse(Couch::Server.new('localhost', 5984).get("/currmap/#{id}").body)
+    JSON.parse(Couch::Server.new('localhost', 5984).get("/currmap/#{id}").body)
   end
   
   def method_missing(meth, *args)

@@ -1,14 +1,23 @@
 %h2= @course.course_code
-%p= @course.name
-%p Professors:
+%h3= @course.name
+%p= @course.calendar_entry
+%h4 Professors
 %ul
   - @course.staff.each do |p|
     %li
-      %h4.prof_name= p.name
-      .prof_info
-        - %w(phone website email).each do |f|
-          %p= "#{f.capitalize}: #{p.send(f)}" if p.send(f)
-- if @course.activities          
+      %a(href="/prof/#{p._id}" rel="facebox" )= p.name
+
+%h4 Resources
+%dl
+  - if @course.resources
+    - @course.resources.each do |r|
+      %dt= r.name || r._id
+      - if r.author
+        - r.author.each do |a| 
+          %dd= a
+
+
+- if false and @course.activities          
   %h3 Activities
   %p= "#{@course.midterms.length} Midterms"
   %p= "#{@course.lectures.length} Lectures"
