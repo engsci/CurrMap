@@ -6,8 +6,6 @@ require 'json'
 
 Dir["./models/*.rb"].each { |file| require file}
 
-def get_view(view)
-  return File.join("/", $db, "_design", $design_doc, "_view", view+"s")
 end
 
 configure do

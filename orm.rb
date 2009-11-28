@@ -2,6 +2,8 @@ require 'json'
 require 'couch'
 
 class CouchDoc
+  @@db = "currmap"
+  @@design_doc = "testing"
   
   def initialize(init)
     if init.kind_of? Hash
@@ -10,7 +12,7 @@ class CouchDoc
       @couch_data = get_by_id init
     end
   end
-  
+
   def get_by_id(id)
     JSON.parse(Couch::Server.new('localhost', 5984).get("/currmap/#{id}").body)
   end
@@ -24,11 +26,14 @@ class CouchDoc
   end
   
   class << self
+    def get_view(view)
+      return File.join("/", @@db, "_design", @@design_doc, "_view", view+"s")
+    end
     
     def get_all
       name = self.to_s
       JSON.parse(Couch::Server.new('localhost', 5984).
-                 get("/currmap/_design/testing/_view/#{name}s").body
+                 get(get_view(name)).body
                  )["rows"].map do |doc|
         self.new doc["value"]
       end
