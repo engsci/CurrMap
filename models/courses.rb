@@ -3,7 +3,6 @@ require 'orm'
 class Course < CouchDoc
   attr_reader :staff
   attr_reader :activities
-  field_getters %w(name weight calendar\ entry)
   id_accessor :course_code  
   
   def initialize(course_code)
