@@ -1,6 +1,7 @@
 %h2= @course.course_code
-%p= @course.name
-%p Professors:
+%h3 @course.name
+%p @course.calendar_entry
+%h4 Professors
 %ul
   - @course.staff.each do |p|
     %li
@@ -20,4 +21,12 @@
         %ul
           - a.outcomes.keys.each do |o|
             %li= o
+%ul
+  - @course.staff.each do |p|
+    %li
+      %h4.prof_name
+        %a(href="/prof/#{p._id}" rel="facebox" )
+          = p.name
+%h4 Resources
+= @course.resources
 

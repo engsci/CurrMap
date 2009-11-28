@@ -20,4 +20,12 @@ class Course < CouchDoc
       end
     end
   end
+  
+  def year
+    return self.course_code[3,1]
+  end
+  
+  def short_code
+    return self.course_code[0,6]
+  end
 end

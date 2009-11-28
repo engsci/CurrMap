@@ -51,6 +51,7 @@ end
 
 get '/courses' do
   @courses = get_all_courses
+  @courses = @courses.sort_by { |x| [x.year,x.semester,x.name]}
   display :courses
 end
 

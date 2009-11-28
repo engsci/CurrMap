@@ -1,9 +1,25 @@
 %h3 Courses
-
-%h4 Semester 
-%dl
-  - @courses.each do |course|
-    %dt
-      %a(href="/course/#{course.course_code}")= course.course_code
-    %dd= course.name
-    %dd= course.course_code[3,1]
+-prevyear = 0
+-prevsem = ""
+- @courses.each do |course|
+  - if course.year != prevyear
+    %h4= "Year " + course.year
+    - prevyear = course.year
+  - if course.semester != prevsem
+    %h4= "Semester " + course.semester
+    - prevsem = course.semester
+  .course
+    %h2
+      %a(href="/course/#{course.course_code}" rel="facebox[.full]" title="#{course.name}")
+        =course.short_code
+        %a(href="/course/#{course.course_code}") +
+    
+    .activities
+      %h5 Activities
+      %dl
+        = if course.activities
+          - course.activities.each do |a|
+            %dt.activity(class="#{a.type}")
+            - a.outcomes.keys.each do |o|
+              %dd= o
+      
