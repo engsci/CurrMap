@@ -18,6 +18,9 @@ def add_views
       },
       "Resources" => {
         "map" => "function(doc) { if (doc[\"class\"] == \"Resource\" ) { emit(doc[\"_id\"], doc); } }"
+      },
+      "Collections" => {
+        "map" => "function(doc) { if (doc[\"class\"] == \"Collection\" ) { emit(doc[\"_id\"], doc); } }"
       }
     }
   }
