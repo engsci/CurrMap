@@ -65,6 +65,11 @@ get '/resources' do
   display :resources
 end
 
+get '/resource/:id' do
+  @resource = Resource.new params[:id]
+  display :resource
+end
+
 get '/course/:code' do
   @course = Course.new params[:code]
   display :course

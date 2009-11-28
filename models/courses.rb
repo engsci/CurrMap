@@ -3,11 +3,13 @@ require 'orm'
 class Course < CouchDoc
   attr_reader :staff
   attr_reader :activities
+  attr_reader :resources
   id_accessor :course_code  
   
   def initialize(course_code)
     super course_code
     @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
+    @resources = @couch_data["resources"].map {|resource| Resource.new resource }
     if @couch_data["activities"]
       @activities = @couch_data["activities"].map do |key,activity|
         if key =~ /^L\d+/
