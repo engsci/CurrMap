@@ -23,6 +23,7 @@ def add_views
   }
 
   server = Couch::Server.new('localhost', 5984)
+  views["_rev"] = JSON.parse(server.get("/#{db}/_design/#{view}").body)["_rev"]
   server.put("/#{db}/_design/#{view}", views.to_json)
 end
 
