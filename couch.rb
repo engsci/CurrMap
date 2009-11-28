@@ -33,11 +33,7 @@ module Couch
 
     def request(req)
       res = Net::HTTP.start(@host, @port) {|http|
-        #begin
-          http.request(req)
-        #rescue Timeout::Error
-        #  nil
-        #end
+        http.request(req)
       }
       if (not res.kind_of?(Net::HTTPSuccess))
         handle_error(req, res)

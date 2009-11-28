@@ -9,7 +9,17 @@ class Course < CouchDoc
   def initialize(course_code)
     super course_code
     @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
-    @resources = @couch_data["resources"].map {|resource| Resource.new resource }
+    if @couch_data["resources"]
+      @resources = @couch_data["resources"].map do |resource|
+        begin 
+          Resource.new resource
+        rescue
+          Resource.new "name" => resource
+        end
+      end
+    else
+      @resources = []
+    end
     if @couch_data["activities"]
       @activities = @couch_data["activities"].map do |key,activity|
         if key =~ /^L\d+/
