@@ -15,12 +15,11 @@ end
 configure do
   $server = Couch::Server.new('localhost', 5984)
   $db = 'currmap'
-  $design_doc = 'testing'
 end
 
 helpers do
   def get_by_id(id)
-    JSON.parse($server.get("/currmap/#{id}").body)
+    JSON.parse($server.get("/#{$db}/#{id}").body)
   end
   
   def display(template, *args)
