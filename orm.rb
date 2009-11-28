@@ -15,22 +15,8 @@ class CouchDoc
     return JSON.parse(Couch::Server.new('localhost', 5984).get("/currmap/#{id}").body)
   end
   
-  class << self
-
-    def field_getters(names)
-      names.each do |name|
-        define_method name.gsub(/ /, '_') do
-          return @couch_data[name]
-        end
-      end
-    end
-
-    def id_accessor name
-      define_method name do
-        return @couch_data["_id"]
-      end
-    end
-    
+  def method_missing(meth, *args)
+    @couch_data[meth.to_s]
   end
   
 end
