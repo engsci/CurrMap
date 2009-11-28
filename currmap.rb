@@ -23,10 +23,6 @@ helpers do
     JSON.parse($server.get("/currmap/#{id}").body)
   end
   
-  def get_all(target_class)
-    Object.const_get(target_class).get_all
-  end
-  
   def display(template, *args)
     haml template, :layout => !request.xhr?, *args
   end
@@ -42,7 +38,7 @@ get '/stylesheets/:name.css' do
 end
 
 get '/courses' do
-  @collection = get_all "Course"
+  @collection = Course.get_all
   @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
   display :courses
 end
@@ -53,6 +49,6 @@ get '/:class/:id' do
 end
 
 get '/:class' do
-  @collection= get_all params[:class].chop.capitalize
+  @collection= params[:class].chop.capitalize.to_class.get_all
   display params[:class].to_sym
 end
