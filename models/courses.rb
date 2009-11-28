@@ -20,4 +20,13 @@ class Course < CouchDoc
       end
     end
   end
+  
+  def lectures
+    self.activities.find_all{|a| a.class == Lecture}
+  end
+  
+  def midterms
+    self.activities.find_all{|a| a.class == Midterm}
+  end
+  
 end

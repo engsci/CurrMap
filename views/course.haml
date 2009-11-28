@@ -13,8 +13,17 @@
   %p= "#{@course.activities.map(&:class).map(&:to_s).grep(/Midterm/).length} Midterms"
   %p= "#{@course.activities.map(&:class).map(&:to_s).grep(/Lecture/).length} Lectures"
   %dl.activities
-    - @course.activities.sort{|a,b| a.number <=> b.number}.each do |a|
+    %h4 Lectures
+    - @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
       %dl.activity_listing= "Lecture #{a.number}"
+      %dd 
+        Outcomes
+        %ul
+          - a.outcomes.keys.each do |o|
+            %li= o
+    %h4 Midterms
+    - @course.midterms.sort{|a,b| a.number <=> b.number}.each do |a|
+      %dl.activity_listing= "Midterm #{a.number}"
       %dd 
         Outcomes
         %ul
