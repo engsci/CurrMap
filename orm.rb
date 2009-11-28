@@ -24,6 +24,15 @@ class CouchDoc
   end
   
   class << self
+    
+    def get_all
+      name = self.to_s
+      JSON.parse(Couch::Server.new('localhost', 5984).
+                 get("/currmap/_design/testing/_view/#{name}s").body
+                 )["rows"].map do |doc|
+        self.new doc["value"]
+      end
+    end
 
     def id_accessor name
       define_method name do

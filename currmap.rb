@@ -22,9 +22,7 @@ helpers do
   end
   
   def get_all(target_class)
-    JSON.parse($server.get(get_view(target_class)).body)["rows"].map do |doc|
-      Object.const_get(target_class).new doc["value"]
-    end
+    Object.const_get(target_class).get_all
   end
   
   def display(template, *args)
