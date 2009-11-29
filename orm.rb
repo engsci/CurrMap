@@ -16,7 +16,7 @@ class CouchDoc
   end
 
   def get_by_id(id)
-    JSON.parse(Couch::Server.new('localhost', 5984).get("/currmap/#{id}").body)
+    JSON.parse(Couch::Server.new('localhost', 5984).get("/currmap/#{id.gsub(/ /, '%20')}").body)
   end
   
   def method_missing(meth, *args)
@@ -27,7 +27,7 @@ class CouchDoc
     return @couch_data
   end
   
-  def add_nested_docs name, opt_hsh={}
+  def add_nested_docs name, opt_hsh={:default_field => "name"}
     var_name = "@#{name}".intern
     class_name = name.singularize.capitalize
     class_name.chop! if class_name =~ /s$/
@@ -39,7 +39,7 @@ class CouchDoc
           begin 
             doc_class.new doc
           rescue
-            doc_class.new "name" => doc
+            doc_class.new opt_hsh[:default_field] => doc
           end
         end
       end
