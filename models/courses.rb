@@ -8,38 +8,15 @@ class Course < CouchDoc
   
   def initialize(course_code)
     super course_code
-    if @couch_data["staff"]
-      @staff = @couch_data["staff"].keys.map do |prof|
-        begin 
-          Staff.new prof
-        rescue
-          Staff.new "name" => prof
-        end
-      end
-    else
-      @staff = []
-    end
-    
-    if @couch_data["resources"]
-      @resources = @couch_data["resources"].map do |resource|
-        begin 
-          Resource.new resource
-        rescue
-          Resource.new "name" => resource
-        end
-      end
-    else
-      @resources = []
-    end
-    if @couch_data["activities"]
-      @activities = @couch_data["activities"].map do |key,activity|
-        if key =~ /^L\d+/
-          Lecture.new activity
-        elsif key =~ /^MT\d+/
-          Midterm.new activity
-        else
-          Activity.new activity
-        end
+    add_nested_docs "staff", :by_key => true
+    add_nested_docs "resources"
+    add_nested_docs "activities" do |key,activity|
+      if key =~ /^L\d+/
+        Lecture.new activity
+      elsif key =~ /^MT\d+/
+        Midterm.new activity
+      else
+        Activity.new activity
       end
     end
   end

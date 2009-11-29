@@ -1,5 +1,7 @@
 require 'json'
 require 'couch'
+require 'rubygems'
+require 'active_support' # For singularize
 
 class CouchDoc
   @@db = "currmap"
@@ -24,6 +26,36 @@ class CouchDoc
   def to_hash
     return @couch_data
   end
+  
+  def add_nested_docs name, opt_hsh={}
+    var_name = "@#{name}".intern
+    class_name = name.singularize.capitalize
+    class_name.chop! if class_name =~ /s$/
+    doc_class = Object.const_get(class_name)
+    mapping_block = Proc.new do |doc|
+        if block_given?
+          yield doc
+        else
+          begin 
+            doc_class.new doc
+          rescue
+            doc_class.new "name" => doc
+          end
+        end
+      end
+    
+    if @couch_data[name]
+      if opt_hsh[:by_key]
+        to_set = @couch_data[name].keys.map { |doc| mapping_block.call doc }
+      else
+        to_set = @couch_data[name].map { |doc| mapping_block.call doc }
+      end
+    else
+      to_set = []
+    end
+    self.instance_variable_set(var_name, to_set)
+  end
+  
   
   class << self
     def get_view(view)
