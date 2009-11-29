@@ -1,1 +1,4 @@
 %h1 Collection
+%ul
+  - @object.courses.each do |c|
+    %li= c.course_code
