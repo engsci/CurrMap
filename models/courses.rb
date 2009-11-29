@@ -9,7 +9,15 @@ class Course < CouchDoc
   def initialize(course_code)
     super course_code
     if @couch_data["staff"]
-      @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
+      @staff = @couch_data["staff"].keys.map do |prof|
+        begin 
+          Staff.new prof
+        rescue
+          Staff.new "name" => prof
+        end
+      end
+    else
+      @staff = []
     end
     
     if @couch_data["resources"]
