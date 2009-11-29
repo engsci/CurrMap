@@ -1,22 +1,22 @@
 -@course = @object
-%h2= @course.course_code
+%h1= @course.course_code
 %h3= @course.name
 %p= @course.calendar_entry
-%h4 Professors
-%ul
-  - @course.staff.each do |p|
-    %li
-      %a(href="/prof/#{p._id}" rel="facebox" )= p.name
-
-%h4 Resources
 %dl
-  - if @course.resources
-    - @course.resources.each do |r|
-      %dt= r.name || r._id
-      - if r.author
-        - r.author.each do |a| 
-          %dd= a
+  %dt Professors
+  - @course.staff.each do |p|
+    %dd
+      %a(href="/staff/#{p.short_name}" rel="facebox" )= p.name
 
+  %dt Resources
+  %dd
+    %dl
+    - if @course.resources
+      - @course.resources.each do |r|
+        %dt= r.name || r._id
+        - if r.author
+          - r.author.each do |a| 
+            %dd= a
 
 - if false and @course.activities          
   %h3 Activities

@@ -1,3 +1,3 @@
 class Collection < CouchDoc
-
+ 
 end

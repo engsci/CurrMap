@@ -1,4 +1,8 @@
 -@prof = @object
-%h4= @prof.name
+.staff.object
+%h1= @prof.name
+%dl
 - %w(phone website email).each do |f|
-  %p= "#{f.capitalize}: #{@prof.send(f)}" if @prof.send(f)
+  -if @prof.send(f)
+    %dt= f.capitalize
+    %dd= @prof.send(f)

@@ -45,6 +45,10 @@ class CouchDoc
       end
     end
     
+    def type
+      return @couch_data["type"]
+    end
+    
   end
   
 end

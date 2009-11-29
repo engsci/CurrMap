@@ -43,7 +43,7 @@ get '/courses' do
 end
 
 get '/:class/:id' do
-  @object = Object.const_get(params[:class].capitalize).new params[:id]
+  @object = params[:class].capitalize.to_class.new params[:id]
   display params[:class].to_sym
 end
 

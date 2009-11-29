@@ -8,7 +8,10 @@ class Course < CouchDoc
   
   def initialize(course_code)
     super course_code
-    @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
+    if @couch_data["staff"]
+      @staff = @couch_data["staff"].keys.map { |prof| Staff.new prof }
+    end
+    
     if @couch_data["resources"]
       @resources = @couch_data["resources"].map do |resource|
         begin 
@@ -48,4 +51,5 @@ class Course < CouchDoc
   def short_code
     return self.course_code[0,6]
   end
+  
 end
