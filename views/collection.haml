@@ -1,4 +1,17 @@
-%h1 Collection
-%ul
-  - @object.courses.each do |c|
-    %li= c.course_code
+- @collection = @object
+
+%h1= @collection._id
+%dl
+  -if @collection.collections.length > 0
+    %dt Subcollections
+    - @collection.collections.each do |c|
+      - if c._id
+        %dd
+          %a(href="/collection/#{c._id}" rel="facebox")= c._id
+  - if @collection.courses.length > 0
+    %dt Courses
+    - @collection.courses.each do |c|
+      - if c.course_code
+        %dd
+          %a(href="/course/#{c.course_code}" rel="facebox")= c.course_code
+
