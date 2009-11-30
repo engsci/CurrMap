@@ -16,7 +16,7 @@ class CouchDoc
   end
 
   def get_by_id(id)
-    JSON.parse(Couch::Server.new('localhost', 5984).get("/currmap/#{id.gsub(/ /, '%20')}").body)
+    JSON.parse(Couch::Server.new('localhost', 5984).get("/#{@@db}/#{id.gsub(/ /, '%20')}").body)
   end
   
   def method_missing(meth, *args)
