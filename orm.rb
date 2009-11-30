@@ -27,7 +27,8 @@ class CouchDoc
     return @couch_data
   end
   
-  def add_nested_docs name, opt_hsh={:default_field => "name"}
+  def add_nested_docs name, opt_hsh={}
+    opt_hsh[:default_field] ||= "name"
     var_name = "@#{name}".intern
     class_name = name.singularize.capitalize
     class_name.chop! if class_name =~ /s$/
