@@ -55,16 +55,26 @@ h4
   h2
     :font-size 1em
     :margin 0
+    :position relative
     a
       :display block
       :text-align center
       :text-decoration none
+    a + a
+      :position absolute
+      :top 0
+      :right 0
     
   .activities
+    :display none
     .activity
-    dd
-      :font-size 0.5em
-      :margin 0
+    ul
+      :font-size 0.7em
+      :margin 0.5em 0
+      :padding 0
+      :list-style none
+      li
+        
     .lecture
       :color blue
     .tutorial

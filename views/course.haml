@@ -1,5 +1,6 @@
 -@course = @object
-%h1= @course.course_code
+%h1
+  %a(href="/course/#{@course._id}")= @course.course_code
 %h3= @course.name
 %p= @course.calendar_entry
 %dl
