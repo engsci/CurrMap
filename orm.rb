@@ -31,7 +31,6 @@ class CouchDoc
     opt_hsh[:default_field] ||= "name"
     var_name = "@#{name}".intern
     class_name = name.singularize.capitalize
-    class_name.chop! if class_name =~ /s$/
     doc_class = Object.const_get(class_name)
     mapping_block = Proc.new do |doc|
         if block_given?
@@ -80,8 +79,6 @@ class CouchDoc
         return @couch_data["_id"]
       end
     end
-    
-    
   end
   
 end
