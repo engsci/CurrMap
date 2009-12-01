@@ -57,6 +57,9 @@ class CouchDoc
     self.instance_variable_set(var_name, to_set)
   end
   
+  def type
+    return @couch_data["type"]
+  end
   
   class << self
     def get_view(view)
@@ -78,9 +81,6 @@ class CouchDoc
       end
     end
     
-    def type
-      return @couch_data["type"]
-    end
     
   end
   
