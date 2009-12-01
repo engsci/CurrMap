@@ -25,6 +25,14 @@ helpers do
   def display(template, *args)
     haml template, :layout => !request.xhr?, *args
   end
+  
+  def shorten(source, length)
+    if source.length > length
+      return "<span title=\""+source+"\">"+source[0..length]+"...</span>"
+    else
+      return source
+    end
+  end
 end
 
 get '/' do 

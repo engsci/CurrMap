@@ -13,14 +13,13 @@
     %h2
       %a(href="/course/#{course.course_code}" rel="facebox[.full]" title="#{course.name}")
         =course.short_code
-        %a(href="/course/#{course.course_code}") +
+      %a.show_activities(href="#") +
     
-    .activities
-      %h5 Activities
-      %dl
-        = if course.activities
-          - course.activities.each do |a|
-            %dt.activity(class="#{a.type}")
+   
+    - if course.activities
+      .activities
+        - course.activities.each do |a|
+          %ul.activity(class="#{a.type}")
             - a.outcomes.keys.each do |o|
-              %dd= o
-      
+              %li= shorten(o,20)
+    
