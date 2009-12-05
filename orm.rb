@@ -31,7 +31,6 @@ class CouchDoc
     opt_hsh[:default_field] ||= "name"
     var_name = "@#{name}".intern
     class_name = name.singularize.capitalize
-    class_name.chop! if class_name =~ /s$/
     doc_class = Object.const_get(class_name)
     mapping_block = Proc.new do |doc|
         if block_given?
@@ -57,6 +56,9 @@ class CouchDoc
     self.instance_variable_set(var_name, to_set)
   end
   
+  def type
+    return @couch_data["type"]
+  end
   
   class << self
     def get_view(view)
@@ -77,11 +79,6 @@ class CouchDoc
         return @couch_data["_id"]
       end
     end
-    
-    def type
-      return @couch_data["type"]
-    end
-    
   end
   
 end
