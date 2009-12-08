@@ -23,7 +23,7 @@ helpers do
   end
   
   def display(template, *args)
-    haml template, :layout => !request.xhr?, *args
+    haml(template, :layout => !request.xhr?)#, *args
   end
   
   def shorten(source, length)
