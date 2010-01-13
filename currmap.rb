@@ -56,6 +56,8 @@ get '/:class/:id' do
 end
 
 get '/:class' do
-  @collection= params[:class].chop.capitalize.to_class.get_all
-  display params[:class].to_sym
+  if Object.constants.member? params[:class].chop.capitalize
+    @collection = params[:class].chop.capitalize.to_class.get_all
+    display params[:class].to_sym
+  end
 end
