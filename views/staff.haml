@@ -2,7 +2,13 @@
 .staff.object
 %h1= @prof.name
 %dl
-- %w(phone website email).each do |f|
-  -if @prof.send(f)
-    %dt= f.capitalize
-    %dd= @prof.send(f)
+  - %w(phone website email).each do |f|
+    - if @prof.send(f)
+      %dt= f.capitalize
+      %dd= @prof.send(f)
+  %dt Courses Taught
+  %dd
+    %ul
+      - @prof.courses_taught.each do |c|
+        %li
+          %a(href="/course/#{c['_id']}")= c['name']

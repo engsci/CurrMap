@@ -6,6 +6,8 @@ require 'active_support' # For singularize
 class CouchDoc
   @@db = "currmap"
   @@design_doc = "testing"
+  @@couch_uri = "localhost"
+  @@couch_port = 5984
   
   def initialize(init)
     if init.kind_of? Hash
@@ -16,7 +18,7 @@ class CouchDoc
   end
 
   def get_by_id(id)
-    JSON.parse(Couch::Server.new('localhost', 5984).get("/#{@@db}/#{id.gsub(/ /, '%20')}").body)
+    JSON.parse(Couch::Server.new(@@couch_uri, @@couch_port).get("/#{@@db}/#{id.gsub(/ /, '%20')}").body)
   end
   
   def method_missing(meth, *args)
@@ -49,7 +51,6 @@ class CouchDoc
         to_set = @couch_data[name].keys.map { |doc| mapping_block.call doc }
       elsif @couch_data[name].class != "".class
         to_set = @couch_data[name].map { |doc| mapping_block.call doc }
-        puts @couch_data[name].class
       end
     else
       to_set = []
@@ -68,7 +69,7 @@ class CouchDoc
     
     def get_all
       name = self.to_s
-      JSON.parse(Couch::Server.new('localhost', 5984).
+      JSON.parse(Couch::Server.new(@@couch_uri, @@couch_port).
                  get(get_view(name)).body
                  )["rows"].map do |doc|
         self.new doc["value"]
