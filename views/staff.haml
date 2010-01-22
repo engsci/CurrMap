@@ -5,7 +5,14 @@
   - %w(phone website email).each do |f|
     - if @prof.send(f)
       %dt= f.capitalize
-      %dd= @prof.send(f)
+      - info = @prof.send(f)
+      - if info.kind_of? Array
+        %dd
+          %ul
+            - info.each do |i|
+              %li= i
+      - else
+        %dd= info
   %dt Courses Taught
   %dd
     %ul
