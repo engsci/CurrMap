@@ -15,3 +15,4 @@ db/*.sqlite3
 Capfile
 db/schema.rb
 assets/**
+foo.js
