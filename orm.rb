@@ -49,7 +49,7 @@ class CouchDoc
     if @couch_data[name]
       if opt_hsh[:by_key]
         to_set = @couch_data[name].keys.map { |doc| mapping_block.call doc }
-      elsif @couch_data[name].class != "".class
+      elsif not @couch_data[name].kind_of? String
         to_set = @couch_data[name].map { |doc| mapping_block.call doc }
       end
     else
