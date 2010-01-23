@@ -51,6 +51,8 @@ class CouchDoc
         to_set = @couch_data[name].keys.map { |doc| mapping_block.call doc }
       elsif @couch_data[name].kind_of? Array
         to_set = @couch_data[name].map { |doc| mapping_block.call doc }
+      elsif @couch_data[name].kind_of? String
+        to_set = [mapping_block.call(@couch_data[name])]
       end
     else
       to_set = []
