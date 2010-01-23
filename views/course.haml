@@ -9,15 +9,17 @@
     %dd
       %a(href="/staff/#{p.short_name}" rel="facebox" )= p.name
 
-  %dt Resources
-  %dd
-    %dl
-    - if @course.resources
-      - @course.resources.each do |r|
-        %dt= r.name || r._id
-        - if r.author
-          - r.author.each do |a| 
-            %dd= a
+  - if @course.resources && !@course.resources.empty?
+    %dt Resources
+    %dd
+      %ul
+        - @course.resources.each do |r|
+          %li
+            = r.name || "ISBN #{r._id}"
+            - if r.author
+              %ul
+                - r.author.each do |a| 
+                  %li= a
 
 - if false and @course.activities          
   %h3 Activities
