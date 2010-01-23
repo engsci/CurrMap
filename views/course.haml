@@ -16,6 +16,8 @@
         - @course.resources.each do |r|
           %li
             = r.name || "ISBN #{r._id}"
+            - if r.optional
+              (optional)
             - if r.author
               %ul
                 - r.author.each do |a| 
