@@ -6,26 +6,23 @@ require 'couch'
 def add_views
   db = "currmap"
   view = "testing"
+  
+  view_names = ["Courses",
+                "Staffs",
+                "Resources",
+                "Collections",
+                "CoursesByProf"
+               ]
 
+  view_defs = Hash.new
+  view_names.each do |name|
+    func = open(File.join("couch-views", name + ".js")).readlines.map(&:chomp).join('')
+    view_defs[name] = { "map" => func }
+  end
+  
   views = {
     "_id" => "_design/#{view}",
-    "views" => {
-      "Courses" => {
-        "map" => "function(doc) { if (doc.class == 'Course' ) { emit(doc._id, doc); } }"
-      },
-      "Staffs" => {
-        "map" => "function(doc) { if (doc.class == 'Staff' ) { emit(doc._id, doc); } }"
-      },
-      "Resources" => {
-        "map" => "function(doc) { if (doc.class == 'Resource' ) { emit(doc._id, doc); } }"
-      },
-      "Collections" => {
-        "map" => "function(doc) { if (doc.class == 'Collection' ) { emit(doc._id, doc); } }"
-      },
-      "CoursesByProf" => {
-        "map" => "function(doc) { if (doc.class == 'Staff') { emit([doc._id, 0], doc); } else if (doc.class == 'Course') { for (var p in doc.staff) { emit([p,1], {'name': doc.name, '_id': doc._id}); } } }"
-      }
-    }
+    "views" => view_defs
   }
 
   server = Couch::Server.new('localhost', 5984)
