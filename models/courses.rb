@@ -9,6 +9,8 @@ class Course < CouchDoc
   def initialize(course_code)
     super course_code
     add_nested_docs "staff", :by_key => true
+    # All this stuff is to deal with resources that are marked as optional
+    # i.e. resources: { "name": "optional" }
     add_nested_docs "resources" do |resource|
       if resource.kind_of?(Array) and resource.second == "optional"
         r = Resource.new(resource.first)
