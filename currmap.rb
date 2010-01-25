@@ -3,6 +3,8 @@ require 'haml'
 require 'sass'
 require 'couch'
 require 'json'
+require 'ferret'
+include Ferret
 
 Dir["./models/*.rb"].each { |file| require file}
 
@@ -48,6 +50,21 @@ get '/courses' do
   @collection = Course.get_all
   @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
   display :courses
+end
+
+post '/search' do
+  @user_query = params[:query]
+  
+  @searcher = Search::Searcher.new('ferret')
+  @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::WhiteSpaceAnalyzer.new)
+  
+  field = :class
+  @results = []
+  query = Search::FuzzyQuery.new(field, @user_query, :prefix_length => 2)
+  @searcher.search_each(query) do |id, score|
+    @results << @index[id].load
+  end
+  display :search
 end
 
 get '/:class/:id' do

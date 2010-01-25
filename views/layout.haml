@@ -23,8 +23,9 @@
           %a(href="/resources") Resources
         %li
           %a(href="/collections") Collections
-      %form
-        %input(type="text" value="Search" size="40")
+      %form(action="search" method="post")
+        %input(type="text" name="query" value="Search" size="40")
+        %input(type="submit" value="Search")
       
        
     #content
