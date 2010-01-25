@@ -12,10 +12,14 @@ class Staff < CouchDoc
       uri = File.join("/", @@db, "_design" , @@design_doc, "_view",
                       "CoursesByProf?startkey=[\"#{sname}\"]&endkey=[\"#{sname}\",2]")
       couch_got = JSON.parse(Couch::Server.new(@@couch_uri, @@couch_port).get(uri).body)["rows"]
-      @couch_data = couch_got[0]["value"]
-      courses = couch_got[1..-1]
-      if not courses.nil?
-        @courses_taught = courses.map { |c| c["value"] }
+      if couch_got[0]["value"]["class"] == "Staff"
+        @couch_data = couch_got[0]["value"]
+        courses = couch_got[1..-1]
+        if not courses.nil?
+          @courses_taught = courses.map { |c| c["value"] }
+        end
+      else
+        raise "No such staff id #{sname}"
       end
     end
   end
