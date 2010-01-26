@@ -10,21 +10,17 @@
     %title CurrMap
   %body
     #header
-      %h1 CurrMap
+      %h1 
+        %a(href="/") CurrMap
       
       %ul#menu
-        %li
-          %a(href="/") Home
-        %li
-          %a(href="/courses") Courses
-        %li
-          %a(href="/staffs") Staff
-        %li
-          %a(href="/resources") Resources
-        %li
-          %a(href="/collections") Collections
+        - %w(courses staffs resources collections).each do |model|
+          %li(class="#{"active" if params[:class] == model}")
+            %a(href="/#{model}")= model.capitalize
       %form(action="search" method="post")
         %input(type="text" name="query" value="Search" size="40")
+        %input(type="radio" name="scope" value="#{params[:class]}" checked)= params[:class].capitalize
+        %input(type="radio" name="scope" value="all") All
         %input(type="submit" value="Search")
       
        

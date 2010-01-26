@@ -1,3 +1,6 @@
+!bgcolor= #001155
+!menu_padding= 0.5em
+
 body
   :margin 0
   :padding 0
@@ -8,23 +11,46 @@ body
   :width 500px
 
 #header
-  :background #ccc
-  :padding 0.5em
+  :background= !bgcolor
+  :padding= !menu_padding
+  :color #fff
+  :height 1.25em
+  
   h1
     :font-size 1em
     :margin 0
     :float left
-  form
-    :margin 0 0.5em     
+  
+  a
+    :text-decoration none
+    :height 1em
+    :color #fff
+    &:hover
+      :text-decoration underline
+    &:visited
+  
+  .active
+    a
+      :background #fff
+      :color= !bgcolor
+      :margin= -1 * !menu_padding/4
+      :padding= !menu_padding/4
+  
   ul#menu
     :list-style none
-    :margin 0
+    :margin 0 2em
     li
       :float left
-      :margin 0 0.5em
-      a
-        :text-decoration none
-
+      :margin 0 0.5em  
+  
+    
+  form
+    :margin 0 0.5em 0 3em
+    :float left
+    input
+      :margin 0 0.25em
+      :border 0        
+    
 .popup
   h1
     :font-size 1.2em

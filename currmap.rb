@@ -49,6 +49,7 @@ end
 get '/courses' do
   @collection = Course.get_all
   @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
+  params[:class] = "courses"
   display :courses
 end
 
