@@ -16,3 +16,4 @@ Capfile
 db/schema.rb
 assets/**
 foo.js
+ferret/**
