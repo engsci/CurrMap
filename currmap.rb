@@ -54,12 +54,12 @@ get '/courses' do
 end
 
 get '/search' do
-  @user_query = params[:query].chomp
+  @user_query = params[:query].chomp.downcase
   
   params[:class] = params[:scope]
   
   #@searcher = Search::Searcher.new('ferret')
-  @index = Index::Index.new(:path => 'ferret')
+  @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::StandardAnalyzer.new)
   
   field = :content
   @results = {}

@@ -1,4 +1,5 @@
 -@course = @object
+%a(href="/course/#{@course._id}" class="expand") expand
 %h1
   %a(href="/course/#{@course._id}")= @course.course_code
 %h3= @course.name
@@ -23,25 +24,31 @@
                 - r.author.each do |a| 
                   %li= a
 
-- if false and @course.activities          
+- if @course.activities          
   %h3 Activities
   %p= "#{@course.midterms.length} Midterms"
   %p= "#{@course.lectures.length} Lectures"
-  %dl.activities
-    %h4 Lectures
+  
+  %h4 Lectures
+  %table
+    %tr
+      %td Week
+      %td Lecture
+      %td Outcomes
+    - week = 0
     - @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
-      %dl.activity_listing= "Lecture #{a.number}"
-      %dd 
-        Outcomes
-        %ul
+      %tr
+        %td
+          - if a.week != week
+            = a.week
+            - week = a.week
+          
+        %td
+          = a.number
+          =# a.mode
+        %td
+          %ul
           - a.outcomes.keys.each do |o|
-            %li= o
-    %h4 Midterms
-    - @course.midterms.sort{|a,b| a.number <=> b.number}.each do |a|
-      %dl.activity_listing= "Midterm #{a.number}"
-      %dd 
-        Outcomes
-        %ul
-          - a.outcomes.keys.each do |o|
-            %li= o
+            %li
+              %a(href="/search?query=#{o}" rel="facebox" )= o
 

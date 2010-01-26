@@ -17,8 +17,13 @@
         - %w(courses staffs resources collections).each do |model|
           %li(class="#{"active" if params[:class] == model}")
             %a(href="/#{model}")= model.capitalize
-      %form(action="search" method="get")
+      %form(action="/search" method="get")
         %input(type="text" name="query" value="#{params[:query] || Search}" size="40")
+        -#
+          %input(type="select" name="s
+          - %w(courses staffs resources collections).each do |model|
+            %option()
+        
         -params[:class] = "all" unless params[:class]
         %input(type="radio" name="scope" value="#{params[:class]}" checked)= params[:class].capitalize
         -unless params[:class] == "all"

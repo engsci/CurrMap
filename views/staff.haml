@@ -1,21 +1,22 @@
 -@prof = @object
 .staff.object
-%h1= @prof.name
-%dl
-  - %w(phone website email).each do |f|
-    - if @prof.send(f)
-      %dt= f.capitalize
-      - info = @prof.send(f)
-      - if info.kind_of? Array
-        %dd
-          %ul
-            - info.each do |i|
-              %li= i
-      - else
-        %dd= info
-  %dt Courses Taught
-  %dd
-    %ul
-      - @prof.courses_taught.each do |c|
-        %li
-          %a(href="/course/#{c['_id']}")= c['name']
+  %a(href="/staff/#{@prof._id}" class="expand") expand
+  %h1= @prof.name
+  %dl
+    - %w(phone website email).each do |f|
+      - if @prof.send(f)
+        %dt= f.capitalize
+        - info = @prof.send(f)
+        - if info.kind_of? Array
+          %dd
+            %ul
+              - info.each do |i|
+                %li= i
+        - else
+          %dd= info
+    %dt Courses Taught
+    %dd
+      %ul
+        - @prof.courses_taught.each do |c|
+          %li
+            %a(href="/course/#{c['_id']}" rel="facebox[.full]")= c['name']

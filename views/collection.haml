@@ -1,5 +1,5 @@
 - @collection = @object
-
+%a(href="/collection/#{@collection._id}" class="expand") expand
 %h1= @collection._id
 %dl
   -if @collection.collections.length > 0
