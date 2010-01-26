@@ -24,31 +24,32 @@
                 - r.author.each do |a| 
                   %li= a
 
-- if @course.activities          
-  %h3 Activities
-  %p= "#{@course.midterms.length} Midterms"
-  %p= "#{@course.lectures.length} Lectures"
-  
-  %h4 Lectures
-  %table
-    %tr
-      %td Week
-      %td Lecture
-      %td Outcomes
-    - week = 0
-    - @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
+#extended_info
+  - if @course.activities          
+    %h3 Activities
+    %p= "#{@course.midterms.length} Midterms"
+    %p= "#{@course.lectures.length} Lectures"
+    
+    %h4 Lectures
+    %table
       %tr
-        %td
-          - if a.week != week
-            = a.week
-            - week = a.week
-          
-        %td
-          = a.number
-          =# a.mode
-        %td
-          %ul
-          - a.outcomes.keys.each do |o|
-            %li
-              %a(href="/search?query=#{o}" rel="facebox" )= o
+        %td Week
+        %td Lecture
+        %td Outcomes
+      - week = 0
+      - @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
+        %tr
+          %td
+            - if a.week != week
+              = a.week
+              - week = a.week
+            
+          %td
+            = a.number
+            =# a.mode
+          %td
+            %ul
+            - a.outcomes.keys.each do |o|
+              %li
+                %a(href="/search?query=#{o}" rel="facebox" )= o
 

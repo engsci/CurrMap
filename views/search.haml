@@ -2,7 +2,7 @@
 
 - @results.each do |model, results| #key, value
   %h3= model
-  %dl  
+  %dl#search_results  
     - results.each do |result|
       %dt
         %a(href="/#{model.downcase}/#{result[:id]}" rel="facebox[.full]")= result[:id]
