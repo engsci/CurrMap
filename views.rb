@@ -31,4 +31,6 @@ def add_views
   server.put("/#{db}/_design/#{view}", views.to_json)
 end
 
-add_views
+if __FILE__ == $0
+  add_views
+end
