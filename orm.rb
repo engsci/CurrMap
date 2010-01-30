@@ -55,9 +55,7 @@ class CouchDoc
         to_set = @couch_data[name].keys.map { |doc| mapping_block.call doc }
       elsif opt_hsh[:by_value]
         to_set = @couch_data[name].values.map { |doc| mapping_block.call doc }
-      elsif @couch_data[name].kind_of? Hash
-        to_set = @couch_data[name].map { |doc| mapping_block.call doc }
-      elsif @couch_data[name].kind_of? Array
+      elsif @couch_data[name].kind_of?(Hash) or @couch_data[name].kind_of?(Array)
         to_set = @couch_data[name].map { |doc| mapping_block.call doc }
       elsif @couch_data[name].kind_of? String
         to_set = [mapping_block.call(@couch_data[name])]
