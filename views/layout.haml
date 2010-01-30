@@ -20,7 +20,7 @@
           %li(class="#{"active" if params[:class] == model}")
             %a(href="/#{model}")= model.capitalize
       %form(action="/search" method="get")
-        %input(type="text" name="query" value="#{params[:query] || Search}" size="40")
+        %input(type="text" name="query" value="#{params[:query] || 'Search'}" size="40")
         -#
           %input(type="select" name="s
           - %w(courses staffs resources collections).each do |model|
