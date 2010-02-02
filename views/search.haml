@@ -1,9 +1,12 @@
 %a(class="expand")= @user_query
 %h1 Search
+
 - @results.each do |model, results| #key, value
-  %h3= model
-  %dl#search_results  
-    - results.each do |result|
-      %dt
-        %a(href="/#{model.downcase}/#{result[:id]}" rel="facebox[.full]")= result[:id]
-      %dd= result[:highlight]
+  -if params[:scope] == "all" or params[:scope] == model
+    %h3= model
+    %dl#search_results  
+      - results.each do |result|
+        %dt
+          %a(href="/#{model.downcase}/#{result[:id]}" rel="facebox[.full]")= result[:name]
+          %span= result[:id]
+        %dd= result[:highlight]
