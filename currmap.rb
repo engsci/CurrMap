@@ -62,7 +62,7 @@ get '/search' do
   @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::StandardAnalyzer.new)
   
   field = :content
-  @results = {}
+  @results = []
   query = Search::MultiTermQuery.new(field, :max_term => 10)
   @user_query.split(' ',10).each do |s|
     query << s
@@ -70,12 +70,14 @@ get '/search' do
   query.add_term(@user_query, 5)
   
   @index.search_each(query) do |id, score|
-    @results[@index[id]["class"]] = [] unless @results[@index[id]["class"]]
-    @results[@index[id]["class"]] << {
+#    @results[@index[id]["class"]] = [] unless @results[@index[id]["class"]]
+ #   @results[@index[id]["class"]] 
+     @results << {
       :id => @index[id]["id"], 
       :name => @index[id]["name"],
+      :model => @index[id]["class"],
       :highlight => @index.highlight(query, id, :field => field, :num_excerpts => 5, :excerpt_length => 20, :pre_tag => "<strong>", :post_tag => "</strong>")
-      }
+      } if params[:scope] == "all" or params[:scope].singularize == @index[id]["class"].downcase
   end
   display :search
 end
