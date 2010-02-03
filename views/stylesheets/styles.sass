@@ -4,7 +4,7 @@
 body
   :margin 0
   :padding 0
-  :width 1200px
+  :width 100%
   :font-family Arial
   
 .full
@@ -73,10 +73,15 @@ a.expand
     :display block
     :float right
     :color #666
+    :background url('/images/icons/information.png') no-repeat
+    :text-indent -1000px
+    :overflow hidden
+    :width 16px
+    :height 16px
 
 #search_results
   dt
-    :margin 1em 0 0 -20px
+    :margin 1em 0 0 0
     :padding-left 20px
     :font-weight normal
     :background center left no-repeat
@@ -88,7 +93,7 @@ a.expand
     &.course
       :background-image url('/images/icons/database.png')
     &.collection
-      :background-image url('/images/icons/folder_database.png')
+      :background-image url('/images/icons/sitemap_color.png')
       
     a
     span
@@ -100,7 +105,7 @@ a.expand
   dd
     :font-size 0.8em
     :color #333
-    :margin 0.25em 0
+    :margin 0.25em 0 0.25em 20px
     strong
       :color #000  
     
@@ -119,4 +124,35 @@ dl
 h4
   :clear both
   :margin 0
+  
+.activities
+  td
+    :vertical-align top
+  .activity
+    .type
+      &.lecture
+      &.midterm
+      &.test
+      &.assignment
+  ul.outcomes
+    :list-style-type none
+    :margin 0
+    :padding 0
+    li
+      :clear both
+      a
+        :float left
+        :text-decoration none
+      .mode
+        :display block
+        :width 18px
+        :height 16px
+        :float left
+        :background right center no-repeat
+        &.knowledge
+          :background-image url('/images/icons/lightbulb.png')
+        &.skill
+          :background-image url('/images/icons/wrench.png')
+        &.attitude
+          :background-image url('/images/icons/heart.png')
 

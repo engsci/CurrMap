@@ -31,11 +31,11 @@
     %p= "#{@course.lectures.length} Lectures"
     
     %h4 Lectures
-    %table
+    %table.activities
       %tr
-        %td Week
-        %td Lecture
-        %td Outcomes
+        %th Week
+        %th Lecture
+        %th Outcomes
       - week = 0
       - @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
         %tr
@@ -46,10 +46,12 @@
             
           %td
             = a.number
-            =# a.mode
+            -# a.class
           %td
-            %ul
-            - a.outcomes.keys.each do |o|
-              %li
-                %a(href="/search?query=#{o}" rel="facebox" )= o
+            %ul.outcomes
+              - a.outcomes.each do |outcome, modes|
+                %li.outcome
+                  %a(href="/search?query=#{outcome}&scope=all" rel="facebox" )= outcome
+                  - modes.each do |mode|
+                    %span(class="mode #{mode}" title="#{mode}")
 

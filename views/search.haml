@@ -6,6 +6,6 @@
 %dl#search_results  
   - @results.each do |result|
     %dt(class="#{result[:model].downcase}")
-      %a(href="/#{result[:model].downcase}/#{result[:id]}" rel="facebox[.full]")= result[:name]
+      %a(href="/#{result[:model].downcase}/#{result[:id]}" rel="facebox[.full]")= result[:name] || result[:id]
       %span= result[:id]
     %dd= result[:highlight]
