@@ -13,7 +13,11 @@
               - info.each do |i|
                 %li= i
         - else
-          %dd= info
+          - if(f=="email")
+            %dd
+              %a(href="mailto:#{info}")= info
+          -else
+            %dd= info
     %dt Courses Taught
     %dd
       %ul
