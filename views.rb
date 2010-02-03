@@ -32,5 +32,7 @@ def add_views
 end
 
 if __FILE__ == $0
+  puts "Updating views..."
   add_views
+  puts "Done."
 end
