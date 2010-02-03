@@ -50,6 +50,7 @@ get '/courses' do
   @collection = Course.get_all
   @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
   params[:class] = "courses"
+  @title = params[:class].capitalize
   display :courses
 end
 
@@ -62,7 +63,7 @@ get '/search' do
   @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::StandardAnalyzer.new)
   
   field = :content
-  @results = {}
+  @results = []
   query = Search::MultiTermQuery.new(field, :max_term => 10)
   @user_query.split(' ',10).each do |s|
     query << s
@@ -70,23 +71,29 @@ get '/search' do
   query.add_term(@user_query, 5)
   
   @index.search_each(query) do |id, score|
-    @results[@index[id]["class"]] = [] unless @results[@index[id]["class"]]
-    @results[@index[id]["class"]] << {
+#    @results[@index[id]["class"]] = [] unless @results[@index[id]["class"]]
+ #   @results[@index[id]["class"]] 
+     @results << {
       :id => @index[id]["id"], 
+      :name => @index[id]["name"],
+      :model => @index[id]["class"],
       :highlight => @index.highlight(query, id, :field => field, :num_excerpts => 5, :excerpt_length => 20, :pre_tag => "<strong>", :post_tag => "</strong>")
-      }
+      } if params[:scope] == "all" or params[:scope].singularize == @index[id]["class"].downcase
   end
+  @title = params[:query] + " : " + params[:scope] + " : Search"
   display :search
 end
 
 get '/:class/:id' do
   @object = params[:class].capitalize.to_class.new params[:id]
+  @title = (@object.name || @object._id).to_s + " : " + params[:class].capitalize.pluralize
   display params[:class].to_sym
 end
 
 get '/:class' do
-  if Object.constants.member? params[:class].chop.capitalize
+  if(Object.constants.member? params[:class].chop.capitalize or Object.constants.member? params[:class].chop.capitalize.to_sym)
     @collection = params[:class].chop.capitalize.to_class.get_all
+    @title = params[:class].capitalize
     display params[:class].to_sym
   end
 end

@@ -2,24 +2,14 @@
 -@courses = @collection
 -prevyear = 0
 -prevsem = ""
-- @courses.each do |course|
-  - if course.year != prevyear
-    %h4= "Year " + course.year
-    - prevyear = course.year
-  - if course.semester != prevsem
-    %h4= "Semester " + course.semester
-    - prevsem = course.semester
-  .course
-    %h2
-      %a(href="/course/#{course.course_code}" rel="facebox[.full]" title="#{course.name}")
-        =course.short_code
-      %a.show_activities(href="#") +
-    
-   
-    - if course.activities
-      .activities
-        - course.activities.each do |a|
-          %ul.activity(class="#{a.type}")
-            - a.outcomes.keys.each do |o|
-              %li= shorten(o,20)
-    
+%dl#courses
+  - @courses.each do |course|
+    - if course.year != prevyear
+      %dt= "Year " + course.year
+      - prevyear = course.year
+    - if course.semester != prevsem   
+      %dt= "Semester " + course.semester
+      - prevsem = course.semester
+    %dd
+      %a(href="/course/#{course.course_code}" rel="facebox[.full]" title="#{course.name}")=course.short_code
+      %span=course.name
