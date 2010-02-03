@@ -20,14 +20,14 @@
         %a(href="/") CurrMap
       
       %ul#menu
-        - %w(courses staffs resources collections).each do |model|
+        - %w(courses staff resources collections).each do |model|
           %li(class="#{"active" if params[:class] == model}")
             %a(href="/#{model}")= model.capitalize
       %form(action="/search" method="get")
         %input(type="text" name="query" value="#{params[:query] || 'Search'}" size="40" id="ferret_search")
         %select(name="scope")
           %option(value="all") All
-          - %w(courses staffs resources collections).each do |model|
+          - %w(courses staff resources collections).each do |model|
             %option(value="#{model}"){:selected=>(params[:class] == model)}= model.capitalize
         %input(type="submit" value="Search")
       

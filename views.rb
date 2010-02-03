@@ -8,7 +8,7 @@ def add_views
   view = "testing"
   
   view_names = ["Courses",
-                "Staffs",
+                "Staff",
                 "Resources",
                 "Collections",
                 "CoursesByProf",

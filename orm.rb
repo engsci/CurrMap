@@ -3,6 +3,17 @@ require 'couch'
 require 'rubygems'
 require 'active_support' # For singularize
 
+class String
+  # Shadow pluralize, since the active_support version doesn't work the way I want
+  def pluralize
+    if self.downcase == "staff"
+      return self
+    else
+      return self + "s"
+    end
+  end
+end
+
 class CouchDoc
   @@db = "currmap"
   @@design_doc = "testing"
@@ -72,7 +83,7 @@ class CouchDoc
   
   class << self
     def get_view(view)
-      return File.join("/", @@db, "_design", @@design_doc, "_view", view+"s")
+      return File.join("/", @@db, "_design", @@design_doc, "_view", view.pluralize)
     end
     
     def get_all

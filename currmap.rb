@@ -4,6 +4,7 @@ require 'sass'
 require 'couch'
 require 'json'
 require 'ferret'
+require 'active_support' # For singularize
 include Ferret
 
 Dir["./models/*.rb"].each { |file| require file}
@@ -11,6 +12,14 @@ Dir["./models/*.rb"].each { |file| require file}
 class String
   def to_class
     Object.const_get self
+  end
+  # Shadow pluralize, since the active_support version doesn't work the way I want
+  def pluralize
+    if self.downcase == "staff"
+      return self
+    else
+      return self + "s"
+    end
   end
 end
 
@@ -91,9 +100,9 @@ get '/:class/:id' do
 end
 
 get '/:class' do
-  if(Object.constants.member? params[:class].chop.capitalize or Object.constants.member? params[:class].chop.capitalize.to_sym)
-    @collection = params[:class].chop.capitalize.to_class.get_all
+  if Object.constants.map(&:to_s).member? params[:class].singularize.capitalize
+    @collection = params[:class].singularize.capitalize.to_class.get_all
     @title = params[:class].capitalize
-    display params[:class].to_sym
+    display (params[:class].singularize + "s").to_sym
   end
 end
