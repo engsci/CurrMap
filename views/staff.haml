@@ -16,6 +16,9 @@
           - if(f=="email")
             %dd
               %a(href="mailto:#{info}")= info
+          - elsif(f=="website")
+            %dd
+              %a(href="#{info}")=info
           -else
             %dd= info
     %dt Courses Taught
