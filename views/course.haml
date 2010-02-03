@@ -16,7 +16,7 @@
       %ul
         - @course.resources.each do |r|
           %li
-            = r.name || "ISBN #{r._id}"
+            %a(href="/resource/#{r._id}" rel="facebox")= r.name || "ISBN #{r._id}"
             - if r.optional
               (optional)
             - if r.author
