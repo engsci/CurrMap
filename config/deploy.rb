@@ -35,7 +35,12 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/ferret #{release_path}/ferret"
   end
   
+  desc "Update the CouchDB views to the newest version"
+  task :update_couch_views do
+    run "#{release_path}/views.rb"
+  end
+  
 end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
-
+after 'deploy:update_code', 'deploy:update_couch_views'
