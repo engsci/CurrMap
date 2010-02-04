@@ -7,17 +7,12 @@ def add_views
   db = "currmap"
   view = "testing"
   
-  view_names = ["Courses",
-                "Staff",
-                "Resources",
-                "Collections",
-                "CoursesByProf",
-                "All"
-               ]
-
+  view_dir = "couch-views"
+  
   view_defs = Hash.new
-  view_names.each do |name|
-    func = open(File.join("couch-views", name + ".js")).readlines.map(&:chomp).join('')
+  Dir["./#{view_dir}/*.js"].each do |file|
+    name = file.match /([^\/])+(?=.js$)/
+    func = open(file).readlines.map(&:chomp).join('')
     view_defs[name] = { "map" => func }
   end
   
