@@ -1,0 +1,2 @@
+class CouchConnectFailure < RuntimeError
+end

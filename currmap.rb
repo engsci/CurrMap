@@ -4,6 +4,7 @@ require 'sass'
 require 'couch'
 require 'json'
 require 'ferret'
+require 'error_handling'
 require 'active_support' # For singularize
 include Ferret
 
@@ -13,7 +14,6 @@ class String
   def to_class
     Object.const_get self
   end
-  # Shadow pluralize, since the active_support version doesn't work the way I want
   def pluralize
     if self.downcase == "staff"
       return self
@@ -23,6 +23,11 @@ class String
   end
 end
 
+error CouchConnectFailure do
+  'Error connecting to CouchDB server, please try again'
+  haml :error_page
+end
+
 configure do
   $server = Couch::Server.new('localhost', 5984)
   $db = 'currmap'
@@ -30,7 +35,11 @@ end
 
 helpers do
   def get_by_id(id)
-    JSON.parse($server.get("/#{$db}/#{id}").body)
+    begin 
+      JSON.parse($server.get("/#{$db}/#{id}").body)
+    rescue
+      raise CouchConnectFailure
+    end
   end
   
   def display(template, *args)
@@ -56,7 +65,11 @@ get '/stylesheets/:name.css' do
 end
 
 get '/courses' do
-  @collection = Course.get_all
+  begin 
+    @collection = Course.get_all
+  rescue
+    raise CouchConnectFailure
+  end
   @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
   params[:class] = "courses"
   @title = params[:class].capitalize
@@ -94,14 +107,22 @@ get '/search' do
 end
 
 get '/:class/:id' do
-  @object = params[:class].capitalize.to_class.new params[:id]
+  begin 
+    @object = params[:class].capitalize.to_class.new params[:id]
+  rescue
+    raise CouchConnectFailure
+  end
   @title = (@object.name || @object._id).to_s + " : " + params[:class].capitalize.pluralize
   display params[:class].to_sym
 end
 
 get '/:class' do
   if Object.constants.map(&:to_s).member? params[:class].singularize.capitalize
-    @collection = params[:class].singularize.capitalize.to_class.get_all
+    begin 
+      @collection = params[:class].singularize.capitalize.to_class.get_all
+    rescue
+      raise CouchConnectFailure
+    end
     @title = params[:class].capitalize
     display (params[:class].singularize + "s").to_sym
   end
