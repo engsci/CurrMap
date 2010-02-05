@@ -1,6 +1,7 @@
 require 'json'
 require 'couch'
 require 'rubygems'
+require 'error_handling'
 require 'active_support' # For singularize
 
 class String
@@ -21,10 +22,14 @@ class CouchDoc
   @@couch_port = 5984
   
   def initialize(init)
-    if init.kind_of? Hash
-      @couch_data = init
-    else
-      @couch_data = get_by_id init
+    begin 
+      if init.kind_of? Hash
+        @couch_data = init
+      else
+        @couch_data = get_by_id init
+      end
+    rescue
+      raise CouchConnectFailure
     end
   end
 
@@ -87,11 +92,15 @@ class CouchDoc
     end
     
     def get_all
-      name = self.to_s
-      JSON.parse(Couch::Server.new(@@couch_uri, @@couch_port).
-                 get(get_view(name)).body
-                 )["rows"].map do |doc|
-        self.new doc["value"]
+      begin
+        name = self.to_s
+        JSON.parse(Couch::Server.new(@@couch_uri, @@couch_port).
+                   get(get_view(name)).body
+                   )["rows"].map do |doc|
+          self.new doc["value"]
+        end
+      rescue
+        raise CouchConnectFailure
       end
     end
 

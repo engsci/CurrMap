@@ -35,11 +35,7 @@ end
 
 helpers do
   def get_by_id(id)
-    begin 
-      JSON.parse($server.get("/#{$db}/#{id}").body)
-    rescue
-      raise CouchConnectFailure
-    end
+    JSON.parse($server.get("/#{$db}/#{id}").body)
   end
   
   def display(template, *args)
@@ -65,11 +61,7 @@ get '/stylesheets/:name.css' do
 end
 
 get '/courses' do
-  begin 
-    @collection = Course.get_all
-  rescue
-    raise CouchConnectFailure
-  end
+  @collection = Course.get_all
   @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
   params[:class] = "courses"
   @title = params[:class].capitalize
@@ -107,22 +99,14 @@ get '/search' do
 end
 
 get '/:class/:id' do
-  begin 
-    @object = params[:class].capitalize.to_class.new params[:id]
-  rescue
-    raise CouchConnectFailure
-  end
+  @object = params[:class].capitalize.to_class.new params[:id]
   @title = (@object.name || @object._id).to_s + " : " + params[:class].capitalize.pluralize
   display params[:class].to_sym
 end
 
 get '/:class' do
   if Object.constants.map(&:to_s).member? params[:class].singularize.capitalize
-    begin 
-      @collection = params[:class].singularize.capitalize.to_class.get_all
-    rescue
-      raise CouchConnectFailure
-    end
+    @collection = params[:class].singularize.capitalize.to_class.get_all
     @title = params[:class].capitalize
     display (params[:class].singularize + "s").to_sym
   end
