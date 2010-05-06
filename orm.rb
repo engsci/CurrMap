@@ -22,14 +22,14 @@ class CouchDoc
   @@couch_port = 5984
   
   def initialize(init)
-    begin 
-      if init.kind_of? Hash
-        @couch_data = init
-      else
+    if init.kind_of? Hash
+      @couch_data = init
+    else
+      begin
         @couch_data = get_by_id init
+      rescue
+        raise CouchConnectFailure
       end
-    rescue
-      raise CouchConnectFailure
     end
   end
 
