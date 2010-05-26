@@ -15,5 +15,6 @@ db/*.sqlite3
 Capfile
 db/schema.rb
 assets/**
+.project
 foo.js
 ferret/**
