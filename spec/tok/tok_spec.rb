@@ -14,7 +14,7 @@ describe TreeOfKnowledge::Client do
   it "should allow addition of resources" do
     lambda do
       @client.add_resource('/Knowledge/Math')
-    end.should_not raise_error
+    end.should_not raise_error TreeOfKnowledge::ConnectionError
   end
   
   it "should be able to look up resources that have been added" do 
@@ -26,7 +26,7 @@ describe TreeOfKnowledge::Client do
   it "should fail on non-existant items" do 
     lambda do
       @client.get_resource('/Something/Weird')
-    end.should raise_error
+    end.should raise_error TreeOfKnowledge::ConnectionError
   end
   
 end
