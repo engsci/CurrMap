@@ -1,9 +1,14 @@
 require 'tok'
+require 'yaml'
 
 describe TreeOfKnowledge::Client do 
   before :each do 
-    @client = TreeOfKnowledge::Client.new("localhost", 9090,
-                                          "tester", "testing")
+    app_root = File.join(File.dirname(__FILE__), '..', '..')
+    auth_info = YAML.load_file((File.join(app_root, 'settings.yml')))
+    username = auth_info['username']
+    password = auth_info['password']
+    @client = TreeOfKnowledge::Client.new("localhost", 9090, "/tok-ruby/",
+                                          username, password)
   end
   
   it "should allow addition of resources" do
