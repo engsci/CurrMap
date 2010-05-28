@@ -3,15 +3,21 @@ require 'uri'
 
 module TreeOfKnowledge
   class Client
-    def initialize(host, port, username, password)
+    def initialize(host, port, path, username, password)
       @host = host
       @port = port
+      @path = strip_path path
       @user = username
       @pass = password
     end
     
+    def strip_path(path)
+      path.gsub %r{ (^/) | (/$) }xms, ''
+    end
+    
     def get_uri(path)
-      URI.parse("http://#{@host}:#{@port}#{path}")
+      path = strip_path path
+      URI.parse("http://#{@host}:#{@port}/#{@path}/#{path}")
     end
 
     def get_resource(path)
