@@ -7,7 +7,7 @@ describe TreeOfKnowledge::Client do
     auth_info = YAML.load_file((File.join(app_root, 'settings.yml')))
     username = auth_info['username']
     password = auth_info['password']
-    @client = TreeOfKnowledge::Client.new("localhost", 9090, "/tok-ruby/",
+    @client = TreeOfKnowledge::Client.new("localhost", 8080, "/tok-ruby/",
                                           username, password)
   end
   
