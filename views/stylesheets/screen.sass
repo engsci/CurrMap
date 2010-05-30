@@ -1,160 +1,84 @@
-!bgcolor= #001155
-!menu_padding= 0.5em
+@import base
+
+$bgcolor      : #001155
+$menu_padding : 0.5em
+$border_dark  : #999999
+$spacer       : #dddddd
+
+@mixin equal-column
+  :float left
+  :padding-bottom 32767px
+  :margin-bottom -32767px
 
 body
-  :margin 0
-  :padding 0
-  :width 100%
-  :font-family Arial
+  +blueprint-typography
   
-.full
-  :width 500px
 
 #header
-  :background= !bgcolor
-  :padding= !menu_padding
-  :color #fff
-  :height 1.25em
-  
-  h1
-    :font-size 1em
-    :margin 0
-    :float left
-  
+  +container
+  :background= $bgcolor
   a
-    :text-decoration none
-    :height 1em
     :color #fff
-    &:hover
-      :text-decoration underline
-    &:visited
-  
-  .active
+  h1
+    +column(3)
+    :font-size 1em
+    :padding-left $blueprint-grid-width / 2
     a
-      :background #fff
-      :color= !bgcolor
-      :margin= -1 * !menu_padding/4
-      :padding= !menu_padding/4
-  
-  ul#menu
-    :list-style none
-    :margin 0 2em
-    li
-      :float left
-      :margin 0 0.5em  
-  
-    
+      :text-decoration none
   form
-    :margin 0 0.5em 0 3em
-    :float left
-    input
-      :margin 0 0.25em
-      :border 0        
+    +column(15)
+    :padding-right 0 $blueprint-grid-width / 2 
+  #menu
+    +column(5,true)
+    +horizontal-list
 
 #content
-  :width 80%
-  :margin 0 auto
-    
-.popup
-  h1
-    :font-size 1.2em
-    :border-bottom 1px solid #000
-    :padding-bottom 0.5em
-    :margin 0
-    
-  #extended_info
-    :display none
-    
-    
-a.expand, a.more
-  :display none
-.popup
-  a.expand, a.more
-    :display block
-    :float right
-    :color #666
-  a.expand
-    :overflow hidden
-    :width 16px
-    :height 16px
-    :background url('/images/icons/information.png') no-repeat
-    :text-indent -1000px
-
-
-#search_results
-  dt
-    :margin 1em 0 0 0
-    :padding-left 20px
-    :font-weight normal
-    :background center left no-repeat
-    
-    &.resource
-      :background-image url('/images/icons/book.png')    
-    &.staff
-      :background-image url('/images/icons/status_online.png')
-    &.course
-      :background-image url('/images/icons/database.png')
-    &.collection
-      :background-image url('/images/icons/sitemap_color.png')
+  +container
+  :border-left= $border_dark 1px solid
+  #main
+    +column(18)
+    :border-right= $border_dark 1px solid
+    :border-bottom= $border_dark 1px solid
+    :padding 0 $blueprint-grid-width / 2 
+    .facet
+      :overflow hidden //reqd for equal-column
+      :margin $blueprint-grid-width / 2  0
+      h2 //facet title
+        +column(3)
+        :font-size 1em
+        +equal-column
+      ul
+        //+span(15)
+        :list-style none
+        :margin 0
+        +equal-column
+        li
+          :margin 0 0 4px
+          :overflow hidden //reqd for equal-column
+          h3 //course title
+            :font-size 1em
+            +column(3)
+            +equal-column
+          ul
+            :list-style none
+            +equal-column
+            li
+              a.title
+                +span(4)
+                :float left
+              .nearterms
+                +span(7)
+                :float left
+              a.weeks
+                +span(3)
+                :float left
+      &#courses,&#resources,&#people
+        ul
+          +horizontal-list
       
-    a
-    span
-      :color #666
-      :font-size 0.9em
-      
- 
-      
-  dd
-    :font-size 0.8em
-    :color #333
-    :margin 0.25em 0 0.25em 20px
-    strong
-      :color #000  
-    
-  
-dl
-  dt
-    :font-weight bold
-    :margin 0.25em 0
-  dd
-    :margin 0.25em 0.5em
-    
-  dl
-    :margin 0 0 0 0.5em
-    :font-size 0.9em
-
-h4
-  :clear both
-  :margin 0
-  
-.activities
-  td
-    :vertical-align top
-  .activity
-    .type
-      &.lecture
-      &.midterm
-      &.test
-      &.assignment
-  ul.outcomes
-    :list-style-type none
-    :margin 0
-    :padding 0
-    li
-      :clear both
-      a
-        :float left
-        :text-decoration none
-      .mode
-        :display block
-        :width 18px
-        :height 16px
-        :float left
-        :background right center no-repeat
-        &.knowledge
-          :background-image url('/images/icons/lightbulb.png')
-        &.skill
-          :background-image url('/images/icons/wrench.png')
-        &.attitude
-          :background-image url('/images/icons/heart.png')
-
+  #sidebar
+    //+prepend(1)
+    +column(5,true)
+    // :margin-right= -1 * (1px + $blueprint-grid-width / 2 )
+    h2
+      :font-size 1em
