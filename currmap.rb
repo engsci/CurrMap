@@ -1,12 +1,26 @@
+require 'rubygems'
+require 'compass'
+
 require 'sinatra'
+require 'lib/render_partial'
+
 require 'haml'
 require 'sass'
+
 require 'couch'
 require 'json'
 require 'ferret'
 require 'error_handling'
 require 'active_support' # For singularize
+
 include Ferret
+
+# Configure Compass
+configure do
+  Compass.configuration.parse(File.join(Sinatra::Application.root, 'config.rb'))
+  $server = Couch::Server.new('localhost', 5984)
+  $db = 'currmap'
+end
 
 Dir["./models/*.rb"].each { |file| require file}
 
@@ -28,11 +42,6 @@ error CouchConnectFailure do
   haml :error_page
 end
 
-configure do
-  $server = Couch::Server.new('localhost', 5984)
-  $db = 'currmap'
-end
-
 helpers do
   def get_by_id(id)
     JSON.parse($server.get("/#{$db}/#{id}").body)
@@ -52,12 +61,12 @@ helpers do
 end
 
 get '/' do 
-  display :index
+  haml :index
 end
 
 get '/stylesheets/:name.css' do
   content_type 'text/css', :charset => 'utf-8' 
-  sass :"stylesheets/#{params[:name]}"
+  sass :"stylesheets/#{params[:name]}", Compass.sass_engine_options
 end
 
 get '/courses' do
@@ -95,7 +104,7 @@ get '/search' do
       } if params[:scope] == "all" or params[:scope].singularize == @index[id]["class"].downcase
   end
   @title = params[:query] + " : " + params[:scope] + " : Search"
-  display :search
+  display :search, :layouts => :'layouts/search'
 end
 
 get '/:class/:id' do
@@ -109,5 +118,7 @@ get '/:class' do
     @collection = params[:class].singularize.capitalize.to_class.get_all
     @title = params[:class].capitalize
     display (params[:class].singularize + "s").to_sym
+  else
+    haml params[:class].to_sym
   end
 end
