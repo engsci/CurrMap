@@ -27,7 +27,7 @@
             %option(value="all") All
             - %w(courses staff resources collections).each do |model|
               %option(value="#{model}"){:selected=>(params[:class] == model)}= model.capitalize
-        %input(type="submit" value="Search")
+        %input(type="submit" value="Search" id="ferret_submit")
         
       %ul#menu
         %li

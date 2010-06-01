@@ -1,48 +1,101 @@
 @import base
 
-$bgcolor      : #001155
+$bg_dark      : #001155
+$bg_medium    : #627AAD
+$bg_light     : #6D86B7
 $menu_padding : 0.5em
-$border_dark  : #999999
+$border_dark  : #777777
 $spacer       : #dddddd
+$text_links   : #3B5998 //facebook blue ;)
+$text_regular : #333333
+$text_light   : #777777
 
 @mixin equal-column
   :float left
   :padding-bottom 32767px
   :margin-bottom -32767px
 
-body
-  +blueprint-typography
-  
++blueprint-typography
 
+body
+  :font-family "lucida grande", tahoma, verdana, arial, sans-serif
+  :color $text_regular
+  :font-size 11px
+  :text-align left
+  :direction ltr
+  
+  a
+    :color $text_links
+    :text-decoration none
+    &:hover
+      :text-decoration underline
+      
+  h2
+    :font-weight bold
+    
+    
 #header
   +container
-  :background= $bgcolor
+  :background $text_links
+  :height 3em
+  :border-left 1px solid $bg_dark
   a
     :color #fff
+    &:hover
+      :text-decoration none
   h1
     +column(3)
-    :font-size 1em
+    :font-size 1.5em
     :padding-left $blueprint-grid-width / 2
-    a
-      :text-decoration none
+    :height 2em
+    :line-height 2em
   form
     +column(15)
-    :padding-right 0 $blueprint-grid-width / 2 
+    :padding-right $blueprint-grid-width / 2
+    :border-right 1px solid $bg_dark
+    #ferret_search
+      :color $text_light
+      :border 1px solid $bg_dark
+      :padding 0.4em
+      :margin 0.45em 0
+      :height 1em
+    #ferret_submit
+      :height 1em
+      :padding 0.4em
+      :border none
+      :background $text_light
+      :display none
+     
   #menu
     +column(5,true)
     +horizontal-list
+    :margin-left -10px
+    :padding 0 11px 0 10px
+    :background $bg_medium
+    :width auto
+    li
+      :margin 0
+      :padding 0
+      a
+        :display block
+        :font-weight strong
+        :height 3em
+        :line-height 3em
+        :padding 0 10px
+        &:hover
+          :background $bg_light
 
 #content
   +container
-  :border-left= $border_dark 1px solid
+  :border-left $border_dark 1px solid
   #main
     +column(18)
-    :border-right= $border_dark 1px solid
-    :border-bottom= $border_dark 1px solid
+    :border-right $border_dark 1px solid
+    :border-bottom $border_dark 1px solid
     :padding 0 $blueprint-grid-width / 2 
     .facet
       :overflow hidden //reqd for equal-column
-      :margin $blueprint-grid-width / 2  0
+      :margin $blueprint-grid-width / 2  0 
       h2 //facet title
         +column(3)
         :font-size 1em
@@ -53,16 +106,30 @@ body
         :margin 0
         +equal-column
         li
-          :margin 0 0 4px
+          :padding 0 0 0.5em
+          :margin 0 0 1em
           :overflow hidden //reqd for equal-column
+          a
+            :font-weight bold
+          &.more 
+            a
+              :padding-bottom 5px
+              :display block
+            li a
+              :padding-bottom 0
           h3 //course title
             :font-size 1em
+            :line-height 1.5em
             +column(3)
             +equal-column
           ul
             :list-style none
             +equal-column
             li
+              :padding 0
+              :margin 0 0 5px
+              a
+                :font-weight normal
               a.title
                 +span(4)
                 :float left
@@ -75,10 +142,22 @@ body
       &#courses,&#resources,&#people
         ul
           +horizontal-list
-      
+          li
+            :padding 0 2em 0 0
+      &#activities
+        ul li
+          :border-bottom $spacer 1px solid
+          ul li
+            :border-bottom none
+      a.author
+        :font-weight normal
+        :display block
   #sidebar
-    //+prepend(1)
     +column(5,true)
-    // :margin-right= -1 * (1px + $blueprint-grid-width / 2 )
     h2
       :font-size 1em
+      :height 2em
+      :line-height 2em
+      :margin-top 1em
+      :border-bottom 1px solid $spacer
+     
