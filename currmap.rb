@@ -35,6 +35,11 @@ error CouchConnectFailure do
   haml :error_page
 end
 
+configure do
+  $server = Couch::Server.new('localhost', 5984)
+  $db = 'currmap'
+end
+
 helpers do
   def get_by_id(id)
     JSON.parse($server.get("/#{$db}/#{id}").body)
