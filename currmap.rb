@@ -123,7 +123,7 @@ get '/:class' do
   if Object.constants.map(&:to_s).member? params[:class].singularize.capitalize
     @collection = params[:class].singularize.capitalize.to_class.get_all
     @title = params[:class].capitalize
-    display (params[:class].singularize + "s").to_sym
+    display params[:class].pluralize.to_sym
   else
     haml params[:class].to_sym
   end
