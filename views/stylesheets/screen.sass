@@ -92,10 +92,13 @@ body
     +column(18)
     :border-right $border_dark 1px solid
     :border-bottom $border_dark 1px solid
-    :padding 0 $blueprint-grid-width / 2 
+    :padding $blueprint-grid-width / 2 
+    :min-height 200px
     .facet
       :overflow hidden //reqd for equal-column
-      :margin $blueprint-grid-width / 2  0 
+      :margin 0 0 $blueprint-grid-width / 2 0 
+      &:last-child
+        :margin-bottom 0
       h2 //facet title
         +column(3)
         :font-size 1em

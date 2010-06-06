@@ -62,6 +62,8 @@ end
 
 get '/' do 
   haml :index
+  #haml :index, :locals => {:sidebar => :'_breadcrumb' }
+  # haml :index, {:layout => :'layouts/blah'}
 end
 
 get '/stylesheets/:name.css' do
@@ -105,6 +107,10 @@ get '/search' do
   end
   @title = params[:query] + " : " + params[:scope] + " : Search"
   display :search, :layouts => :'layouts/search'
+end
+
+get '/results' do
+  haml :results, :locals => {:sidebar => :_search_options}
 end
 
 get '/:class/:id' do

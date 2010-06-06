@@ -37,11 +37,11 @@
         %li
           %a(href="#") Account
         -#
-          - %w(courses staff resources collections).each do |model|
-            %li(class="#{"active" if params[:class] == model}")
-              %a(href="/#{model}")= model.capitalize
+          - 
        
     #content
-      = partial :_breadcrumb
-      = yield
+      #main
+        = yield
+      #sidebar
+        = partial ((defined? sidebar) ? sidebar : :'_models')
     
