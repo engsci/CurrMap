@@ -1,6 +1,6 @@
 require 'orm'
 
-class Staff < CouchDoc
+class Person < CouchDoc
   id_accessor :short_name
   attr_reader :courses_taught
 
@@ -19,7 +19,7 @@ class Staff < CouchDoc
           @courses_taught = courses.map { |c| c["value"] }
         end
       else
-        raise "No such staff id #{sname}"
+        raise "No such person id #{sname}"
       end
     end
   end

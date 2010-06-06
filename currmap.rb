@@ -28,13 +28,6 @@ class String
   def to_class
     Object.const_get self
   end
-  def pluralize
-    if self.downcase == "staff"
-      return self
-    else
-      return self + "s"
-    end
-  end
 end
 
 error CouchConnectFailure do
@@ -71,7 +64,7 @@ get '/stylesheets/:name.css' do
   sass :"stylesheets/#{params[:name]}", Compass.sass_engine_options
 end
 
-get '/courses' do
+get '/course' do
   @collection = Course.get_all
   @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
   params[:class] = "courses"

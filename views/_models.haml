@@ -1,5 +1,5 @@
 %h2 Explore
 %ul
-  - %w(courses staff resources collections).each do |model|
+  - %w(course person resource collection).each do |model|
     %li(class="#{"active" if params[:class] == model}")
       %a(href="/#{model}")= model.capitalize
