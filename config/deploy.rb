@@ -42,5 +42,5 @@ namespace :deploy do
   
 end
 
-# after 'deploy:update_code', 'deploy:symlink_shared'
-# after 'deploy:update_code', 'deploy:update_couch_views'
+after 'deploy:update_code', 'deploy:symlink_shared'
+after 'deploy:update_code', 'deploy:update_couch_views'
