@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'json'
-require 'couch'
+require File.join(File.dirname(__FILE__), 'couch')
 
 def add_views
   db = "currmap"
