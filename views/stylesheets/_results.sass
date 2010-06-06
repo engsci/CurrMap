@@ -1,0 +1,61 @@
+.facet
+  :overflow hidden //reqd for equal-column
+  :margin 0 0 $blueprint-grid-width / 2 0 
+  &:last-child
+    :margin-bottom 0
+  h2 //facet title
+    +column(3)
+    :font-size 1em
+    +equal-column
+  ul
+    //+span(15)
+    :list-style none
+    :margin 0
+    +equal-column
+    li
+      :padding 0 0 0.5em
+      :margin 0 0 1em
+      :overflow hidden //reqd for equal-column
+      a
+        :font-weight bold
+      &.more 
+        a
+          :padding-bottom 5px
+          :display block
+        li a
+          :padding-bottom 0
+      h3 //course title
+        :font-size 1em
+        :line-height 1.5em
+        +column(3)
+        +equal-column
+      ul
+        :list-style none
+        +equal-column
+        li
+          :padding 0
+          :margin 0 0 5px
+          a
+            :font-weight normal
+          a.title
+            +span(4)
+            :float left
+          .nearterms
+            +span(7)
+            :float left
+          a.weeks
+            +span(3)
+            :float left
+  &#courses,&#resources,&#people
+    ul
+      +horizontal-list
+      li
+        :padding 0 2em 0 0
+  &#activities
+    ul li
+      :border-bottom $spacer 1px solid
+      ul li
+        :border-bottom none
+  a.author
+    :font-weight normal
+    :display block

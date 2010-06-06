@@ -33,57 +33,7 @@ body
   h2
     :font-weight bold
     
-    
-#header
-  +container
-  :background $text_links
-  :height 3em
-  :border-left 1px solid $bg_dark
-  a
-    :color #fff
-    &:hover
-      :text-decoration none
-  h1
-    +column(3)
-    :font-size 1.5em
-    :padding-left $blueprint-grid-width / 2
-    :height 2em
-    :line-height 2em
-  form
-    +column(15)
-    :padding-right $blueprint-grid-width / 2
-    :border-right 1px solid $bg_dark
-    #ferret_search
-      :color $text_light
-      :border 1px solid $bg_dark
-      :padding 0.2em 0.4em
-      :margin 0.45em 0
-      :height 1.5em
-    #ferret_submit
-      :height 1em
-      :padding 0.4em
-      :border none
-      :background $text_light
-      :display none
-     
-  #menu
-    +column(5,true)
-    +horizontal-list
-    :margin-left -10px
-    :padding 0 11px 0 10px
-    :background $bg_medium
-    :width auto
-    li
-      :margin 0
-      :padding 0
-      a
-        :display block
-        :font-weight strong
-        :height 3em
-        :line-height 3em
-        :padding 0 10px
-        &:hover
-          :background $bg_light
+@import "header"    
 
 #content
   +container
@@ -94,67 +44,7 @@ body
     :border-bottom $border_dark 1px solid
     :padding $blueprint-grid-width / 2 
     :min-height 200px
-    .facet
-      :overflow hidden //reqd for equal-column
-      :margin 0 0 $blueprint-grid-width / 2 0 
-      &:last-child
-        :margin-bottom 0
-      h2 //facet title
-        +column(3)
-        :font-size 1em
-        +equal-column
-      ul
-        //+span(15)
-        :list-style none
-        :margin 0
-        +equal-column
-        li
-          :padding 0 0 0.5em
-          :margin 0 0 1em
-          :overflow hidden //reqd for equal-column
-          a
-            :font-weight bold
-          &.more 
-            a
-              :padding-bottom 5px
-              :display block
-            li a
-              :padding-bottom 0
-          h3 //course title
-            :font-size 1em
-            :line-height 1.5em
-            +column(3)
-            +equal-column
-          ul
-            :list-style none
-            +equal-column
-            li
-              :padding 0
-              :margin 0 0 5px
-              a
-                :font-weight normal
-              a.title
-                +span(4)
-                :float left
-              .nearterms
-                +span(7)
-                :float left
-              a.weeks
-                +span(3)
-                :float left
-      &#courses,&#resources,&#people
-        ul
-          +horizontal-list
-          li
-            :padding 0 2em 0 0
-      &#activities
-        ul li
-          :border-bottom $spacer 1px solid
-          ul li
-            :border-bottom none
-      a.author
-        :font-weight normal
-        :display block
+      
   #sidebar
     +column(5,true)
     h2
@@ -163,4 +53,5 @@ body
       :line-height 2em
       :margin-top 1em
       :border-bottom 1px solid $spacer
-     
+
+@import "results"     
