@@ -82,7 +82,7 @@ end
 get '/search' do
   @user_query = params[:query].chomp.downcase
   
-  params[:class] = params[:scope]
+  params[:class] = params[:scope] = 'all'
   
   #@searcher = Search::Searcher.new('ferret')
   @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::StandardAnalyzer.new)
