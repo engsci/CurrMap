@@ -1,0 +1,6 @@
+%h2 People
+-@people = @collection
+%ul
+  - @people.each do |person|
+    %li
+      %a(href="/person/#{person.short_name}" rel="facebox")= person.name

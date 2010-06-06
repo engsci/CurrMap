@@ -6,9 +6,9 @@
 %p= @course.calendar_entry
 %dl
   %dt Professors
-  - @course.staff.each do |p|
+  - @course.people.each do |p|
     %dd
-      %a(href="/staff/#{p.short_name}" rel="facebox" )= p.name
+      %a(href="/person/#{p.short_name}" rel="facebox" )= p.name
 
   - if @course.resources && !@course.resources.empty?
     %dt Resources

@@ -1,12 +1,26 @@
+require 'rubygems'
+require 'compass'
+
 require 'sinatra'
+require 'lib/render_partial'
+
 require 'haml'
 require 'sass'
+
 require 'couch'
 require 'json'
 require 'ferret'
 require 'error_handling'
 require 'active_support' # For singularize
+
 include Ferret
+
+# Configure Compass
+configure do
+  Compass.configuration.parse(File.join(Sinatra::Application.root, 'config.rb'))
+  $server = Couch::Server.new('localhost', 5984)
+  $db = 'currmap'
+end
 
 Dir["./models/*.rb"].each { |file| require file}
 
@@ -14,23 +28,11 @@ class String
   def to_class
     Object.const_get self
   end
-  def pluralize
-    if self.downcase == "staff"
-      return self
-    else
-      return self + "s"
-    end
-  end
 end
 
 error CouchConnectFailure do
   'Error connecting to CouchDB server, please try again'
   haml :error_page
-end
-
-configure do
-  $server = Couch::Server.new('localhost', 5984)
-  $db = 'currmap'
 end
 
 helpers do
@@ -52,26 +54,20 @@ helpers do
 end
 
 get '/' do 
-  display :index
+  haml :index
+  #haml :index, :locals => {:sidebar => :'_breadcrumb' }
+  # haml :index, {:layout => :'layouts/blah'}
 end
 
 get '/stylesheets/:name.css' do
   content_type 'text/css', :charset => 'utf-8' 
-  sass :"stylesheets/#{params[:name]}"
-end
-
-get '/courses' do
-  @collection = Course.get_all
-  @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
-  params[:class] = "courses"
-  @title = params[:class].capitalize
-  display :courses
+  sass :"stylesheets/#{params[:name]}", Compass.sass_engine_options
 end
 
 get '/search' do
   @user_query = params[:query].chomp.downcase
   
-  params[:class] = params[:scope]
+  params[:class] = params[:scope] = 'all'
   
   #@searcher = Search::Searcher.new('ferret')
   @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::StandardAnalyzer.new)
@@ -95,7 +91,11 @@ get '/search' do
       } if params[:scope] == "all" or params[:scope].singularize == @index[id]["class"].downcase
   end
   @title = params[:query] + " : " + params[:scope] + " : Search"
-  display :search
+  display :search, :layouts => :'layouts/search'
+end
+
+get '/results' do
+  haml :results, :locals => {:sidebar => :_search_options}
 end
 
 get '/:class/:id' do
@@ -104,10 +104,20 @@ get '/:class/:id' do
   display params[:class].to_sym
 end
 
+get '/course' do
+  @collection = Course.get_all
+  @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
+  params[:class] = "courses"
+  @title = params[:class].capitalize
+  display :courses
+end
+
 get '/:class' do
   if Object.constants.map(&:to_s).member? params[:class].singularize.capitalize
     @collection = params[:class].singularize.capitalize.to_class.get_all
     @title = params[:class].capitalize
-    display (params[:class].singularize + "s").to_sym
+    display params[:class].pluralize.to_sym
+  else
+    haml params[:class].to_sym
   end
 end

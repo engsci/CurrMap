@@ -4,17 +4,6 @@ require 'rubygems'
 require 'error_handling'
 require 'active_support' # For singularize
 
-class String
-  # Shadow pluralize, since the active_support version doesn't work the way I want
-  def pluralize
-    if self.downcase == "staff"
-      return self
-    else
-      return self + "s"
-    end
-  end
-end
-
 class CouchDoc
   @@db = "currmap"
   @@design_doc = "testing"
