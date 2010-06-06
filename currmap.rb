@@ -64,14 +64,6 @@ get '/stylesheets/:name.css' do
   sass :"stylesheets/#{params[:name]}", Compass.sass_engine_options
 end
 
-get '/course' do
-  @collection = Course.get_all
-  @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
-  params[:class] = "courses"
-  @title = params[:class].capitalize
-  display :courses
-end
-
 get '/search' do
   @user_query = params[:query].chomp.downcase
   
@@ -110,6 +102,14 @@ get '/:class/:id' do
   @object = params[:class].capitalize.to_class.new params[:id]
   @title = (@object.name || @object._id).to_s + " : " + params[:class].capitalize.pluralize
   display params[:class].to_sym
+end
+
+get '/course' do
+  @collection = Course.get_all
+  @collection = @collection.sort_by { |x| [x.year,x.semester,x.name]}
+  params[:class] = "courses"
+  @title = params[:class].capitalize
+  display :courses
 end
 
 get '/:class' do

@@ -6,7 +6,7 @@
 %p= @course.calendar_entry
 %dl
   %dt Professors
-  - @course.persons.each do |p|
+  - @course.people.each do |p|
     %dd
       %a(href="/person/#{p.short_name}" rel="facebox" )= p.name
 

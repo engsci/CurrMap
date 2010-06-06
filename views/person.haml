@@ -1,6 +1,6 @@
 -@person = @object
 .person.object
-  %a(href="/staff/#{@person._id}" class="expand") expand
+  %a(href="/person/#{@person._id}" class="expand") expand
   %h1= @person.name
   %dl
     - %w(phone website email).each do |f|
