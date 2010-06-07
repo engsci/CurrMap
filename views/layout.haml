@@ -20,7 +20,7 @@
       %h1 
         %a(href="/") CurrMap
       
-      %form(action="/search" method="get")
+      %form(action="/results" method="get")
         %input(type="text" name="query" value="#{params[:query] || 'Search'}" size="40" id="ferret_search")
         -#
           %select(name="scope")

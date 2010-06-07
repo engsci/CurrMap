@@ -57,24 +57,8 @@ end
       parsed_doc["outcomes"] = doc["value"]["activities"].values.map {|v| v["outcomes"].keys }.join(" ") if doc["value"]["activities"]
   end
 
- # parsed_doc["content"] = parsed_doc["id"]  
-  parsed_doc["content"] = parsed_doc.values.join(" ")
-
-  
+  parsed_doc["content"] = parsed_doc.values.join(" ")  
   parsed_doc["class"] = doc["value"]["class"]
  
-  #puts parsed_doc["content"]
- # recursive_store(doc, parsed_doc)
-  
-#  puts doc.inspect
-#  puts parsed_doc.inspect
   @index << parsed_doc
 end
-
-
-#@db = CouchRest.database("http://127.0.0.1:5984/currmap")
-#@doc =  @db.view('testing/All')['rows'][0]
-#@couch.each do |doc|
-  
-#end
-

@@ -1,11 +1,10 @@
 %a(class="more")= @user_query
-%h2 Search Results
-- if @results.length == 0
+- unless @results.length > 0
   %p Sorry, no results. Please try another query.
-
-%dl#search_results  
-  - @results.each do |result|
-    %dt(class="#{result[:model].downcase}")
-      %a(href="/#{result[:model].downcase}/#{result[:id]}" rel="facebox[.full]")= result[:name] || result[:id]
-      %span= result[:id]
-    %dd= result[:highlight]
+- else
+  %dl#search_results  
+    - @results.each do |result|
+      %dt(class="#{result[:model].downcase}")
+        %a(href="/#{result[:model].downcase}/#{result[:id]}" rel="facebox[.full]")= result[:name] || result[:id]
+        %span= result[:id]
+      %dd= result[:highlight]

@@ -7,6 +7,8 @@
     +column(3)
     :font-size 1em
     +equal-column
+    :margin-right -10px
+    :padding-left 20px
   ul
     //+span(15)
     :list-style none
@@ -27,8 +29,9 @@
       h3 //course title
         :font-size 1em
         :line-height 1.5em
-        +column(3)
+        +column(2)
         +equal-column
+        :overflow hidden
       ul
         :list-style none
         +equal-column
@@ -43,19 +46,42 @@
           .nearterms
             +span(7)
             :float left
-          a.weeks
-            +span(3)
+            :color $text_light 
+            em
+              :color $text_regular
+              :font-style normal
+          a.week
+            +span(2)
             :float left
-  &#courses,&#resources,&#people
+  &#courses,
+  &#resources,
+  &#people
     ul
       +horizontal-list
+      :width 590px
       li
         :padding 0 2em 0 0
-  &#activities
+  &#activities,
+  &#all
     ul li
       :border-bottom $spacer 1px solid
       ul li
         :border-bottom none
-  a.author
-    :font-weight normal
+  .author 
     :display block
+    a
+      :font-weight normal
+      :margin-right 1em
+
+.facet h2
+  :background url() top left no-repeat
+
+#resources h2
+  :background-image url(/images/icons/book.png)    
+#people h2
+  :background-image url(/images/icons/status_online.png) !important
+#courses.facet h2
+  :background-image url(/images/icons/database.png)
+#collections h2
+  :background-image url(/images/icons/sitemap_color.png)
+  

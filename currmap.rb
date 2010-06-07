@@ -56,6 +56,32 @@ helpers do
       return source
     end
   end
+  
+  def search(query, scope)
+  
+   #@searcher = Search::Searcher.new('ferret')
+    @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::StandardAnalyzer.new)
+
+    field = :content
+    @results = []
+    query = Search::MultiTermQuery.new(field, :max_term => 10)
+    @user_query.split(' ',10).each do |s|
+      query << s
+    end
+    query.add_term(@user_query, 5)
+
+    @index.search_each(query) do |id, score|
+       @results << {
+        :id => @index[id]["id"], 
+        :name => @index[id]["name"],
+        :model => @index[id]["class"],
+        :result => @index[id].load,
+        :highlight => @index.highlight(query, id, :field => field, :num_excerpts => 2, :excerpt_length => 15, :pre_tag => "<em>", :post_tag => "</em>")
+        } if scope == "all" or scope.singularize == @index[id]["class"].downcase
+    end
+    
+    return @results
+  end
 end
 
 get '/' do 
@@ -71,35 +97,26 @@ end
 
 get '/search' do
   @user_query = params[:query].chomp.downcase
-  
-  params[:class] = params[:scope] = 'all'
-  
-  #@searcher = Search::Searcher.new('ferret')
-  @index = Index::Index.new(:path => 'ferret', :analyzer => Analysis::StandardAnalyzer.new)
-  
-  field = :content
-  @results = []
-  query = Search::MultiTermQuery.new(field, :max_term => 10)
-  @user_query.split(' ',10).each do |s|
-    query << s
-  end
-  query.add_term(@user_query, 5)
-  
-  @index.search_each(query) do |id, score|
-#    @results[@index[id]["class"]] = [] unless @results[@index[id]["class"]]
- #   @results[@index[id]["class"]] 
-     @results << {
-      :id => @index[id]["id"], 
-      :name => @index[id]["name"],
-      :model => @index[id]["class"],
-      :highlight => @index.highlight(query, id, :field => field, :num_excerpts => 5, :excerpt_length => 20, :pre_tag => "<strong>", :post_tag => "</strong>")
-      } if params[:scope] == "all" or params[:scope].singularize == @index[id]["class"].downcase
-  end
-  @title = params[:query] + " : " + params[:scope] + " : Search"
+  @results = search(@user_query, 'all')
+  @title = @user_query + " : Search"
   display :search, :layouts => :'layouts/search'
 end
 
 get '/results' do
+  @user_query = params[:query].chomp.downcase
+  
+  #activities
+  #@activities = search(@user_query, 'activity')
+  #courses
+  @courses = search(@user_query, 'course')
+  #resources
+  @resources = search(@user_query, 'resource')
+  #people
+  @people = search(@user_query, 'person')
+  #all
+  @results = search(@user_query, 'all')
+    
+  @title = params[:query] + " : Search"
   haml :results, :locals => {:sidebar => :_search_options}
 end
 
