@@ -10,7 +10,7 @@ def add_views
   view_dir = "couch-views"
   
   view_defs = Hash.new
-  Dir["./#{view_dir}/*.js"].each do |file|
+  Dir["#{File.dirname(__FILE__)}/#{view_dir}/*.js"].each do |file|
     name = file.match /([^\/])+(?=.js$)/
     func = open(file).readlines.map(&:chomp).join('')
     view_defs[name] = { "map" => func }
