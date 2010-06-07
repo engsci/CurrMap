@@ -8,6 +8,7 @@ require 'haml'
 require 'sass'
 
 require 'couch'
+require 'lib/tok'
 require 'json'
 require 'ferret'
 require 'error_handling'
@@ -20,6 +21,11 @@ configure do
   Compass.configuration.parse(File.join(Sinatra::Application.root, 'config.rb'))
   $server = Couch::Server.new('localhost', 5984)
   $db = 'currmap'
+  auth_info = YAML.load_file((File.join(Sinatra::Application.root, 'settings.yml')))
+  set :username, auth_info['tok-interface-un']
+  set :password, auth_info['tok-interface-pw']
+  $yggdrasil = TreeOfKnowledge::Client.new('localhost', 8080, '/tok-ruby/',
+                                           auth_info['tok-username'], auth_info['tok-password'])
 end
 
 Dir["./models/*.rb"].each { |file| require file}
@@ -32,6 +38,11 @@ end
 
 error CouchConnectFailure do
   'Error connecting to CouchDB server, please try again'
+  haml :error_page
+end
+
+error TreeOfKnowledge::ConnectionError do
+  'Error connecting to Tree of Knowledge server, please try again'
   haml :error_page
 end
 
@@ -77,6 +88,20 @@ helpers do
     
     return @results
   end
+
+  def protected!
+    unless authorized?
+      response['WWW-Authenticate'] = %(Basic realm="ToK HTTP Auth")
+      throw :halt, [401, "Not authorized\n"]
+    end
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? && @auth.basic? && @auth.credentials &&
+      @auth.credentials == [options.username, options.password]
+  end
+
 end
 
 get '/' do 
@@ -113,6 +138,20 @@ get '/results' do
     
   @title = params[:query] + " : Search"
   haml :results, :locals => {:sidebar => :_search_options}
+end
+
+get '/tok-input' do
+  protected!
+  
+  @knol = $yggdrasil.get_resource 'Knowledge'
+  haml :tok_adding
+end
+
+post '/tok-input' do
+  protected!
+  
+  $yggdrasil.add_resource '/Knowledge/' + params[:path]
+  redirect '/tok-input'
 end
 
 get '/:class/:id' do

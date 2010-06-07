@@ -1,0 +1,25 @@
+- display_subs = Proc.new do |knol|
+  %dd
+    %dl 
+      %dt= knol['name']
+      - if knol['subtopics'].empty?
+        %dd 
+      - else
+        - knol['subtopics'].each do |k| 
+          - display_subs.call(k)
+%h2 Tree of Knowledge Interface
+%dl
+  %dt= @knol['name']
+  - @knol['subtopics'].each do |knol| 
+    - display_subs.call(knol)
+%p Add a new knowledge item.  Indicate hierarchy by forward slashes
+%p 
+  e.g., to add Math enter 
+  %code Math.
+  To enter a subtopic of Math, e.g. Calculus, enter 
+  %code Math/Calculus
+%form(action="/tok-input" method="POST")
+  %fieldset
+    %legend(for="path") Path for new resource
+    %input(type="text" name="path" id="path")
+    %input(type="submit" value="Add")
