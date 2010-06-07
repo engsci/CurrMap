@@ -46,7 +46,7 @@ end
       parsed_doc["author"] = dbparse doc["value"]["author"]
       parsed_doc["name"] = dbparse doc["value"]["name"]
       parsed_doc["publisher"] = dbparse doc["value"]["publisher"]
-    when "Staff" then
+    when "Person" then
       parsed_doc["name"] = dbparse doc["value"]["name"]
     when "Collection" then
       parsed_doc["courses"] = dbparse doc["value"]["courses"]

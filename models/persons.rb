@@ -12,7 +12,7 @@ class Person < CouchDoc
       uri = File.join("/", @@db, "_design" , @@design_doc, "_view",
                       "CoursesByProf?startkey=[\"#{sname}\"]&endkey=[\"#{sname}\",2]")
       couch_got = JSON.parse(Couch::Server.new(@@couch_uri, @@couch_port).get(uri).body)["rows"]
-      if couch_got[0]["value"]["class"] == "Staff"
+      if couch_got[0]["value"]["class"] == "Person"
         @couch_data = couch_got[0]["value"]
         courses = couch_got[1..-1]
         if not courses.nil?
