@@ -61,8 +61,11 @@
           %a.title(href="/resource/#{resource[:id]}" rel="facebox")
             = resource[:name] || resource[:id]
           .author
-            - resource[:result][:author].each do |author|
-              %a= author
+            - if resource[:result][:author].class == String
+              %a= resource[:result][:author]
+            - else
+              - resource[:result][:author].each do |author|
+                %a= author
       -#
         %li.more
           %a(href="#") More
