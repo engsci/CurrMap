@@ -43,7 +43,7 @@ namespace :deploy do
   desc "Copy settings.yaml over"
   task :update_settings do
     settings_file = File.expand_path(File.join(File.dirname(__FILE__), '..', 'settings.yml'))
-    upload settings_file, "#{release_path}/settings.yml"
+    top.upload settings_file, "#{release_path}/settings.yml"
   end
   
 end
