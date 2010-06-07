@@ -33,6 +33,7 @@ namespace :deploy do
   desc "Symlink shared configs and folders on each release."
   task :symlink_shared do
     run "ln -nfs #{shared_path}/ferret #{release_path}/ferret"
+    run "ln -nfs #{shared_path}/settings.yml #{release_path}/settings.yml"
   end
   
   desc "Update the CouchDB views to the newest version"

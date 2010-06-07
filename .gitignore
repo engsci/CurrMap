@@ -18,4 +18,5 @@ assets/**
 .project
 foo.js
 ferret/**
+settings.yml
 .sass-cache/**
