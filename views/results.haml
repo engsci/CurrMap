@@ -91,6 +91,6 @@
               = result[:id] 
           %ul
             %li
-              %a.title= result[:name]
+              %a.title= result[:name] || "&nbsp;"
               .nearterms= result[:highlight].join(' ')
               %a.week(href="#")= result[:model].downcase
