@@ -78,13 +78,12 @@
         %li 
           %a(href="/person/#{person[:id]}" rel="facebox")
             = person[:name]
-            
-- unless @results.length > 0
-  %p Sorry, no results. Please try another query.
-- else
-  #all.facet
-    %h2 All  
-    %ul
+#all.facet
+  %h2 All
+  %ul            
+    - unless @results.length > 0
+      %li Sorry, no results. Please try another query.
+    - else
       - @results.each do |result|
         %li
           %h3
@@ -93,5 +92,5 @@
           %ul
             %li
               %a.title= result[:name]
-              .nearterms= result[:highlight]
+              .nearterms= result[:highlight].join(' ')
               %a.week(href="#")= result[:model].downcase

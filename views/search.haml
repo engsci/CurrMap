@@ -7,4 +7,4 @@
       %dt(class="#{result[:model].downcase}")
         %a(href="/#{result[:model].downcase}/#{result[:id]}" rel="facebox[.full]")= result[:name] || result[:id]
         %span= result[:id]
-      %dd= result[:highlight]
+      %dd= result[:highlight].join(' ')
