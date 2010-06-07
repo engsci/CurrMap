@@ -40,7 +40,14 @@ namespace :deploy do
     run "#{release_path}/views.rb"
   end
   
+  desc "Copy settings.yaml over"
+  task :update_settings do
+    settings_file = File.expand_path(File.join(File.dirname(__FILE__), '..', 'settings.yml'))
+    upload settings_file, "#{release_path}/settings.yml"
+  end
+  
 end
 
 after 'deploy:update_code', 'deploy:symlink_shared'
 after 'deploy:update_code', 'deploy:update_couch_views'
+after 'deploy:update_code', 'deploy:update_settings'
