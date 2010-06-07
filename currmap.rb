@@ -151,7 +151,7 @@ post '/tok-input' do
   protected!
   
   $yggdrasil.add_resource '/Knowledge/' + params[:path]
-  redirect '/tok-input'
+  redirect '/tok-input', 303 # Reset to GET
 end
 
 get '/:class/:id' do
