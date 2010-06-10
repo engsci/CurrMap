@@ -13,6 +13,7 @@ require 'json'
 require 'ferret'
 require 'error_handling'
 require 'active_support' # For singularize
+require 'uri'
 
 include Ferret
 
@@ -147,11 +148,25 @@ get '/tok-input' do
   haml :tok_adding
 end
 
-post '/tok-input' do
+post '/tok-input/knol' do
+  protected!
+
+  $yggdrasil.add_resource '/Knowledge/' + URI.escape(params[:path])
+  redirect '/tok-input', 303 # Reset to GET
+end
+
+post '/tok-input/syn' do
   protected!
   
-  $yggdrasil.add_resource '/Knowledge/' + params[:path]
-  redirect '/tok-input', 303 # Reset to GET
+  $yggdrasil.add_synonym URI.escape(params[:word1]), URI.escape(params[:word2]), params[:preferred] == 'true'
+  redirect '/tok-input', 303
+end
+
+post '/tok-input/rel' do
+  protected!
+  
+  $yggdrasil.add_relation URI.escape(params[:item1]), URI.escape(params[:reln]).to_sym, URI.escape(params[:item2])
+  redirect '/tok-input', 303
 end
 
 get '/:class/:id' do
