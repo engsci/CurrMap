@@ -1,9 +1,0 @@
-%h2 Resources
--@resources = @collection
-%dl
-  - @resources.each do |r|
-    %dt
-      %a(href="/resource/#{r._id}" rel="facebox")=r.name || r._id
-    - if r.author
-      - r.author.each do |a| 
-        %dd= a

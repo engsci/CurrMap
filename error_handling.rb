@@ -1,2 +1,0 @@
-class CouchConnectFailure < RuntimeError
-end
