@@ -1,0 +1,25 @@
+%h1 Listing courses
+
+%table
+  %tr
+    %th Calendar entry
+    %th Name
+    %th Semester
+    %th Weight
+    %th
+    %th
+    %th
+
+  - @courses.each do |course|
+    %tr
+      %td= course.calendar_entry
+      %td= course.name
+      %td= course.semester
+      %td= course.weight
+      %td= link_to 'Show', course
+      %td= link_to 'Edit', edit_course_path(course)
+      %td= link_to 'Destroy', course, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New course', new_course_path

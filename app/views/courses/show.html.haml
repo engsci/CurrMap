@@ -1,0 +1,16 @@
+%p
+  %b Calendar entry:
+  = @course.calendar_entry
+%p
+  %b Name:
+  = @course.name
+%p
+  %b Semester:
+  = @course.semester
+%p
+  %b Weight:
+  = @course.weight
+
+= link_to 'Edit', edit_course_path(@course)
+\|
+= link_to 'Back', courses_path
