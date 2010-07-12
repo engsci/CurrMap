@@ -12,30 +12,20 @@
     = javascript_include_tag 'facebox', 'app'
     = csrf_meta_tag
   %body
-    #header
-      %h1 
-        %a(href="/") CurrMap
-
-      %form(action="/results" method="get")
-        %input(type="text" name="query" value="#{params[:query] || 'Search'}" size="40" id="ferret_search")
-        -#
-          %select(name="scope")
-            %option(value="all") All
-            - %w(courses people resources collections).each do |model|
-              %option(value="#{model}"){:selected=>(params[:class] == model)}= model.capitalize
-        %input(type="submit" value="Search" id="ferret_submit")
-
-      %ul#menu
-        %li
-          %a(href="courses") Courses
-        %li
-          %a(href="#") Lexicon
-        %li
-          %a(href="#") Account
-        -#
-          - 
-
     #content
+      #header
+        %h1= link_to "CurrMap", root_path
+
+        %form(action="/results" method="get")
+          %input(type="text" name="query" value="#{params[:query] || 'Search'}" size="40" id="ferret_search")
+          %input(type="submit" value="Search" id="ferret_submit")
+
+        %ul#menu
+          %li= link_to "Courses"
+          %li= link_to "Lexicon"
+          %li= link_to "Account"
+
+    
       #main
         = yield
       #sidebar
