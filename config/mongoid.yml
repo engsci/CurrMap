@@ -1,4 +1,5 @@
-defaults: &defaults 
+defaults: &defaults
+  host: localhost
   # slaves:
   #   - host: slave1.local
   #     port: 27018
@@ -7,7 +8,6 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  host: localhost
   database: currmap_development
 
 test:
@@ -17,4 +17,8 @@ test:
 # set these environment variables on your prod server
 production:
   <<: *defaults
-  uri: <%= ENV['MONGOHQ_URL'] %>
+  host: flame.mongohq.com
+  port: 27075
+  username: mongodb
+  password: gogomongo
+  database: currmap
