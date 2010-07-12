@@ -1,5 +1,4 @@
-defaults: &defaults
-  host: localhost
+defaults: &defaults 
   # slaves:
   #   - host: slave1.local
   #     port: 27018
@@ -8,6 +7,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  host: localhost
   database: currmap_development
 
 test:
