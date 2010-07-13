@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.xml
   def index
-    @courses = Course.all
+    @courses = Course.all.sort_by { |x| [x.year,x.semester,x.name]}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +16,10 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
 
     respond_to do |format|
+      format.js { render :layout => false } if request.xhr?
       format.html # show.html.erb
       format.xml  { render :xml => @course }
+      
     end
   end
 

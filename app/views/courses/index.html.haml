@@ -1,25 +1,17 @@
-%h1 Listing courses
-
-%table
-  %tr
-    %th Calendar entry
-    %th Name
-    %th Semester
-    %th Weight
-    %th
-    %th
-    %th
-
+%h2 Courses
+-prevyear = 0
+-prevsem = ""
+%dl#courses
   - @courses.each do |course|
-    %tr
-      %td= course.calendar_entry
-      %td= course.name
-      %td= course.semester
-      %td= course.weight
-      %td= link_to 'Show', course
-      %td= link_to 'Edit', edit_course_path(course)
-      %td= link_to 'Destroy', course, :confirm => 'Are you sure?', :method => :delete
+    - if course.year != prevyear
+      %dt= "Year " + course.year
+      - prevyear = course.year
+    - if course.semester != prevsem   
+      %dt= "Semester " + course.semester
+      - prevsem = course.semester
+    %dd
+      =link_to course.short_code, course, {:rel=>"facebox[.full]", :title => course.name}
+      %span=course.name
 
-%br
 
 = link_to 'New course', new_course_path
