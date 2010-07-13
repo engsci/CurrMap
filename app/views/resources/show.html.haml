@@ -1,0 +1,18 @@
+.resource.object
+  %a(href="/resource/#{@resource._id}" class="expand") expand
+  %h1= @resource.name
+  %dl
+    
+    - if @resource.author
+      %dt Authors
+      - @resource.author.each do |a| 
+        %dd= a
+
+    - %w(publisher type isbn edition).each do |f|
+      - if @resource.send(f)
+        %dt= f.capitalize
+        %dd= @resource.send(f)
+
+= link_to 'Edit', edit_resource_path(@resource)
+\|
+= link_to 'Back', resources_path

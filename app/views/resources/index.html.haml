@@ -1,0 +1,10 @@
+%h2 Resources
+%dl
+  - @resources.each do |r|
+    %dt= link_to r.name, r, :rel => 'facebox'
+    - if r.author
+      - r.author.each do |a| 
+        %dd= a
+
+
+= link_to 'New resource', new_resource_path

@@ -1,4 +1,5 @@
 Currmap::Application.routes.draw do |map|
+  resources :resources
   resources :collections
   resources :courses
 
