@@ -1,0 +1,33 @@
+.person.object
+  =link_to 'expand', @person, :class => "expand"
+  %h1= @person.name
+  %dl
+    - %w(phone website email).each do |f|
+      - if @person.send(f)
+        %dt= f.capitalize
+        - info = @person.send(f)
+        - if info.kind_of? Array
+          %dd
+            %ul
+              - info.each do |i|
+                %li= i
+        - else
+          - if(f=="email")
+            %dd
+              %a(href="mailto:#{info}")= info
+          - elsif(f=="website")
+            %dd
+              %a(href="#{info}")=info
+          -else
+            %dd= info
+    %dt Courses Taught
+    %dd
+      %ul
+        -# @person.courses_taught.each do |c|
+          %li
+            %a(href="/course/#{c['_id']}" rel="facebox[.full]")= c['name']
+
+
+= link_to 'Edit', edit_person_path(@person)
+\|
+= link_to 'Back', people_path
