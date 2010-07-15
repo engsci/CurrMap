@@ -16,7 +16,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
 
     respond_to do |format|
-      format.js { render :layout => false } if request.xhr?
+      format.js
       format.html # show.html.erb
       format.xml  { render :xml => @collection }
     end

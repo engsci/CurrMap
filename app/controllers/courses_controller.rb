@@ -16,10 +16,9 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
 
     respond_to do |format|
-      format.js { render :layout => false } if request.xhr?
+      format.js
       format.html # show.html.erb
       format.xml  { render :xml => @course }
-      
     end
   end
 
