@@ -1,0 +1,90 @@
+-#
+  #activities.facet
+    %h2 Activities
+    %ul
+      %li
+        %h3 
+          %a(href="#") ECE453
+        %ul
+          %li
+            %a.title(href="#") Lecture 7 
+            .nearterms text surrounding query
+            %a.week(href="#") Week 2
+          %li
+            %a.title(href="#") Lecture 8 
+            .nearterms these words surround
+            %a.week(href="#") Week 2
+          %li 
+            %a.title(href="#") Midterm 1 
+            .nearterms the query as well
+            %a.week(href="#") Week 3
+          %li.more
+            %a(href="#") + 2 more
+      %li
+        %h3
+          %a(href="#") CIV101
+        %ul
+          %li 
+            %a.title(href="#") Lecture 4
+            .nearterms some text goes here
+            %a.week(href="#") Week 4
+          %li.more
+            %a(href="#") + 1 more
+      %li
+        %h3 
+          %a(href="#") ECE342
+        %ul
+          %li
+            %a.title(href="#") Lecture 4
+            .nearterms some other words here 
+            %a.week(href="#") Week 4
+      -#
+        %li.more
+          %a(href="#") More
+-if @courses && @courses.length > 0
+  #courses.facet
+    %h2 Courses
+    %ul
+      - @courses.each do |course|
+        %li= link_to course.id, course, :rel => 'facebox[.full]'
+      %li.more= link_to "More"
+-if @resources && @resources.length > 0
+  #resources.facet
+    %h2 Resources
+    %ul
+      - @resources.each do |resource|
+        %li
+          = link_to resource.name, resource, :rel => 'facebox', :class => 'title'
+          -#.nearterms= resource[:highlight].join(' ')
+          .author
+            - if resource.author.class == String
+              %a= resource.author
+            - else
+              - resource.author.each do |author|
+                %a= author
+      -#
+        %li.more
+          %a(href="#") More
+        
+-if @people && @people.length > 0
+  #people.facet
+    %h2 People
+    %ul
+      - @people.each do |person|
+        %li= link_to person.name, person, :rel => 'facebox'
+- if @enable_all
+  #all.facet
+    %h2 All
+    %ul            
+      - unless @results and @results.length > 0
+        %li Sorry, no results. Please try another query.
+      - else
+        - @results.each do |result|
+          %li
+            %h3= link_to result.name || result.id, result, :rel => "facebox[.full]"
+          -#
+            %ul
+              %li
+                %a.title= result[:name] || "&nbsp;"
+                .nearterms= result[:highlight].join(' ')
+                %a.week(href="#")= result[:model].downcase

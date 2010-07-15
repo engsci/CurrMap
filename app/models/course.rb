@@ -2,7 +2,7 @@ class Course
   include Mongoid::Document
   
   # FIELDS
-  field :course_code, :type => String
+  #field :course_code, :type => String
   field :calendar_entry, :type => String
   field :name, :type => String
   field :semester, :type => String
@@ -10,14 +10,14 @@ class Course
   #workload for lecture, tutorial, practice
   
   # RELATIONSHIPS
-  embeds_many :activities
-  references_many :resources, :stored_as => :array, :inverse_of => :courses
-  references_many :people, :stored_as => :array, :inverse_of => :courses #should have role as well
-  references_many :collections, :stored_as => :array, :inverse_of => :courses
+  #embeds_many :activities
+  #references_many :resources, :stored_as => :array, :inverse_of => :courses
+  #references_many :people, :stored_as => :array, :inverse_of => :courses #should have role as well
+  #references_many :collections, :stored_as => :array, :inverse_of => :courses
   
   
   # VALIDATIONS
-  validates_presence_of :course_code, :name
+  #validates_presence_of :course_code, :name
   
   # OTHER
   
@@ -27,4 +27,22 @@ class Course
   #references_many :related_concepts, :stored_as => :array, :inverse_of => :courses 
   #references_many :courses, :stored_as => :array, :inverse_of => :related_courses
   
+  # METHODS
+  def course_code
+    return self._id
+  end
+  def year
+    return self.course_code[3,1]
+  end
+  
+  def short_code
+    return self.course_code[0,6]
+  end
+  
+  # SEARCH
+  include Sunspot::Mongoid
+  searchable do
+    text :name
+    text :calendar_entry
+  end
 end

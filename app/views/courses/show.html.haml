@@ -1,15 +1,61 @@
-%p
-  %b Calendar entry:
-  = @course.calendar_entry
-%p
-  %b Name:
-  = @course.name
-%p
-  %b Semester:
-  = @course.semester
-%p
-  %b Weight:
-  = @course.weight
+=link_to 'expand', @course, :class => "expand"  
+%h1
+  =link_to @course.course_code, @course
+%h3= @course.name
+%p= @course.calendar_entry
+-#
+  %dl
+    %dt Professors
+    -# @course.people.each do |p|
+      %dd
+        =link_to p.name, p, :rel => "facebox"
+
+  -# if @course.resources && !@course.resources.empty?
+    %dt Resources
+    %dd
+      %ul
+        -# @course.resources.each do |r|
+          %li
+            %a(href="/resource/#{r._id}" rel="facebox")= r.name || "ISBN #{r._id}"
+            - if r.optional
+              (optional)
+            - if r.author
+              %ul
+                - r.author.each do |a| 
+                  %li= a
+
+#extended_info
+  - if @course.activities          
+    %h3 Activities
+    %p=# "#{@course.midterms.length} Midterms"
+    %p=# "#{@course.lectures.length} Lectures"
+    
+    %h4 Lectures
+    %table.activities
+      %tr
+        %th Week
+        %th Lecture
+        %th Outcomes
+      - week = 0
+      -# @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
+        %tr
+          %td
+            - if a.week != week
+              = a.week
+              - week = a.week
+            
+          %td
+            = a.number
+            -# a.class
+          %td
+            %ul.outcomes
+              - a.outcomes.each do |outcome, modes|
+                %li.outcome
+                  %a(href="/search?query=#{outcome}&scope=all" rel="facebox" )= outcome
+                  - modes.each do |mode|
+                    %span(class="mode #{mode}" title="#{mode}")
+
+
 
 = link_to 'Edit', edit_course_path(@course)
 \|

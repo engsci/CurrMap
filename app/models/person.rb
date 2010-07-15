@@ -11,4 +11,12 @@ class Person
   def short_name
     self.id
   end
+  
+  # SEARCH
+  
+  include Sunspot::Mongoid
+  searchable do
+    text :name
+  end
+  
 end

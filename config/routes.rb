@@ -1,7 +1,13 @@
 Currmap::Application.routes.draw do |map|
+  resources :people
+
   resources :resources
+
   resources :collections
+
   resources :courses
+  
+  match 'search' => 'pages#search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

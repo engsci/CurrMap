@@ -6,6 +6,10 @@ gem 'bson_ext', '1.0.1'
 gem 'haml', '3.0.12'
 gem 'rails3-generators'
 gem 'compass', '>= 0.10.2'
+gem 'json'
+gem 'nokogiri'
+gem 'sunspot', :require => 'sunspot'
+gem 'sunspot_mongoid'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
