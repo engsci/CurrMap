@@ -9,18 +9,18 @@
     %dd
       =link_to p.name, p, :rel => "facebox"
 
-  -# if @course.resources && !@course.resources.empty?
+  - unless @course.resources.empty?
     %dt Resources
     %dd
       %ul
-        -# @course.resources.each do |r|
+        - @course.resources.each do |r|
           %li
-            %a(href="/resource/#{r._id}" rel="facebox")= r.name || "ISBN #{r._id}"
+            = link_to r.name || "ISBN #{r._id}", r
             - if r.optional
               (optional)
-            - if r.author
+            - if r.authors
               %ul
-                - r.author.each do |a| 
+                - r.authors.each do |a| 
                   %li= a
 
 #extended_info

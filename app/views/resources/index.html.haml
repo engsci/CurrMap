@@ -2,9 +2,8 @@
 %dl
   - @resources.each do |r|
     %dt= link_to r.name, r, :rel => 'facebox'
-    %dd= r.author
-    -# if r.author
-      - r.author.each do |a| 
+    - if r.authors
+      - r.authors.each do |a| 
         %dd= a
 
 

@@ -57,11 +57,8 @@
           = link_to resource.name, resource, :rel => 'facebox', :class => 'title'
           -#.nearterms= resource[:highlight].join(' ')
           .author
-            - if resource.author.class == String
-              %a= resource.author
-            - else
-              - resource.author.each do |author|
-                %a= author
+            - resource.authors.each do |author|
+              %a= author
       -#
         %li.more
           %a(href="#") More
