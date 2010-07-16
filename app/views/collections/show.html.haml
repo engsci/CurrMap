@@ -6,11 +6,10 @@
     - @collection.collections.each do |c|
       - if c._id
         %dd= link_to c.name, c, :rel => "facebox"
-  -# if @collection.courses.length > 0
+  - unless @collection.courses.empty?
     %dt Courses
     - @collection.courses.each do |c|
-      - if c.course_code
-        %dd= link_to c.course_code, c, :rel => "facebox"
+      %dd= link_to c.course_code, c, :rel => "facebox"
 
 = link_to 'Edit', edit_collection_path(@collection)
 \|

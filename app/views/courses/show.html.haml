@@ -22,6 +22,14 @@
               %ul
                 - r.authors.each do |a| 
                   %li= a
+                  
+  - unless @course.collections.empty?
+    %dt Collections
+    %dd
+      %ul
+        - @course.collections.each do |c|
+          %li
+            = link_to c.name, c, :rel => 'facebox'
 
 #extended_info
   - if @course.respond_to?(:activities)         

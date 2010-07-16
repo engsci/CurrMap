@@ -6,6 +6,6 @@ class Collection
   end
   #field :type, :type => String
   
- # references_many :courses, :stored_as => :array, :inverse_of => :collections
+  references_many :courses, :stored_as => :array, :inverse_of => :collections
   
 end
