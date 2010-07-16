@@ -20,11 +20,12 @@
               %a(href="#{info}")=info
           -else
             %dd= info
-    %dt Courses Taught
-    %dd
-      %ul
-        - @person.courses.each do |c|
-          %li= link_to c.course_code, c, :rel => "facebox[.full]"
+    -unless @person.courses.empty?
+      %dt Courses Taught
+      %dd
+        %ul
+          - @person.courses.each do |c|
+            %li= link_to c.course_code, c, :rel => "facebox[.full]"
 
 
 = link_to 'Edit', edit_person_path(@person)
