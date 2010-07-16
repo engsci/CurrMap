@@ -12,9 +12,8 @@ class Course
   # RELATIONSHIPS
   #embeds_many :activities
   #references_many :resources, :stored_as => :array, :inverse_of => :courses
-  #references_many :people, :stored_as => :array, :inverse_of => :courses #should have role as well
+  references_many :professors, :stored_as => :array, :inverse_of => :courses
   #references_many :collections, :stored_as => :array, :inverse_of => :courses
-  
   
   # VALIDATIONS
   #validates_presence_of :course_code, :name

@@ -23,9 +23,8 @@
     %dt Courses Taught
     %dd
       %ul
-        -# @person.courses_taught.each do |c|
-          %li
-            %a(href="/course/#{c['_id']}" rel="facebox[.full]")= c['name']
+        - @person.courses.each do |c|
+          %li= link_to c.course_code, c, :rel => "facebox[.full]"
 
 
 = link_to 'Edit', edit_person_path(@person)

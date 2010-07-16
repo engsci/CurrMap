@@ -14,7 +14,7 @@ class PagesController < ApplicationController
     end
     @results = search.results
     @resources = @results.select {|i| i.class == Resource }
-    @people = @results.select {|i| i.class == Person }
+    @people = @results.select {|i| i.class.ancestors.include? Person }
     @courses = @results.select {|i| i.class == Course } 
     @enable_all = false
   end

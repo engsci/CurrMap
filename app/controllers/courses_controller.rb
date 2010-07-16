@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.xml
   def show
+    Person #need this in development mode b/c person subclasses aren't being eagerloaded :@
     @course = Course.find(params[:id])
 
     respond_to do |format|

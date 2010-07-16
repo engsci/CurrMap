@@ -3,12 +3,11 @@
   =link_to @course.course_code, @course
 %h3= @course.name
 %p= @course.calendar_entry
--#
-  %dl
-    %dt Professors
-    -# @course.people.each do |p|
-      %dd
-        =link_to p.name, p, :rel => "facebox"
+%dl
+  %dt Professors
+  -@course.professors.each do |p|
+    %dd
+      =link_to p.name, p, :rel => "facebox"
 
   -# if @course.resources && !@course.resources.empty?
     %dt Resources
@@ -25,7 +24,7 @@
                   %li= a
 
 #extended_info
-  - if @course.activities          
+  - if @course.respond_to?(:activities)         
     %h3 Activities
     %p=# "#{@course.midterms.length} Midterms"
     %p=# "#{@course.lectures.length} Lectures"
