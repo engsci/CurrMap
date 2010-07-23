@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.beta4'
-gem 'mongoid', '2.0.0.beta9'
-gem 'bson_ext', '1.0.1'
+gem 'mongoid', :git => 'git://github.com/durran/mongoid.git'# '2.0.0.beta9'
+gem 'bson_ext', '1.0.4'
 gem 'haml', '3.0.12'
 gem 'rails3-generators'
 gem 'compass', '>= 0.10.2'
