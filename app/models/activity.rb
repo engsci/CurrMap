@@ -1,5 +1,6 @@
 class Activity
   include Mongoid::Document
+  identity :type => String
   
   field :week, :type => Integer
   field :type, :type => String

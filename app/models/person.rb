@@ -1,5 +1,6 @@
 class Person
   include Mongoid::Document
+  identity :type => String
   
   field :name, :type => String
   
@@ -23,7 +24,7 @@ class Employee < Person
 end
 
 class Professor < Employee
-  references_many :courses, :stored_as => :array, :inverse_of => :professors
+  references_many :courses, :stored_as => :array, :inverse_of => :professors, :index => true
 end
 
 class Author < Person

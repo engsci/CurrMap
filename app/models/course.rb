@@ -1,5 +1,6 @@
 class Course
   include Mongoid::Document
+  identity :type => String
   
   # FIELDS
   #field :course_code, :type => String
@@ -11,9 +12,9 @@ class Course
   
   # RELATIONSHIPS
   #embeds_many :activities
-  references_many :resources, :stored_as => :array, :inverse_of => :courses
-  references_many :professors, :stored_as => :array, :inverse_of => :courses
-  references_many :collections, :stored_as => :array, :inverse_of => :courses
+  references_many :resources, :stored_as => :array, :inverse_of => :courses, :index => true
+  references_many :professors, :stored_as => :array, :inverse_of => :courses, :index => true
+  references_many :collections, :stored_as => :array, :inverse_of => :courses, :index => true
   
   # VALIDATIONS
   #validates_presence_of :course_code, :name
@@ -43,5 +44,6 @@ class Course
   searchable do
     text :name
     text :calendar_entry
+    text :course_code
   end
 end

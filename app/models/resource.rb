@@ -1,5 +1,6 @@
 class Resource
   include Mongoid::Document
+  identity :type => String
   
   field :isbn, :type => String
   field :authors, :type => Array
@@ -16,7 +17,7 @@ class Resource
     authors[0]
   end
   
-  references_many :courses, :stored_as => :array, :inverse_of => :resources
+  references_many :courses, :stored_as => :array, :inverse_of => :resources, :index => true
   
   #def logger
   #  RAILS_DEFAULT_LOGGER

@@ -34,6 +34,7 @@ end
 # NOTE: COURSES MUST BE IMPORTED AFTER PROFS
 
 # IMPORT COURSES
+Person #initialize Prof, other subclasses
 Course.destroy_all
 CouchCourse.get_all.each do |c|
   hash = c.to_hash
@@ -74,6 +75,8 @@ CouchCollection.get_all.each do |c|
   hash.delete("class")
   courses = hash["courses"]
   hash.delete("courses")
+  hash.delete("collections") #linked seperately, see below
+  
   
   collection = Collection.new(hash)
   
@@ -86,3 +89,19 @@ CouchCollection.get_all.each do |c|
   collection.save
 end
 
+
+#link collections to collections
+CouchCollection.get_all.each do |c|
+  hash = c.to_hash
+  collections = hash["collections"]
+  
+  collection = Collection.find(hash["_id"])
+
+  collections.each do |id|
+    col = Collection.find(id)
+    collection.collections << col
+    #col.save
+  end if collections
+  
+  collection.save
+end
