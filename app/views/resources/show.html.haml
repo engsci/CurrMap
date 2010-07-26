@@ -1,6 +1,6 @@
 .resource.object
-  %a(href="/resource/#{@resource._id}" class="expand") expand
-  %h1= @resource.name
+  =link_to "expand", @resource, :class => "expand"
+  %h1= link_to @resource.name, @resource
   %dl
     
     - if @resource.authors

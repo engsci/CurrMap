@@ -1,6 +1,6 @@
 .person.object
   =link_to 'expand', @person, :class => "expand"
-  %h1= @person.name
+  %h1= link_to @person.name, @person
   %dl
     - %w(phone website email).each do |f|
       - if @person.send(f)
