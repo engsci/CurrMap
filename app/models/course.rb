@@ -44,6 +44,17 @@ class Course
   searchable do
     text :name
     text :calendar_entry
-    text :course_code
+    text :course_code do
+      id
+    end
+    text :short_code do
+      course_code[0,6]
+    end
+    text :department do
+      course_code[0,3]
+    end
+    text :collections do
+      collections.map(&:name).join(" ")
+    end
   end
 end

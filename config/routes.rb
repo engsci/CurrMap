@@ -10,6 +10,9 @@ Currmap::Application.routes.draw do |map|
   resources :professors, :controller => 'people'
   
   match 'search' => 'pages#search'
+  match 'about' => 'pages#about'
+  match 'contact' => 'pages#contact'
+  match 'help' => 'pages#help'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

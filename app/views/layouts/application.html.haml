@@ -33,9 +33,9 @@
       #footer
         Department of Engineering Science, University of Toronto &copy; 2010
         %ul
-          %li= link_to "About"
-          %li= link_to "Help"
-          %li= link_to "Contact"
+          %li= link_to "About", :controller => :pages, :action => :about
+          %li= link_to "Help", :controller => :pages, :action => :help
+          %li= link_to "Contact", :controller => :pages, :action => :contact
       = render :partial => 'layouts/feedback'
           
 

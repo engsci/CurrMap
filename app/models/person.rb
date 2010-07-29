@@ -13,6 +13,12 @@ class Person
   include Sunspot::Mongoid
   searchable do
     text :name
+    text :course_descriptions do
+      self.courses.map(&:calendar_entry).join(" ")
+    end
+    text :course_names do 
+      self.courses.map(&:name).join(" ")
+    end
   end
 
 end

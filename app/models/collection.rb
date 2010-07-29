@@ -14,4 +14,14 @@ class Collection
   references_many :courses, :stored_as => :array, :inverse_of => :collections, :index => true
   references_many :collections, :stored_as => :array
   
+  include Sunspot::Mongoid
+  searchable do
+    text :name do
+      id
+    end
+    text :course_names do 
+      self.courses.map(&:name).join(" ")
+    end
+  end
+  
 end

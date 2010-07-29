@@ -46,8 +46,11 @@
     %h2 Courses
     %ul
       - @courses.each do |course|
-        %li= link_to course.id, course, :rel => 'facebox[.full]'
-      %li.more= link_to "More"
+        %li
+          = link_to course.name, course, :rel => 'facebox[.full]'
+          .author
+            = link_to course.id, course, :rel => 'facebox[.full]'
+      -# %li.more= link_to "More"
 -if @resources && @resources.length > 0
   #resources.facet
     %h2 Resources
@@ -57,18 +60,26 @@
           = link_to resource.name, resource, :rel => 'facebox', :class => 'title'
           -#.nearterms= resource[:highlight].join(' ')
           .author
-            - resource.authors.each do |author|
-              %a= author
+            - if resource.authors && resource.authors.length > 0
+              - resource.authors.each do |author|
+                %a= author
       -#
         %li.more
           %a(href="#") More
         
--if @people && @people.length > 0
+-if @people.length > 0
   #people.facet
     %h2 People
     %ul
       - @people.each do |person|
         %li= link_to person.name, person, :rel => 'facebox'
+        
+-if @collections.length > 0
+  #collections.facet
+    %h2 Collections
+    %ul
+      - @collections.each do |collection|
+        %li= link_to collection.name, collection, :rel => 'facebox'
 - if @enable_all
   #all.facet
     %h2 All

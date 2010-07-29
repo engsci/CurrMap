@@ -33,7 +33,9 @@ class Resource
   searchable do
     text :publisher
     text :name
-    text :author
+    text :authors do 
+      self.authors ? self.authors.join(" ") : nil
+    end
     text :isbn
   end  
   
