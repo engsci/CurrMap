@@ -105,3 +105,13 @@ CouchCollection.get_all.each do |c|
   
   collection.save
 end
+
+Person.remove_all_from_index
+Resource.remove_all_from_index
+Course.remove_all_from_index
+Collection.remove_all_from_index
+
+Sunspot.index(Person.all)
+Sunspot.index(Resource.all)
+Sunspot.index(Course.all)
+Sunspot.index(Collection.all)

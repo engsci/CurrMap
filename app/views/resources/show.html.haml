@@ -1,5 +1,4 @@
 .resource.object
-  =link_to "expand", @resource, :class => "expand"
   %h1= link_to @resource.name, @resource
   %dl
     
@@ -17,6 +16,4 @@
       - @resource.courses.each do |c| 
         %dd= link_to c.name, c, :rel => 'facebox'
 
-= link_to 'Edit', edit_resource_path(@resource)
-\|
-= link_to 'Back', resources_path
+  = link_to 'Edit', edit_resource_path(@resource), :class => 'edit'

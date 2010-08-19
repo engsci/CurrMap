@@ -1,5 +1,4 @@
 .person.object
-  =link_to 'expand', @person, :class => "expand"
   %h1= link_to @person.name, @person
   %dl
     - %w(phone website email).each do |f|
@@ -28,6 +27,4 @@
             %li= link_to c.course_code, c, :rel => "facebox[.full]"
 
 
-= link_to 'Edit', edit_person_path(@person)
-\|
-= link_to 'Back', people_path
+  = link_to 'Edit', edit_person_path(@person), :class => 'edit'

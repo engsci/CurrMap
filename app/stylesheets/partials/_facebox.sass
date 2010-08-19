@@ -1,34 +1,34 @@
 .full
   :width 500px
 
-    
 .popup
-  h1
-    :font-size 1.2em
-    :border-bottom 1px solid #000
-    :padding-bottom 0.5em
-    :margin 0
-    
   #extended_info
     :display none
-    
-    
-a.expand, a.more
-  :display none
-  
-.popup
-  a.expand, a.more
-    :display block
-    :float right
-    :color #666
-  a.expand
-    :overflow hidden
-    :width 16px
-    :height 16px
-    :background url(/images/icons/information.png) no-repeat
-    :text-indent -1000px
 
 #facebox
+  h1 
+    :font-size 1.5em
+    :padding-bottom 0.5em
+    :margin 0
+    a
+      :background $bg_light
+      :margin -10px -10px 0 -10px
+      :padding 10px
+      :color $text_inverse
+      :text-decoration none  
+      :display block
+      :font-weight bold
+  .edit
+    :position absolute
+    :display block
+    :font-size 1.25em
+    :height 25px
+    :line-height 25px
+    :letter-spacing 0.05em
+    :margin 5px 0 0 -5px
+    :padding 0 5px
+    :text-transform uppercase
+//
   .footer
     :border-top none !important
     :margin-top 0 !important

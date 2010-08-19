@@ -1,69 +1,67 @@
-=link_to 'expand', @course, :class => "expand"  
-%h1
-  =link_to @course.course_code, @course
-%h3= @course.name
-%p= @course.calendar_entry
-%dl
-  %dt Professors
-  -@course.professors.each do |p|
-    %dd
-      =link_to p.name, p, :rel => "facebox"
+.course.object
+  %h1
+    =link_to @course.course_code, @course
+  %h3= @course.name
+  %p= @course.calendar_entry
+  %dl
+    %dt Professors
+    -@course.professors.each do |p|
+      %dd
+        =link_to p.name, p, :rel => "facebox"
 
-  - unless @course.resources.empty?
-    %dt Resources
-    %dd
-      %ul
-        - @course.resources.each do |r|
-          %li
-            = link_to r.name || "ISBN #{r._id}", r
-            - if r.optional
-              (optional)
-            - if r.authors
-              %ul
-                - r.authors.each do |a| 
-                  %li= a
+    - unless @course.resources.empty?
+      %dt Resources
+      %dd
+        %ul
+          - @course.resources.each do |r|
+            %li
+              = link_to r.name || "ISBN #{r._id}", r
+              - if r.optional
+                (optional)
+              - if r.authors
+                %ul
+                  - r.authors.each do |a| 
+                    %li= a
                   
-  - unless @course.collections.empty?
-    %dt Collections
-    %dd
-      %ul
-        - @course.collections.each do |c|
-          %li
-            = link_to c.name, c, :rel => 'facebox'
+    - unless @course.collections.empty?
+      %dt Collections
+      %dd
+        %ul
+          - @course.collections.each do |c|
+            %li
+              = link_to c.name, c, :rel => 'facebox'
 
-#extended_info
-  - if @course.respond_to?(:activities)         
-    %h3 Activities
-    %p=# "#{@course.midterms.length} Midterms"
-    %p=# "#{@course.lectures.length} Lectures"
+  #extended_info
+    - if @course.respond_to?(:activities)         
+      %h3 Activities
+      %p=# "#{@course.midterms.length} Midterms"
+      %p=# "#{@course.lectures.length} Lectures"
     
-    %h4 Lectures
-    %table.activities
-      %tr
-        %th Week
-        %th Lecture
-        %th Outcomes
-      - week = 0
-      -# @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
+      %h4 Lectures
+      %table.activities
         %tr
-          %td
-            - if a.week != week
-              = a.week
-              - week = a.week
+          %th Week
+          %th Lecture
+          %th Outcomes
+        - week = 0
+        -# @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
+          %tr
+            %td
+              - if a.week != week
+                = a.week
+                - week = a.week
             
-          %td
-            = a.number
-            -# a.class
-          %td
-            %ul.outcomes
-              - a.outcomes.each do |outcome, modes|
-                %li.outcome
-                  %a(href="/search?query=#{outcome}&scope=all" rel="facebox" )= outcome
-                  - modes.each do |mode|
-                    %span(class="mode #{mode}" title="#{mode}")
+            %td
+              = a.number
+              -# a.class
+            %td
+              %ul.outcomes
+                - a.outcomes.each do |outcome, modes|
+                  %li.outcome
+                    %a(href="/search?query=#{outcome}&scope=all" rel="facebox" )= outcome
+                    - modes.each do |mode|
+                      %span(class="mode #{mode}" title="#{mode}")
 
 
 
-= link_to 'Edit', edit_course_path(@course)
-\|
-= link_to 'Back', courses_path
+  = link_to 'Edit', edit_course_path(@course), :class => 'edit'

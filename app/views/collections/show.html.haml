@@ -1,19 +1,17 @@
-=link_to "expand", @collection, :class => "expand"
-%h1= link_to @collection.name, @collection
-%dl
-  -if @collection.parents.length > 0
-    %dt Parent Collections
-    - @collection.parents.each do |c|
-      %dd= link_to c.name, c, :rel => "facebox"
-  -if @collection.collections.length > 0
-    %dt Child Collections
-    - @collection.collections.each do |c|
-      %dd= link_to c.name, c, :rel => "facebox"
-  - unless @collection.courses.empty?
-    %dt Courses
-    - @collection.courses.each do |c|
-      %dd= link_to c.course_code, c, :rel => "facebox"
+.collection.object
+  %h1= link_to @collection.name, @collection
+  %dl
+    -if @collection.parents.length > 0
+      %dt Parent Collections
+      - @collection.parents.each do |c|
+        %dd= link_to c.name, c, :rel => "facebox"
+    -if @collection.collections.length > 0
+      %dt Child Collections
+      - @collection.collections.each do |c|
+        %dd= link_to c.name, c, :rel => "facebox"
+    - unless @collection.courses.empty?
+      %dt Courses
+      - @collection.courses.each do |c|
+        %dd= link_to c.course_code, c, :rel => "facebox"
 
-= link_to 'Edit', edit_collection_path(@collection)
-\|
-= link_to 'Back', collections_path
+  = link_to 'Edit', edit_collection_path(@collection), :class => 'edit'
