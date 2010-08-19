@@ -1,5 +1,5 @@
 Currmap::Application.routes.draw do |map|
-  devise_for :admins
+  map.devise_for :admins
 
   resources :people
 
