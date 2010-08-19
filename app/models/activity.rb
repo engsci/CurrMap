@@ -3,7 +3,7 @@ class Activity
   identity :type => String
   
   field :week, :type => Integer
-  field :type, :type => String
+  #field :type, :type => String
   field :number, :type => String
   field :mode, :type => String
   
