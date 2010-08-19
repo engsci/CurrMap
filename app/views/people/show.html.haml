@@ -27,4 +27,4 @@
             %li= link_to c.course_code, c, :rel => "facebox[.full]"
 
 
-  = link_to 'Edit', edit_person_path(@person), :class => 'edit'
+  = link_to 'Edit', edit_person_path(@person), :class => 'edit' if admin_signed_in?

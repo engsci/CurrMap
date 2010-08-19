@@ -23,19 +23,28 @@
         %ul#menu
           %li= link_to "Courses", courses_path
           %li= link_to "Lexicon"
-          %li= link_to "Account"
+
+          - if admin_signed_in?
+            %li= link_to "Log Out", destroy_admin_session_path
+          - else
+            -#%li= link_to "Register", new_user_registration_path
+            %li= link_to "Log In", new_admin_session_path
 
     
       #main
+        - if notice
+          .notice= notice
+        - if alert
+          .alert= alert
         = yield
       #sidebar
         = render :partial => 'layouts/sidebar'
       #footer
         Department of Engineering Science, University of Toronto &copy; 2010
         %ul
-          %li= link_to "About", :controller => :pages, :action => :about
-          %li= link_to "Help", :controller => :pages, :action => :help
-          %li= link_to "Contact", :controller => :pages, :action => :contact
+          %li= link_to "About", :controller => "/pages", :action => :about
+          %li= link_to "Help", :controller => "/pages", :action => :help
+          %li= link_to "Contact", :controller => "/pages", :action => :contact
       = render :partial => 'layouts/feedback'
           
 

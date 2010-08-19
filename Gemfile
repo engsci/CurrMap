@@ -1,15 +1,16 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta4'
+gem 'rails', '3.0.0.rc'
 gem 'mongoid', '2.0.0.beta11'
 gem 'bson_ext', '1.0.4'
 gem 'haml', '3.0.12'
 gem 'rails3-generators'
 gem 'compass', '>= 0.10.2'
 gem 'json'
-gem 'nokogiri'
+gem 'nokogiri', '1.4.2'
 gem 'sunspot', :require => 'sunspot'
 gem 'sunspot_mongoid'
+gem 'devise', '1.1.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -14,4 +14,4 @@
       %span=course.name
 
 
-= link_to 'New course', new_course_path
+= link_to 'New Course', new_course_path if admin_signed_in?

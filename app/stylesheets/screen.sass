@@ -53,6 +53,19 @@ body
     :padding $blueprint-grid-width / 2 
     :min-height 250px
     :border-left $border_dark 1px solid
+    
+    .notice, .alert
+      :padding 0.5em
+      :border 1px solid 
+    .notice
+      :color #009900
+      :background #ccffcc
+      :border-color #009900
+
+    .alert
+      :color #cc3300
+      :background #ffcccc
+      :border-color #cc3300
       
   #sidebar
     +column(5,true)

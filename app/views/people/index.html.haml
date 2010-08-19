@@ -4,4 +4,4 @@
     %li= link_to person.name, person, :rel => "facebox"
 
 
-= link_to 'New person', new_person_path
+= link_to 'New Person', new_person_path if admin_signed_in?

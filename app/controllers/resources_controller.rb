@@ -1,4 +1,7 @@
 class ResourcesController < ApplicationController
+  
+  before_filter :authenticate_admin!, :except => [:index, :show]
+  
   # GET /resources
   # GET /resources.xml
   def index

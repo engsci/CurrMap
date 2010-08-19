@@ -16,4 +16,4 @@
       - @resource.courses.each do |c| 
         %dd= link_to c.name, c, :rel => 'facebox'
 
-  = link_to 'Edit', edit_resource_path(@resource), :class => 'edit'
+  = link_to 'Edit', edit_resource_path(@resource), :class => 'edit' if admin_signed_in?
