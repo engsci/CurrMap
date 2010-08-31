@@ -39,42 +39,23 @@
   
       .activities
         - week = 0
-        -@course.activities.sort_by{|a| [ a[1]["week"] || 0, a[1]["number"] || 0 ]}.each do |a|
-          - a[1]["type"] = a[0]
-          - a[1]["type"] = "lecture" if a[0] =~ /^L\d+/
-          - a[1]["type"] = "midterm" if a[0] =~ /^MT\d+/
-          - a[1]["type"] = "tutorial" if a[0] =~ /^T\d+/
-          - a[1]["type"] = "pset" if a[0] =~ /^PS\d+/
-          - a[1]["type"] = "assignment" if a[0] =~ /^A\d+/
-          - a[1]["type"] = "project" if a[0] =~ /^PROJ\d+/
-          
-          - if a[1]["week"] != week
-            - week = a[1]["week"]
-            %h4= "Week #{a[1]["week"]}"
-            
-  
-          .activity(class="#{a[1]["type"]}" title="#{a[1]["type"]} #{a[1]["number"]}")
-            .outcome
-              - a[1]["outcomes"].keys.each do |o|
-                = link_to o, {:controller => "pages", :action => "search", :query => o}
-        -#
-          %tr
-            %td
-              - if a.week != week
-                = a.week
-                - week = a.week
-            
-            %td
-              = a.number
-              -# a.class
-            %td
-              %ul.outcomes
-                - a.outcomes.each do |outcome, modes|
-                  %li.outcome
-                    %a(href="/search?query=#{outcome}&scope=all" rel="facebox" )= outcome
-                    - modes.each do |mode|
-                      %span(class="mode #{mode}" title="#{mode}")
-
+        -@course.collated_activities.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week|
+          .week(class="#{"no-others" if week[1]["other"].length == 0}")
+            %h4= "Week #{week[0]}"
+            .lectures
+              - week[1]["lectures"].each do |a|
+                .activity.lecture(title="Lecture #{a[1]["number"]}")
+                  %h5= "Lecture #{a[1]["number"]}"
+                  .outcomes
+                    - a[1]["outcomes"].keys.each do |o|
+                      = link_to o, {:controller => "pages", :action => "search", :query => o}
+            .others
+              - week[1]["other"].each do |a|
+                - type = activity_type(a[0])
+                .activity(class="#{type}" title="#{type} #{a[1]["number"]}")
+                  %h5= "#{type.titlecase} #{a[1]["number"]}"
+                  .outcomes
+                    - a[1]["outcomes"].keys.each do |o|
 
 
   = link_to 'Edit', edit_course_path(@course), :class => 'edit' if admin_signed_in?

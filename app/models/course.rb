@@ -45,14 +45,19 @@ class Course
     return self.course_code[0,6]
   end
   
-  def lectures
-    self.activities.find_all{|a| a.class == Lecture}
+  def collated_activities
+    collated_activities = {}
+    self.activities.each do |a|
+      collated_activities[a[1]["week"]] ||= {"lectures" => [], "other" => []}
+      if a[0] =~ /^L\d+/
+        collated_activities[a[1]["week"]]["lectures"] << a
+      else
+        collated_activities[a[1]["week"]]["other"] << a
+      end
+    end
+    return collated_activities
   end
-  
-  def midterms
-    self.activities.find_all{|a| a.class == Midterm}
-  end
-  
+
   # SEARCH
   include Sunspot::Mongoid
   searchable do

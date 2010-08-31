@@ -9,13 +9,26 @@
 .activities
   h4
     :font-size 1.2em
-    :padding 2em 0 1em 0
-   
+    :padding 2em 0 0.5em 0
+    :margin-bottom 0.5em
+    :border-bottom 1px solid #ccc
+  .lectures
+    :width 67%
+    :float left
+    .activity
+      :width 50%
+  .others
+    :float left
+    :width 33% 
+    
   .activity
     :float left
-    :width 30%
-    :background no-repeat
-    :margin 5px 1% 5px 0
+    :background no-repeat 0px top
+    :margin 5px 0 5px 0
+    
+    h5
+      :margin 0 0 0 22px
+      :color #666
 
     &.lecture
       :background-image url("/images/icons/page_white.png")
@@ -30,8 +43,13 @@
     &.pset
       :background-image url("/images/icons/plugin.png")
       
-    .outcome
-      :margin-left 20px
+    .outcomes
+      :margin 0 0 0 22px
       a
-        //:float left
-        :margin-right 10px
+        :float left
+        :margin-right 1em
+  .no-others
+    .lectures
+      :width 100%
+      .activity
+        :width 33%
