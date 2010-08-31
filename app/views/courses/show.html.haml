@@ -34,9 +34,6 @@
   #extended_info
     - if @course.respond_to?(:activities)         
       %h3 Activities
-      %p=# "#{@course.midterms.length} Midterms"
-      %p=# "#{@course.lectures.length} Lectures"
-  
       .activities
         - week = 0
         -@course.collated_activities.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week|
@@ -48,7 +45,7 @@
                   %h5= "Lecture #{a[1]["number"]}"
                   .outcomes
                     - a[1]["outcomes"].keys.each do |o|
-                      = link_to o, {:controller => "pages", :action => "search", :query => o}
+                      = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
             .others
               - week[1]["other"].each do |a|
                 - type = activity_type(a[0])
@@ -56,6 +53,7 @@
                   %h5= "#{type.titlecase} #{a[1]["number"]}"
                   .outcomes
                     - a[1]["outcomes"].keys.each do |o|
+                      = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
 
 
   = link_to 'Edit', edit_course_path(@course), :class => 'edit' if admin_signed_in?

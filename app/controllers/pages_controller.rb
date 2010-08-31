@@ -19,6 +19,11 @@ class PagesController < ApplicationController
     @courses = @results.select {|i| i.class == Course } 
     @collections = @results.select {|i| i.class == Collection }
     @enable_all = false
+    
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
   
   def about
