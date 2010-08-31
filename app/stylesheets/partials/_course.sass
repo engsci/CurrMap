@@ -1,10 +1,22 @@
+@mixin column($count, $gap)
+  -moz-column-count: $count
+  -moz-column-gap: $gap
+  -webkit-column-count: $count
+  -webkit-column-gap: $gap
+  column-count: $count
+  column-gap: $gap
+
 .activities
-  .type
-    :width 16px
-    :height 16px
+  h4
+    :font-size 1.2em
+    :padding 2em 0 1em 0
+   
+  .activity
+    :float left
+    :width 30%
     :background no-repeat
-    
-    
+    :margin 5px 1% 5px 0
+
     &.lecture
       :background-image url("/images/icons/page_white.png")
     &.midterm
@@ -17,3 +29,9 @@
       :background-image url("/images/icons/book_open.png")
     &.pset
       :background-image url("/images/icons/plugin.png")
+      
+    .outcome
+      :margin-left 20px
+      a
+        //:float left
+        :margin-right 10px

@@ -1023,33 +1023,47 @@ form label {
   width: 5em;
 }
 
-/* line 2, ../../app/stylesheets/partials/_course.sass */
-.activities div.type {
-  width: 16px;
-  height: 16px;
-  background: no-repeat;
-}
-/* line 8, ../../app/stylesheets/partials/_course.sass */
-.activities div.type.lecture {
-  background-image: url("/images/icons/page_white.png");
-}
 /* line 10, ../../app/stylesheets/partials/_course.sass */
-.activities div.type.midterm {
-  background-image: url("/images/icons/rosette.png");
-}
-/* line 12, ../../app/stylesheets/partials/_course.sass */
-.activities div.type.assignment {
-  background-image: url("/images/icons/report.png");
+.activities h4 {
+  font-size: 1.2em;
+  padding: 2em 0 1em 0;
 }
 /* line 14, ../../app/stylesheets/partials/_course.sass */
-.activities div.type.project {
+.activities .activity {
+  float: left;
+  width: 30%;
+  background: no-repeat;
+  margin: 5px 1% 5px 0;
+}
+/* line 20, ../../app/stylesheets/partials/_course.sass */
+.activities .activity.lecture {
+  background-image: url("/images/icons/page_white.png");
+}
+/* line 22, ../../app/stylesheets/partials/_course.sass */
+.activities .activity.midterm {
+  background-image: url("/images/icons/rosette.png");
+}
+/* line 24, ../../app/stylesheets/partials/_course.sass */
+.activities .activity.assignment {
+  background-image: url("/images/icons/report.png");
+}
+/* line 26, ../../app/stylesheets/partials/_course.sass */
+.activities .activity.project {
   background-image: url("/images/icons/star.png");
 }
-/* line 16, ../../app/stylesheets/partials/_course.sass */
-.activities div.type.tutorial {
+/* line 28, ../../app/stylesheets/partials/_course.sass */
+.activities .activity.tutorial {
   background-image: url("/images/icons/book_open.png");
 }
-/* line 18, ../../app/stylesheets/partials/_course.sass */
-.activities div.type.pset {
+/* line 30, ../../app/stylesheets/partials/_course.sass */
+.activities .activity.pset {
   background-image: url("/images/icons/plugin.png");
+}
+/* line 33, ../../app/stylesheets/partials/_course.sass */
+.activities .activity .outcome {
+  margin-left: 20px;
+}
+/* line 35, ../../app/stylesheets/partials/_course.sass */
+.activities .activity .outcome a {
+  margin-right: 10px;
 }
