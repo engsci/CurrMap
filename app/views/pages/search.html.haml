@@ -1,4 +1,4 @@
--#
+-#if true
   #activities.facet
     %h2 Activities
     %ul
@@ -47,9 +47,9 @@
     %ul
       - @courses.each do |course|
         %li
-          = link_to course.name, course, :rel => 'facebox[.full]'
+          = link_to course.name, {:controller => :courses, :action => :show, :id => course, :query => params[:query]}#, :rel => 'facebox[.full]'
           .author
-            = link_to course.id, course, :rel => 'facebox[.full]'
+            = link_to course.id, course, {:query => @query}#, :rel => 'facebox[.full]'
       -# %li.more= link_to "More"
 -if @resources && @resources.length > 0
   #resources.facet
@@ -57,7 +57,7 @@
     %ul
       - @resources.each do |resource|
         %li
-          = link_to resource.name, resource, :rel => 'facebox', :class => 'title'
+          = link_to resource.name, resource, :rel => 'facebox', :class => 'title', :query => @search
           -#.nearterms= resource[:highlight].join(' ')
           .author
             - if resource.authors && resource.authors.length > 0
@@ -72,14 +72,14 @@
     %h2 People
     %ul
       - @people.each do |person|
-        %li= link_to person.name, person, :rel => 'facebox'
+        %li= link_to person.name, person, :rel => 'facebox', :query => @search
         
 -if @collections.length > 0
   #collections.facet
     %h2 Collections
     %ul
       - @collections.each do |collection|
-        %li= link_to collection.name, collection, :rel => 'facebox'
+        %li= link_to collection.name, collection, :rel => 'facebox', :query => @search
 - if @enable_all
   #all.facet
     %h2 All
@@ -89,7 +89,7 @@
       - else
         - @results.each do |result|
           %li
-            %h3= link_to result.name || result.id, result, :rel => "facebox[.full]"
+            %h3= link_to result.name || result.id, result, :rel => "facebox[.full]", :query => @search
           -#
             %ul
               %li

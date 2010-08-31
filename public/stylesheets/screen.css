@@ -772,6 +772,11 @@ h4 {
   padding-right: 0px;
 }
 
+/* line 88, ../../app/stylesheets/screen.sass */
+.highlight {
+  background-color: yellow;
+}
+
 /* line 1, ../../app/stylesheets/partials/_results.sass */
 .facet {
   overflow: hidden;

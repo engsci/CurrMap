@@ -10,7 +10,7 @@
       %dt= "Semester " + course.semester
       - prevsem = course.semester
     %dd
-      =link_to course.short_code, course, {:rel=>"facebox[.full]", :title => course.name}
+      =link_to course.short_code, course, {:title => course.name}
       %span=course.name
 
 
