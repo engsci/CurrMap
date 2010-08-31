@@ -1,5 +1,3 @@
-require 'orm'
-
 class CouchCollection < CouchDoc
   attr_reader :courses
   attr_reader :collections

@@ -23,14 +23,15 @@ class Person
 
 end
 
-class Employee < Person
+#class Employee < Person
+#  
+#end
+
+class Professor < Person
+  references_many :courses, :stored_as => :array, :inverse_of => :professors, :index => true
   field :phone, :type => String
   field :website, :type => String
   field :email, :type => String
-end
-
-class Professor < Employee
-  references_many :courses, :stored_as => :array, :inverse_of => :professors, :index => true
 end
 
 class Author < Person

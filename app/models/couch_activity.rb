@@ -1,4 +1,4 @@
-require 'orm'
+require 'app/extras/orm'
 
 class CouchActivity < CouchDoc
   id_accessor :key

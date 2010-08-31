@@ -61,10 +61,28 @@
       %table.activities
         %tr
           %th Week
-          %th Lecture
+          %th Type
           %th Outcomes
         - week = 0
-        - @course.activities.each do |a|
+        -@course.activities.sort_by{|a| [ a[1]["week"] || 0, a[1]["number"] || 0 ]}.each do |a|
+          - a[1]["type"] = a[0]
+          - a[1]["type"] = "lecture" if a[0] =~ /^L\d+/
+          - a[1]["type"] = "midterm" if a[0] =~ /^MT\d+/
+          - a[1]["type"] = "tutorial" if a[0] =~ /^T\d+/
+          - a[1]["type"] = "pset" if a[0] =~ /^PS\d+/
+          - a[1]["type"] = "assignment" if a[0] =~ /^A\d+/
+          - a[1]["type"] = "project" if a[0] =~ /^PROJ\d+/
+          %tr
+            %td
+              - if a[1]["week"] != week
+                = a[1]["week"]
+                - week = a[1]["week"]
+            %td
+              .type(class="#{a[1]["type"]}" title="#{a[1]["type"]}")
+            %td
+              - a[1]["outcomes"].keys.each do |o|
+                = link_to o, {:controller => "pages", :action => "search", :query => o}, {:style => "width: 200px; float: left"}#.join(" ")
+        -#
           %tr
             %td
               - if a.week != week
