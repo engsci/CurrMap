@@ -1022,3 +1022,34 @@ form label {
   display: block;
   width: 5em;
 }
+
+/* line 2, ../../app/stylesheets/partials/_course.sass */
+.activities div.type {
+  width: 16px;
+  height: 16px;
+  background: no-repeat;
+}
+/* line 8, ../../app/stylesheets/partials/_course.sass */
+.activities div.type.lecture {
+  background-image: url("/images/icons/page_white.png");
+}
+/* line 10, ../../app/stylesheets/partials/_course.sass */
+.activities div.type.midterm {
+  background-image: url("/images/icons/rosette.png");
+}
+/* line 12, ../../app/stylesheets/partials/_course.sass */
+.activities div.type.assignment {
+  background-image: url("/images/icons/report.png");
+}
+/* line 14, ../../app/stylesheets/partials/_course.sass */
+.activities div.type.project {
+  background-image: url("/images/icons/star.png");
+}
+/* line 16, ../../app/stylesheets/partials/_course.sass */
+.activities div.type.tutorial {
+  background-image: url("/images/icons/book_open.png");
+}
+/* line 18, ../../app/stylesheets/partials/_course.sass */
+.activities div.type.pset {
+  background-image: url("/images/icons/plugin.png");
+}

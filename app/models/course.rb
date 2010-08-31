@@ -3,7 +3,7 @@ class Course
   identity :type => String
   
   # FIELDS
-  #field :course_code, :type => String
+  field :course_code, :type => String
   field :calendar_entry, :type => String
   field :name, :type => String
   field :semester, :type => String
@@ -32,12 +32,25 @@ class Course
   def course_code
     return self._id
   end
+  
+  def name
+    return read_attribute(:name).split(" - ")[0]
+  end
+  
   def year
     return self.course_code[3,1]
   end
   
   def short_code
     return self.course_code[0,6]
+  end
+  
+  def lectures
+    self.activities.find_all{|a| a.class == Lecture}
+  end
+  
+  def midterms
+    self.activities.find_all{|a| a.class == Midterm}
   end
   
   # SEARCH
@@ -56,6 +69,12 @@ class Course
     end
     text :collections do
       collections.map(&:name).join(" ")
+    end
+    text :activities do
+      self["activities"] ? self["activities"].map {|a| a[1]["outcomes"].keys.join(" ")} : ""
+    end
+    text :blah do
+      "foo"
     end
   end
 end
