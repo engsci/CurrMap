@@ -31,6 +31,26 @@
             %li
               = link_to c.name, c, :rel => 'facebox'
 
+  %h4 Visualization Type
+  %table
+    %tr
+      %td
+        %label(for="st") SpaceTree
+      %td
+        %input(type="radio" id="st" name="orientation" checked="checked" value="stree")
+    %tr
+      %td
+        %label(for="rg") RGraph
+      %td
+        %input(type="radio" id="rg" name="orientation" value="rgraph")
+
+  #center-container
+    #jviz(style="width: 700px; height:700px;")
+    #jbiz(style="width: 700px; height:1400px;")
+  #right-container
+  #inner-details
+  #log
+
   #extended_info
     - if @course.respond_to?(:activities)         
       %h3 Activities
@@ -44,7 +64,7 @@
           %th Lecture
           %th Outcomes
         - week = 0
-        -# @course.lectures.sort{|a,b| a.number <=> b.number}.each do |a|
+        - @course.activities.each do |a|
           %tr
             %td
               - if a.week != week

@@ -1,4 +1,4 @@
-= form_for @person do |f|
+= form_for @person, :html=>{:class=>"formtastic"}  do |f|
   -if @person.errors.any?
     #errorExplanation
       %h2= "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
@@ -6,14 +6,7 @@
         - @person.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :phone
-    = f.text_field :phone
-  .field
-    = f.label :website
-    = f.text_field :website
-  .actions
-    = f.submit 'Save'
+  - semantic_form_for @person do |form|
+    = form.inputs :name, :phone, :website, :email
+    .actions
+      = form.buttons

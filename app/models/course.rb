@@ -11,7 +11,7 @@ class Course
   #workload for lecture, tutorial, practice
   
   # RELATIONSHIPS
-  #embeds_many :activities
+  # embeds_many :activities
   references_many :resources, :stored_as => :array, :inverse_of => :courses, :index => true
   references_many :professors, :stored_as => :array, :inverse_of => :courses, :index => true
   references_many :collections, :stored_as => :array, :inverse_of => :courses, :index => true
@@ -26,14 +26,34 @@ class Course
   
   #references_many :related_concepts, :stored_as => :array, :inverse_of => :courses 
   #references_many :courses, :stored_as => :array, :inverse_of => :related_courses
+  def init
+    add_nested_docs "activities" do |key,activity|
+      if key =~ /^L\d+/
+        CouchLecture.new activity
+      elsif key =~ /^MT\d+/
+        CouchMidterm.new activity
+      else
+        CouchActivity.new activity
+      end
+    end
+  end
   
   # METHODS
   def course_code
     return self._id
   end
+  
   def year
     return self.course_code[3,1]
   end
+  
+  def lectures
+    return self.activities.find_all{|a| a.class}
+  end
+    
+  def midterms
+    return self.activities.find_all{|a| a.class}
+  end  
   
   def short_code
     return self.course_code[0,6]

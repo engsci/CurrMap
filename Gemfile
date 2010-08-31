@@ -11,6 +11,7 @@ gem 'nokogiri', '1.4.2'
 gem 'sunspot', :require => 'sunspot'
 gem 'sunspot_mongoid'
 gem 'devise', '1.1.1'
+gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

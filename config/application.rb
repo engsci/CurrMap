@@ -1,5 +1,5 @@
 require File.expand_path('../boot', __FILE__)
-
+require 'builder'
 require "action_controller/railtie" 
 require "action_mailer/railtie" 
 require "active_resource/railtie" 
@@ -9,6 +9,7 @@ require "mongoid/railtie"
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
+
 
 module Currmap
   class Application < Rails::Application

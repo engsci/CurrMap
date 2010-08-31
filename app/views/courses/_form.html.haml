@@ -1,24 +1,16 @@
-= form_for @course do |f|
+= form_for @course, :html=>{:class=>"formtastic"} do |f|
   -if @course.errors.any?
     #errorExplanation
       %h2= "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
       %ul
         - @course.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :course_code
-    = f.text_field :course_code
-  .field
-    = f.label :calendar_entry
-    = f.text_field :calendar_entry
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :semester
-    = f.text_field :semester
-  .field
-    = f.label :weight
-    = f.text_field :weight
-  .actions
-    = f.submit 'Save'
+  - semantic_form_for @course do |form|
+    - form.inputs do
+      = form.input :course_code
+      = form.input :calendar_entry, :as => :text, :input_html=>{:rows=>"4"}
+      = form.input :name
+      = form.input :semester
+      = form.input :weight
+    .actions
+      = form.buttons
