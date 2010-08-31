@@ -25,7 +25,23 @@ class CoursesController < ApplicationController
       format.xml  { render :xml => @course }
     end
   end
-
+  
+  def lectures
+    self.activities.find_all{|a| a.class == Lecture}
+  end
+  
+  def midterms
+    self.activities.find_all{|a| a.class == Midterm}
+  end
+  
+  def year
+    return self.course_code[3,1]
+  end
+  
+  def short_code
+    return self.course_code[0,6]
+  end
+  
   # GET /courses/new
   # GET /courses/new.xml
   def new

@@ -10,6 +10,7 @@ gem 'json'
 gem 'nokogiri', '1.4.2'
 gem 'sunspot', :require => 'sunspot'
 gem 'sunspot_mongoid'
+gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
 gem 'devise', '1.1.2'
 
 # Bundle edge Rails instead:
