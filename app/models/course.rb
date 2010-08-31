@@ -8,6 +8,7 @@ class Course
   field :name, :type => String
   field :semester, :type => String
   field :weight, :type => Float
+  field :year, :type => Integer
   #workload for lecture, tutorial, practice
   
   # RELATIONSHIPS

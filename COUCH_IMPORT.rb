@@ -49,7 +49,11 @@ CouchCourse.get_all.each do |c|
   resources = hash["resources"]
   hash.delete("resources")
   
+  hash["_id"] = hash["_id"].split("-")[0].strip #remove '- 2010' classification
+  
   course = Course.new(hash)
+  
+  puts hash["_id"] #LOG
   
   # LINK TO PROFS
   profs.each do |id|
@@ -65,7 +69,9 @@ CouchCourse.get_all.each do |c|
     resource.save
   end if resources
   
-  course.save
+  unless Course.where("_id" => course.id).count > 0 and Course.find(course.id).year.to_i > course.year.to_i
+    course.save
+  end
 end
 
 Collection.destroy_all      
