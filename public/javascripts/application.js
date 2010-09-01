@@ -45,7 +45,11 @@ $(document).ready(
     
     var query = $.getUrlVar('query');
     
-    if(query)
-      $('body').highlight(query);
+    if(query) {
+      terms = query.split('+');
+      for(x in terms){
+        $('#main').highlight(terms[x]);
+      }
+    }
   }
 );

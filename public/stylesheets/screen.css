@@ -602,8 +602,9 @@ h4 {
   padding: 0.2em 0.4em;
   margin: 0.5em 0;
   height: 1.5em;
+  background: white url(/images/icons/magnifier.png) no-repeat right;
 }
-/* line 27, ../../app/stylesheets/partials/_header.sass */
+/* line 28, ../../app/stylesheets/partials/_header.sass */
 #header form #ferret_submit {
   height: 1em;
   padding: 0.4em;
@@ -611,7 +612,7 @@ h4 {
   background: #777777;
   display: none;
 }
-/* line 34, ../../app/stylesheets/partials/_header.sass */
+/* line 35, ../../app/stylesheets/partials/_header.sass */
 #header #menu {
   display: inline;
   float: left;
@@ -651,12 +652,12 @@ h4 {
 #header #menu li:last-child, #header #menu li.last {
   padding-right: 0px;
 }
-/* line 41, ../../app/stylesheets/partials/_header.sass */
+/* line 42, ../../app/stylesheets/partials/_header.sass */
 #header #menu li {
   margin: 0;
   padding: 0;
 }
-/* line 44, ../../app/stylesheets/partials/_header.sass */
+/* line 45, ../../app/stylesheets/partials/_header.sass */
 #header #menu li a {
   display: block;
   font-weight: strong;
@@ -664,7 +665,7 @@ h4 {
   line-height: 3em;
   padding: 0 10px;
 }
-/* line 50, ../../app/stylesheets/partials/_header.sass */
+/* line 51, ../../app/stylesheets/partials/_header.sass */
 #header #menu li a:hover {
   background: #6d86b7;
 }
