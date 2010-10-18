@@ -39,17 +39,17 @@ class Course
     end
   end
   
-  # METHODS
-  def course_code
-    return self._id
-  end
-  
+  # METHODS  
   def name
     return read_attribute(:name).split(" - ")[0]
   end
 
   def year
     return self.course_code[3,1]
+  end
+  
+  def year_version
+    return read_attribute(:year)
   end
   
   def lectures

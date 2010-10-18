@@ -17,11 +17,16 @@ class CoursesController < ApplicationController
   # GET /courses/1.xml
   def show
     Person #need this in development mode b/c person subclasses aren't being eagerloaded :@
-    @course = Course.find(params[:id])
 
     respond_to do |format|
-      format.js
-      format.html # show.html.erb
+      format.js {
+        #just display the one course, using its docid
+        @course = Course.find(params[:id])
+      }
+      format.html {
+        #display the course, with tabs for related courses (same code, different year)
+        @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+      }
       format.xml  { render :xml => @course }
     end
   end

@@ -5,6 +5,7 @@
 
 
 # IMPORT PEOPLE
+puts "IMPORTING PEOPLE"
 Person.destroy_all
 CouchPerson.get_all.each do |p| 
   pp = p.to_hash
@@ -15,6 +16,7 @@ CouchPerson.get_all.each do |p|
 end
 
 # IMPORT RESOURCES
+puts "IMPORTING RESOURCES"
 Resource.destroy_all
 CouchResource.get_all.each do |r|
   hash = r.to_hash
@@ -34,6 +36,7 @@ end
 # NOTE: COURSES MUST BE IMPORTED AFTER PROFS
 
 # IMPORT COURSES
+puts "IMPORTING COURSES"
 Person #initialize Prof, other subclasses
 Course.destroy_all
 CouchCourse.get_all.each do |c|
@@ -51,13 +54,15 @@ CouchCourse.get_all.each do |c|
   
   puts hash["_id"] #LOG
   
-  hash["_id"] = hash["_id"].split("-")[0].strip #remove '- 2010' classification
+  #hash["_id"] = hash["_id"].split("-")[0].strip #remove '- 2010' classification
+  hash["course_code"] = hash["_id"].split("-")[0].strip #remove '- 2010' classification
+  hash.delete("_id")
   
   course = Course.new(hash)
   
-  if Course.where("_id" => course.id).count > 0 and Course.find(course.id).year.to_i < course.year.to_i
-    puts "OLD COURSE"
-  end
+  #if Course.where("_id" => course.id).count > 0 and Course.find(course.id).year.to_i < course.year.to_i
+  #  puts "OLD COURSE"
+  #end
   
   # LINK TO PROFS
   profs.each do |id|
@@ -73,20 +78,10 @@ CouchCourse.get_all.each do |c|
     resource.save
   end if resources
   
-  if Course.where("_id" => course.id).count > 0
-    if Course.find(course.id).year.to_i > course.year.to_i
-      #do nothing
-    else
-      old_course = Course.find(course.id)
-      puts "old:" + old_course.id.to_s + old_course.year
-      old_course.destroy
-      course.save
-    end
-  else
-    course.save
-  end
+  course.save
 end
 
+puts "IMPORTING COLLECTIONS"
 Collection.destroy_all      
 CouchCollection.get_all.each do |c|
   hash = c.to_hash
@@ -100,15 +95,18 @@ CouchCollection.get_all.each do |c|
   collection = Collection.new(hash)
   
   courses.each do |id|
-    course = Course.find(id)
-    collection.courses << course
-    course.save
+    course_versions = Course.where(:course_code => /^#{id}/)
+    course_versions.each do |cv|
+      collection.courses << cv
+      cv.save
+    end
   end if courses
 
   collection.save
 end
 
 
+puts "LINKING COLLECTIONS"
 #link collections to collections
 CouchCollection.get_all.each do |c|
   hash = c.to_hash
@@ -125,11 +123,13 @@ CouchCollection.get_all.each do |c|
   collection.save
 end
 
+puts "CLEARING SOLR INDEX"
 Person.remove_all_from_index
 Resource.remove_all_from_index
 Course.remove_all_from_index
 Collection.remove_all_from_index
 
+puts "CREATING SOLR INDEX"
 Sunspot.index(Person.all)
 Sunspot.index(Resource.all)
 Sunspot.index(Course.all)

@@ -1,79 +1,10 @@
-.course.object
-  %h1
-    =link_to @course.course_code, @course
-  %h3= @course.name
-  %p= @course.calendar_entry
-  %dl
-    %dt Professors
-    -@course.professors.each do |p|
-      %dd
-        =link_to p.name, p, :rel => "facebox"
-
-    - unless @course.resources.empty?
-      %dt Resources
-      %dd
-        %ul
-          - @course.resources.each do |r|
-            %li
-              = link_to r.name || "ISBN #{r._id}", r
-              - if r.optional
-                (optional)
-              - if r.authors
-                %ul
-                  - r.authors.each do |a| 
-                    %li= a
-                  
-    - unless @course.collections.empty?
-      %dt Collections
-      %dd
-        %ul
-          - @course.collections.each do |c|
-            %li
-              = link_to c.name, c, :rel => 'facebox'
-  -#
-    %h4 Visualization Type
-    %table
-      %tr
-        %td
-          %label(for="st") SpaceTree
-        %td
-          %input(type="radio" id="st" name="orientation" checked="checked" value="stree")
-      %tr
-        %td
-          %label(for="rg") RGraph
-        %td
-          %input(type="radio" id="rg" name="orientation" value="rgraph")
-
-    #center-container
-      #jviz(style="width: 700px; height:700px;")
-      #jbiz(style="width: 700px; height:1400px;")
-    #right-container
-    #inner-details
-    #log
-
-  #extended_info
-    - if @course.respond_to?(:activities)         
-      %h3 Activities
-      .activities
-        - week = 0
-        -@course.collated_activities.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week|
-          .week(class="#{"no-others" if week[1]["other"].length == 0}")
-            %h4= "Week #{week[0]}"
-            .lectures
-              - week[1]["lectures"].each do |a|
-                .activity.lecture(title="Lecture #{a[1]["number"]}")
-                  %h5= "Lecture #{a[1]["number"]}"
-                  .outcomes
-                    - a[1]["outcomes"].keys.each do |o|
-                      = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
-            .others
-              - week[1]["other"].each do |a|
-                - type = activity_type(a[0])
-                .activity(class="#{type}" title="#{type} #{a[1]["number"]}")
-                  %h5= "#{type.titlecase} #{a[1]["number"]}"
-                  .outcomes
-                    - a[1]["outcomes"].keys.each do |o|
-                      = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
-
-
-  = link_to 'Edit', edit_course_path(@course), :class => 'edit' if admin_signed_in?
+- if request.format.js?
+  = render :partial => "course", :locals => {:course => @course}
+- else 
+  %h1= @courses[0].short_code
+  %h3= @courses[0].name
+  #tabs
+    %ul
+      - @courses.each do |course|
+        %li
+          %a(href="#{course.id}" title="#{course.year_version}")= course.course_code + " - " + course.year_version.to_s

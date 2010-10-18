@@ -1,17 +1,31 @@
 %h2 Courses
--prevyear = 0
--prevsem = ""
-%dl#courses
-  - @courses.each do |course|
-    - if course.year != prevyear
-      %dt= "Year " + course.year
-      - prevyear = course.year
-    - if course.semester != prevsem   
-      %dt= "Semester " + course.semester
-      - prevsem = course.semester
-    %dd
-      =link_to course.short_code, course, {:title => course.name}
-      %span=course.name
+
+-years = [2008, 2009, 2010].reverse
+#tabs
+  %ul
+    -years.each do |y|
+      %li
+        %a(href="#tabs-#{y}")= y
+  -years.each do |y|
+    %div(id="tabs-#{y}")
+      %h3= y
+      -prevyear = 0
+      -prevsem = ""
+      %dl#courses
+        - @courses.each do |course|
+          - if course.year_version == y
+            - if course.year != prevyear
+              %dt= "Year " + course.year
+              - prevyear = course.year
+            - if course.semester != prevsem   
+              %dt= "Semester " + course.semester
+              - prevsem = course.semester
+            %dd
+              =link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :anchor => course.year_version}, {:title => course.name}
+              %span=course.name
+
+
+
 
 
 = link_to 'New Course', new_course_path if admin_signed_in?
