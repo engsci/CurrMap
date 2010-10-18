@@ -1103,6 +1103,80 @@ form label {
   width: 33%;
 }
 
+/* line 2, ../../app/stylesheets/partials/_courses.sass */
+#courses h4 {
+  font-size: 1.2em;
+  padding: 2em 0 0.5em 0;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid #cccccc;
+}
+/* line 7, ../../app/stylesheets/partials/_courses.sass */
+#courses .category {
+  width: 100%;
+  float: left;
+}
+/* line 10, ../../app/stylesheets/partials/_courses.sass */
+#courses .category .group {
+  width: 50%;
+}
+/* line 13, ../../app/stylesheets/partials/_courses.sass */
+#courses .others {
+  float: left;
+  width: 33%;
+}
+/* line 17, ../../app/stylesheets/partials/_courses.sass */
+#courses .group {
+  float: left;
+  background: no-repeat 0px top;
+  margin: 5px 0 5px 0;
+}
+/* line 22, ../../app/stylesheets/partials/_courses.sass */
+#courses .group h5 {
+  margin: 0 0 0 22px;
+  color: #666666;
+}
+/* line 26, ../../app/stylesheets/partials/_courses.sass */
+#courses .group.lecture {
+  background-image: url("/images/icons/page_white.png");
+}
+/* line 28, ../../app/stylesheets/partials/_courses.sass */
+#courses .group.midterm {
+  background-image: url("/images/icons/rosette.png");
+}
+/* line 30, ../../app/stylesheets/partials/_courses.sass */
+#courses .group.assignment {
+  background-image: url("/images/icons/report.png");
+}
+/* line 32, ../../app/stylesheets/partials/_courses.sass */
+#courses .group.project {
+  background-image: url("/images/icons/star.png");
+}
+/* line 34, ../../app/stylesheets/partials/_courses.sass */
+#courses .group.tutorial {
+  background-image: url("/images/icons/book_open.png");
+}
+/* line 36, ../../app/stylesheets/partials/_courses.sass */
+#courses .group.pset {
+  background-image: url("/images/icons/plugin.png");
+}
+/* line 39, ../../app/stylesheets/partials/_courses.sass */
+#courses .group .item {
+  margin: 0 0 0 22px;
+}
+/* line 41, ../../app/stylesheets/partials/_courses.sass */
+#courses .group .item a {
+  float: left;
+  margin-right: 0.5em;
+}
+/* line 45, ../../app/stylesheets/partials/_courses.sass */
+#courses .no-others .lectures {
+  width: 100%;
+}
+/* line 47, ../../app/stylesheets/partials/_courses.sass */
+#courses .no-others .lectures .activity {
+  width: 33%;
+}
+
 /* line 2, ../../app/stylesheets/partials/_jqueryui.sass */
 body .ui-widget {
   font-size: 1em;

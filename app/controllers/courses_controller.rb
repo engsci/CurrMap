@@ -5,7 +5,14 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.xml
   def index
-    @courses = Course.all.sort_by { |x| [x.year,x.semester,x.name]}
+   @courses_by_year_and_semester = {}
+    
+   Course.all.each do |course|
+      @courses_by_year_and_semester[course.year_version] ||= {}
+      @courses_by_year_and_semester[course.year_version][course.year] ||= {}
+      @courses_by_year_and_semester[course.year_version][course.year][course.semester] ||= []
+      @courses_by_year_and_semester[course.year_version][course.year][course.semester] << course
+    end
 
     respond_to do |format|
       format.html # index.html.erb

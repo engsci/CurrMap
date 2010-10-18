@@ -1,6 +1,6 @@
 .course
   %h1
-    =link_to course.course_code, course
+    =link_to course.course_code, :id => course.short_code
   %h3= course.name
   %dl
     %dt Calendar Entry
