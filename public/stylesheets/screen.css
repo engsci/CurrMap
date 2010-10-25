@@ -384,7 +384,7 @@ caption {
   color: #111111;
 }
 
-/* line 25, ../../app/stylesheets/screen.sass */
+/* line 47, ../../app/stylesheets/screen.sass */
 body {
   font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
   color: #333333;
@@ -392,16 +392,16 @@ body {
   text-align: left;
   direction: ltr;
 }
-/* line 32, ../../app/stylesheets/screen.sass */
+/* line 54, ../../app/stylesheets/screen.sass */
 body a {
   color: #3b5998;
   text-decoration: none;
 }
-/* line 35, ../../app/stylesheets/screen.sass */
+/* line 57, ../../app/stylesheets/screen.sass */
 body a:hover {
   text-decoration: underline;
 }
-/* line 38, ../../app/stylesheets/screen.sass */
+/* line 60, ../../app/stylesheets/screen.sass */
 body h2 {
   font-weight: bold;
 }
@@ -670,14 +670,14 @@ h4 {
   background: #6d86b7;
 }
 
-/* line 45, ../../app/stylesheets/screen.sass */
+/* line 67, ../../app/stylesheets/screen.sass */
 #content {
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 49, ../../app/stylesheets/screen.sass */
+/* line 71, ../../app/stylesheets/screen.sass */
 #content #main {
   display: inline;
   float: left;
@@ -693,24 +693,24 @@ h4 {
 * html #content #main {
   overflow-x: hidden;
 }
-/* line 57, ../../app/stylesheets/screen.sass */
+/* line 79, ../../app/stylesheets/screen.sass */
 #content #main .notice, #content #main .alert {
   padding: 0.5em;
   border: 1px solid;
 }
-/* line 60, ../../app/stylesheets/screen.sass */
+/* line 82, ../../app/stylesheets/screen.sass */
 #content #main .notice {
   color: #009900;
   background: #ccffcc;
   border-color: #009900;
 }
-/* line 65, ../../app/stylesheets/screen.sass */
+/* line 87, ../../app/stylesheets/screen.sass */
 #content #main .alert {
   color: #cc3300;
   background: #ffcccc;
   border-color: #cc3300;
 }
-/* line 70, ../../app/stylesheets/screen.sass */
+/* line 92, ../../app/stylesheets/screen.sass */
 #content #sidebar {
   display: inline;
   float: left;
@@ -721,7 +721,7 @@ h4 {
 * html #content #sidebar {
   overflow-x: hidden;
 }
-/* line 72, ../../app/stylesheets/screen.sass */
+/* line 94, ../../app/stylesheets/screen.sass */
 #content #sidebar h2 {
   font-size: 1em;
   height: 2em;
@@ -729,7 +729,7 @@ h4 {
   margin-top: 1em;
   border-bottom: 1px solid #dddddd;
 }
-/* line 79, ../../app/stylesheets/screen.sass */
+/* line 101, ../../app/stylesheets/screen.sass */
 #content #footer {
   display: inline;
   float: left;
@@ -742,7 +742,7 @@ h4 {
 * html #content #footer {
   overflow-x: hidden;
 }
-/* line 83, ../../app/stylesheets/screen.sass */
+/* line 105, ../../app/stylesheets/screen.sass */
 #content #footer ul {
   margin: 0;
   padding: 0;
@@ -773,7 +773,7 @@ h4 {
   padding-right: 0px;
 }
 
-/* line 88, ../../app/stylesheets/screen.sass */
+/* line 110, ../../app/stylesheets/screen.sass */
 .highlight {
   background-color: yellow;
 }
@@ -1030,75 +1030,131 @@ form label {
 }
 
 /* line 10, ../../app/stylesheets/partials/_course.sass */
-.activities h4 {
+h4 {
   font-size: 1.2em;
   padding: 2em 0 0.5em 0;
   margin-bottom: 0.5em;
   border-bottom: 1px solid #cccccc;
 }
-/* line 15, ../../app/stylesheets/partials/_course.sass */
+
+/* line 17, ../../app/stylesheets/partials/_course.sass */
+table.timeline td.active {
+  background: url(/images/2x2.png) repeat-x center center;
+}
+/* line 19, ../../app/stylesheets/partials/_course.sass */
+table.timeline td.active a {
+  padding: 0 0.25em;
+  background: white;
+}
+
+/* line 23, ../../app/stylesheets/partials/_course.sass */
+.column {
+  width: 50%;
+  float: left;
+}
+/* line 27, ../../app/stylesheets/partials/_course.sass */
+.column .course_description {
+  width: 95%;
+}
+/* line 29, ../../app/stylesheets/partials/_course.sass */
+.column .main_topics {
+  width: 95%;
+  float: left;
+  background: no-repeat 0px top;
+  margin: 5px 0 5px 0;
+}
+/* line 30, ../../app/stylesheets/screen.sass */
+.column .main_topics h5 {
+  margin: 0 0 0 22px;
+  color: #666666;
+}
+/* line 33, ../../app/stylesheets/screen.sass */
+.column .main_topics ul {
+  padding: 0;
+}
+/* line 35, ../../app/stylesheets/screen.sass */
+.column .main_topics li {
+  list-style: none;
+}
+/* line 32, ../../app/stylesheets/partials/_course.sass */
+.column .main_topics li {
+  margin: 0 0 0 22px;
+  margin: 0;
+}
+/* line 39, ../../app/stylesheets/screen.sass */
+.column .main_topics li a {
+  float: left;
+  margin-right: 1em;
+}
+
+/* line 38, ../../app/stylesheets/partials/_course.sass */
+#tabs {
+  clear: both;
+}
+
+/* line 42, ../../app/stylesheets/partials/_course.sass */
 .activities .lectures {
   width: 67%;
   float: left;
 }
-/* line 18, ../../app/stylesheets/partials/_course.sass */
+/* line 45, ../../app/stylesheets/partials/_course.sass */
 .activities .lectures .activity {
   width: 50%;
 }
-/* line 20, ../../app/stylesheets/partials/_course.sass */
+/* line 47, ../../app/stylesheets/partials/_course.sass */
 .activities .others {
   float: left;
   width: 33%;
 }
-/* line 24, ../../app/stylesheets/partials/_course.sass */
+/* line 51, ../../app/stylesheets/partials/_course.sass */
 .activities .activity {
   float: left;
   background: no-repeat 0px top;
   margin: 5px 0 5px 0;
 }
-/* line 29, ../../app/stylesheets/partials/_course.sass */
+/* line 56, ../../app/stylesheets/partials/_course.sass */
 .activities .activity h5 {
   margin: 0 0 0 22px;
   color: #666666;
 }
-/* line 33, ../../app/stylesheets/partials/_course.sass */
+/* line 60, ../../app/stylesheets/partials/_course.sass */
 .activities .activity.lecture {
   background-image: url("/images/icons/page_white.png");
 }
-/* line 35, ../../app/stylesheets/partials/_course.sass */
+/* line 62, ../../app/stylesheets/partials/_course.sass */
 .activities .activity.midterm {
   background-image: url("/images/icons/rosette.png");
 }
-/* line 37, ../../app/stylesheets/partials/_course.sass */
+/* line 64, ../../app/stylesheets/partials/_course.sass */
 .activities .activity.assignment {
   background-image: url("/images/icons/report.png");
 }
-/* line 39, ../../app/stylesheets/partials/_course.sass */
+/* line 66, ../../app/stylesheets/partials/_course.sass */
 .activities .activity.project {
   background-image: url("/images/icons/star.png");
 }
-/* line 41, ../../app/stylesheets/partials/_course.sass */
+/* line 68, ../../app/stylesheets/partials/_course.sass */
 .activities .activity.tutorial {
   background-image: url("/images/icons/book_open.png");
 }
-/* line 43, ../../app/stylesheets/partials/_course.sass */
+/* line 70, ../../app/stylesheets/partials/_course.sass */
 .activities .activity.pset {
   background-image: url("/images/icons/plugin.png");
 }
-/* line 46, ../../app/stylesheets/partials/_course.sass */
+/* line 73, ../../app/stylesheets/partials/_course.sass */
 .activities .activity .outcomes {
   margin: 0 0 0 22px;
 }
-/* line 48, ../../app/stylesheets/partials/_course.sass */
+/* line 39, ../../app/stylesheets/screen.sass */
 .activities .activity .outcomes a {
   float: left;
   margin-right: 1em;
 }
-/* line 52, ../../app/stylesheets/partials/_course.sass */
+/* line 76, ../../app/stylesheets/partials/_course.sass */
 .activities .no-others .lectures {
   width: 100%;
 }
-/* line 54, ../../app/stylesheets/partials/_course.sass */
+/* line 78, ../../app/stylesheets/partials/_course.sass */
 .activities .no-others .lectures .activity {
   width: 33%;
 }
@@ -1111,68 +1167,56 @@ form label {
   border-bottom: 1px solid #cccccc;
 }
 /* line 7, ../../app/stylesheets/partials/_courses.sass */
-#courses .category {
-  width: 100%;
+#courses .semesters {
   float: left;
+  width: 100%;
 }
-/* line 10, ../../app/stylesheets/partials/_courses.sass */
-#courses .category .group {
+/* line 11, ../../app/stylesheets/partials/_courses.sass */
+#courses .semesters .semester {
   width: 50%;
 }
-/* line 13, ../../app/stylesheets/partials/_courses.sass */
+/* line 14, ../../app/stylesheets/partials/_courses.sass */
 #courses .others {
   float: left;
   width: 33%;
 }
-/* line 17, ../../app/stylesheets/partials/_courses.sass */
-#courses .group {
+/* line 18, ../../app/stylesheets/partials/_courses.sass */
+#courses .semester {
   float: left;
   background: no-repeat 0px top;
   margin: 5px 0 5px 0;
 }
-/* line 22, ../../app/stylesheets/partials/_courses.sass */
-#courses .group h5 {
+/* line 30, ../../app/stylesheets/screen.sass */
+#courses .semester h5 {
   margin: 0 0 0 22px;
   color: #666666;
 }
-/* line 26, ../../app/stylesheets/partials/_courses.sass */
-#courses .group.lecture {
-  background-image: url("/images/icons/page_white.png");
+/* line 33, ../../app/stylesheets/screen.sass */
+#courses .semester ul {
+  padding: 0;
 }
-/* line 28, ../../app/stylesheets/partials/_courses.sass */
-#courses .group.midterm {
-  background-image: url("/images/icons/rosette.png");
+/* line 35, ../../app/stylesheets/screen.sass */
+#courses .semester li {
+  list-style: none;
 }
-/* line 30, ../../app/stylesheets/partials/_courses.sass */
-#courses .group.assignment {
-  background-image: url("/images/icons/report.png");
-}
-/* line 32, ../../app/stylesheets/partials/_courses.sass */
-#courses .group.project {
-  background-image: url("/images/icons/star.png");
-}
-/* line 34, ../../app/stylesheets/partials/_courses.sass */
-#courses .group.tutorial {
-  background-image: url("/images/icons/book_open.png");
-}
-/* line 36, ../../app/stylesheets/partials/_courses.sass */
-#courses .group.pset {
-  background-image: url("/images/icons/plugin.png");
-}
-/* line 39, ../../app/stylesheets/partials/_courses.sass */
-#courses .group .item {
+/* line 21, ../../app/stylesheets/partials/_courses.sass */
+#courses .semester .course {
   margin: 0 0 0 22px;
 }
-/* line 41, ../../app/stylesheets/partials/_courses.sass */
-#courses .group .item a {
+/* line 39, ../../app/stylesheets/screen.sass */
+#courses .semester .course a {
   float: left;
+  margin-right: 1em;
+}
+/* line 23, ../../app/stylesheets/partials/_courses.sass */
+#courses .semester .course a {
   margin-right: 0.5em;
 }
-/* line 45, ../../app/stylesheets/partials/_courses.sass */
+/* line 27, ../../app/stylesheets/partials/_courses.sass */
 #courses .no-others .lectures {
   width: 100%;
 }
-/* line 47, ../../app/stylesheets/partials/_courses.sass */
+/* line 29, ../../app/stylesheets/partials/_courses.sass */
 #courses .no-others .lectures .activity {
   width: 33%;
 }
@@ -1215,4 +1259,17 @@ body .ui-tabs .ui-tabs-nav {
 /* line 21, ../../app/stylesheets/partials/_jqueryui.sass */
 body .ui-tabs .ui-tabs-nav li {
   float: right;
+}
+/* line 24, ../../app/stylesheets/partials/_jqueryui.sass */
+body .mini-tabs {
+  margin-top: -3.15em;
+}
+/* line 26, ../../app/stylesheets/partials/_jqueryui.sass */
+body .mini-tabs ul {
+  font-size: 0.9em;
+  border: none;
+}
+/* line 30, ../../app/stylesheets/partials/_jqueryui.sass */
+body .mini-tabs .ui-tabs-panel {
+  padding: 1em 0;
 }

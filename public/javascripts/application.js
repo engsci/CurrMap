@@ -1,4 +1,5 @@
 $.extend({
+  //get URL vars function
   getUrlVars: function(){
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -15,6 +16,7 @@ $.extend({
   }
 });
 
+//set ajax requests as js type instead of html
 jQuery(document).ajaxSend(function(event, request, settings) {
   request.setRequestHeader("Accept", "text/javascript");
   request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
@@ -40,14 +42,8 @@ $(document).ready(
       }
     );
 
-	  /*
-    $(".activity_listing").click(
-      function() {
-        $(this).next().toggle();
-      }
-    ).next().hide();
-   */
-   
+   //add tabs
+   $(".mini-tabs").tabs();
    $("#tabs").tabs({
      cache: true,
      spinner: 'Retrieving data...',
@@ -57,21 +53,13 @@ $(document).ready(
        }
    	 },
    	 load: function(event,ui){
-   	   $('#tabs a[rel*=facebox]').facebox();
+   	   //facebox ajax content
+   	   $('#'+ui.panel.id+' a[rel*=facebox]').facebox();
    	 }
    });
    
-   
-   
-
-    $(".show_activities").bind("click",
-      function(e) {
-        $(e.target).parent().siblings('.activities').toggle();
-      }
-    );
-    
-    //highlight search term
-    
+ 
+    //highlight search term    
     var query = $.getUrlVar('query');
     
     if(query) {

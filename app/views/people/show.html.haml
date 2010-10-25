@@ -19,12 +19,10 @@
               %a(href="#{info}")=info
           -else
             %dd= info
-    -unless @person.courses.empty?
-      %dt Courses Taught
-      %dd
-        %ul
-          - @person.courses.each do |c|
-            %li= link_to c.course_code, c, :rel => "facebox[.full]"
-
+  -unless @person.courses.empty?
+    %h5 Courses Taught
+        
+  = render :partial => 'partials/timeline', :locals => {:years => @person.courses.map{|x| x.year_version}.uniq.sort, :items_by_year => @courses_by_year, :heading => false}
+      
 
   = link_to 'Edit', edit_person_path(@person), :class => 'edit' if admin_signed_in?

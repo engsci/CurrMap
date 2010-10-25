@@ -28,11 +28,27 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.js {
         #just display the one course, using its docid
-        @course = Course.find(params[:id])
+        @course = Course.where(:_id => params[:id])[0]
+        @course ||= Course.where(:course_code => /^#{params[:id]}/)[0]
       }
       format.html {
         #display the course, with tabs for related courses (same code, different year)
         @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+        
+        @profs_by_year = {}
+        @resources_by_year = {}
+        @courses.each do |course|
+          course.professors.each do |prof|
+            @profs_by_year[prof] ||= []
+            @profs_by_year[prof] << course.year_version
+          end
+          course.resources.each do |resource|
+            @resources_by_year[resource] ||= []
+            @resources_by_year[resource] << course.year_version
+          end
+        end
+        
+        
       }
       format.xml  { render :xml => @course }
     end

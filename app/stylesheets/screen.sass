@@ -20,6 +20,28 @@ $text_inverse : #FFFFFF //on blue
   :padding-bottom 32767px
   :margin-bottom -32767px
 
+// MIXINS for semester listing, course topic listing, main topic listing
+@mixin category
+  :float left
+@mixin group
+  :float left
+  :background no-repeat 0px top
+  :margin 5px 0 5px 0
+  h5
+    :margin 0 0 0 22px
+    :color #666
+  ul
+    :padding 0
+  li
+    :list-style none
+@mixin item
+  :margin 0 0 0 22px
+  a
+    :float left
+    :margin-right 1em
+
+
+
 +blueprint-typography
 
 body
@@ -87,7 +109,7 @@ body
 
 .highlight
   :background-color yellow
-  
+
 @import "partials/results"
 @import "partials/form"
 @import "partials/course"

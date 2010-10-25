@@ -52,17 +52,15 @@ CouchCourse.get_all.each do |c|
   resources = hash["resources"]
   hash.delete("resources")
   
+  hash["main_topics"] = hash["main topics"]
+  hash.delete("main topics")
+  
   puts hash["_id"] #LOG
   
-  #hash["_id"] = hash["_id"].split("-")[0].strip #remove '- 2010' classification
   hash["course_code"] = hash["_id"].split("-")[0].strip #remove '- 2010' classification
   hash.delete("_id")
   
   course = Course.new(hash)
-  
-  #if Course.where("_id" => course.id).count > 0 and Course.find(course.id).year.to_i < course.year.to_i
-  #  puts "OLD COURSE"
-  #end
   
   # LINK TO PROFS
   profs.each do |id|

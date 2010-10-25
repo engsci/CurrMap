@@ -4,43 +4,25 @@
     :padding 2em 0 0.5em 0
     :margin-bottom 0.5em
     :border-bottom 1px solid #ccc
-  .category
+  .semesters
+    @include category
     :width 100% //or 67%
-    :float left
-    .group
+    
+    .semester
       :width 50%
       
   .others
     :float left
     :width 33% 
     
-  .group
-    :float left
-    :background no-repeat 0px top
-    :margin 5px 0 5px 0
-    
-    h5
-      :margin 0 0 0 22px
-      :color #666
-
-    &.lecture
-      :background-image url("/images/icons/page_white.png")
-    &.midterm
-      :background-image url("/images/icons/rosette.png")
-    &.assignment
-      :background-image url("/images/icons/report.png")
-    &.project
-      :background-image url("/images/icons/star.png")
-    &.tutorial
-      :background-image url("/images/icons/book_open.png")
-    &.pset
-      :background-image url("/images/icons/plugin.png")
-      
-    .item
-      :margin 0 0 0 22px
+  .semester
+    @include group
+          
+    .course
+      @include item
       a
-        :float left
         :margin-right 0.5em
+      
   .no-others
     .lectures
       :width 100%

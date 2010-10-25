@@ -12,12 +12,12 @@
         - @courses_by_year_and_semester[year_version].each do |year, semesters|
           .year
             %h4= "Year #{year}"
-            .category
+            .semesters
               - semesters.each do |semester, courses|
-                .group 
+                .semester 
                   %h5= "Semester #{semester}"
                   - courses.each do |course|
-                    .item
+                    .course
                       =link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :anchor => course.year_version}, {:title => course.name}
                       =course.name
 

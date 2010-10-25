@@ -18,6 +18,13 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
 
+    @courses_by_year = {}
+    
+    @person.courses.each do |course|
+      @courses_by_year[course.short_code] ||= []
+      @courses_by_year[course.short_code] << course.year_version
+    end
+
     respond_to do |format|
       format.js 
       format.html # show.html.erb
