@@ -28,6 +28,10 @@ class Professor < Person
   field :phone, :type => String
   field :website, :type => String
   field :email, :type => String
+  
+  def years_taught
+    self.courses.map{|x| x.year_version}.uniq.sort
+  end
 end
 
 class Author < Person

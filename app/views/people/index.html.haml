@@ -1,7 +1,19 @@
 %h2 People
-%ul
-  - @people.each do |person|
-    %li= link_to person.name, person, :rel => "facebox"
 
+#tabs
+  %ul
+    %li 
+      %a(href="#year" title="year") By Year
+    %li
+      %a(href="#alpha" title="alpha") Alphabetical
+
+  
+ 
+  #year
+    = render :partial => 'partials/timeline', :locals => {:years => @people.inject([]){|result, p| result | p.years_taught}.sort, :items_by_year => @people.inject({}){|result,p| result.merge({p=>p.years_taught})}.sort_by{|k,v| k.name}.reverse.sort_by{|k,v| v.reverse}.reverse, :heading => false}
+  #alpha
+    %ul
+      - @people.sort_by{|p| p.name}.each do |person|
+        %li= link_to person.name, person, :rel => "facebox"
 
 = link_to 'New Person', new_person_path if admin_signed_in?
