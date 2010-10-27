@@ -13,6 +13,16 @@ class CoursesController < ApplicationController
       @courses_by_year_and_semester[course.year_version][course.year][course.semester] ||= []
       @courses_by_year_and_semester[course.year_version][course.year][course.semester] << course
     end
+    
+    
+    @courses_by_magic = {}
+    # @courses_by_magic[course.year][course.semester][course] = [year_version, year_version]
+    Course.all.each do |course|
+      @courses_by_magic[course.year] ||= {}
+      @courses_by_magic[course.year][course.semester] ||= {}
+      @courses_by_magic[course.year][course.semester][course.short_code] ||= []
+      @courses_by_magic[course.year][course.semester][course.short_code] << course.year_version
+    end
 
     respond_to do |format|
       format.html # index.html.erb

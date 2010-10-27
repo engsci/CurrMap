@@ -4,9 +4,11 @@
   %ul
     -@courses_by_year_and_semester.keys.reverse.each do |year_version|
       %li
-        %a(href="#tabs-#{year_version}")= year_version
+        %a(href="##{year_version}" title="#{year_version}")= year_version
+    %li
+      %a(href="#all" title="all") All
   -@courses_by_year_and_semester.keys.reverse.each do |year_version|
-    %div(id="tabs-#{year_version}")
+    %div(id="#{year_version}")
       %h3= year_version
       #courses
         - @courses_by_year_and_semester[year_version].each do |year, semesters|
@@ -20,6 +22,31 @@
                     .course
                       =link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :anchor => course.year_version}, {:title => course.name}
                       =course.name
+  #all
+    - years = @courses_by_year_and_semester.keys
+    %table.timeline
+      %tr
+        %th &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        - years.each do |year_version|
+          %th= year_version
+          
+      - @courses_by_magic.each do |year, semesters|
+        %tr
+          %th(colspan="#{years.length+1}")
+            %h4= "Year #{year}"
+        - semesters.each do |semester, courses|
+          %tr
+            %th(colspan="#{years.length+1}")
+              %h5
+                &nbsp;&nbsp;&nbsp;
+                = "Semester #{semester}"
+          - courses.sort_by{|x| x[1].sort}.reverse.each do |course, item_years|
+            %tr
+              %td
+              - years.each do |year|
+                %td(class="#{"active" if item_years.include?(year)}") 
+                  -if item_years.include?(year) && item_years.sort[0] == year
+                    = link_to course, {:controller => :courses, :action => :show, :id => course}
 
 
 = link_to 'New Course', new_course_path if admin_signed_in?
