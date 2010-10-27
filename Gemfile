@@ -10,7 +10,7 @@ gem 'compass', '>= 0.10.2'
 gem 'json'
 gem 'nokogiri', '1.4.2'
 gem 'sunspot_rails', '1.2.rc4' 
-gem 'sunspot_mongoid', '0.4.0'
+gem 'sunspot_mongoid', :git => "http://github.com/rafd/sunspot_mongoid.git"
 gem 'formtastic', '~> 1.1.0'
 gem 'devise', '1.1.2'
 

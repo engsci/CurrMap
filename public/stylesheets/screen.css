@@ -384,7 +384,7 @@ caption {
   color: #111111;
 }
 
-/* line 47, ../../app/stylesheets/screen.sass */
+/* line 46, ../../app/stylesheets/screen.sass */
 body {
   font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
   color: #333333;
@@ -392,16 +392,16 @@ body {
   text-align: left;
   direction: ltr;
 }
-/* line 54, ../../app/stylesheets/screen.sass */
+/* line 53, ../../app/stylesheets/screen.sass */
 body a {
   color: #3b5998;
   text-decoration: none;
 }
-/* line 57, ../../app/stylesheets/screen.sass */
+/* line 56, ../../app/stylesheets/screen.sass */
 body a:hover {
   text-decoration: underline;
 }
-/* line 60, ../../app/stylesheets/screen.sass */
+/* line 59, ../../app/stylesheets/screen.sass */
 body h2 {
   font-weight: bold;
 }
@@ -670,14 +670,14 @@ h4 {
   background: #6d86b7;
 }
 
-/* line 67, ../../app/stylesheets/screen.sass */
+/* line 66, ../../app/stylesheets/screen.sass */
 #content {
   width: 950px;
   margin: 0 auto;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 71, ../../app/stylesheets/screen.sass */
+/* line 70, ../../app/stylesheets/screen.sass */
 #content #main {
   display: inline;
   float: left;
@@ -693,24 +693,24 @@ h4 {
 * html #content #main {
   overflow-x: hidden;
 }
-/* line 79, ../../app/stylesheets/screen.sass */
+/* line 78, ../../app/stylesheets/screen.sass */
 #content #main .notice, #content #main .alert {
   padding: 0.5em;
   border: 1px solid;
 }
-/* line 82, ../../app/stylesheets/screen.sass */
+/* line 81, ../../app/stylesheets/screen.sass */
 #content #main .notice {
   color: #009900;
   background: #ccffcc;
   border-color: #009900;
 }
-/* line 87, ../../app/stylesheets/screen.sass */
+/* line 86, ../../app/stylesheets/screen.sass */
 #content #main .alert {
   color: #cc3300;
   background: #ffcccc;
   border-color: #cc3300;
 }
-/* line 92, ../../app/stylesheets/screen.sass */
+/* line 91, ../../app/stylesheets/screen.sass */
 #content #sidebar {
   display: inline;
   float: left;
@@ -721,7 +721,7 @@ h4 {
 * html #content #sidebar {
   overflow-x: hidden;
 }
-/* line 94, ../../app/stylesheets/screen.sass */
+/* line 93, ../../app/stylesheets/screen.sass */
 #content #sidebar h2 {
   font-size: 1em;
   height: 2em;
@@ -729,7 +729,7 @@ h4 {
   margin-top: 1em;
   border-bottom: 1px solid #dddddd;
 }
-/* line 101, ../../app/stylesheets/screen.sass */
+/* line 100, ../../app/stylesheets/screen.sass */
 #content #footer {
   display: inline;
   float: left;
@@ -742,7 +742,7 @@ h4 {
 * html #content #footer {
   overflow-x: hidden;
 }
-/* line 105, ../../app/stylesheets/screen.sass */
+/* line 104, ../../app/stylesheets/screen.sass */
 #content #footer ul {
   margin: 0;
   padding: 0;
@@ -773,12 +773,12 @@ h4 {
   padding-right: 0px;
 }
 
-/* line 110, ../../app/stylesheets/screen.sass */
+/* line 109, ../../app/stylesheets/screen.sass */
 .highlight {
   background-color: yellow;
 }
 
-/* line 113, ../../app/stylesheets/screen.sass */
+/* line 112, ../../app/stylesheets/screen.sass */
 h5 {
   color: #666666;
 }
@@ -1071,13 +1071,12 @@ table.timeline td.active a {
 /* line 30, ../../app/stylesheets/screen.sass */
 .column .main_topics h5 {
   margin: 0 0 0 22px;
-  color: #666666;
 }
-/* line 33, ../../app/stylesheets/screen.sass */
+/* line 32, ../../app/stylesheets/screen.sass */
 .column .main_topics ul {
   padding: 0;
 }
-/* line 35, ../../app/stylesheets/screen.sass */
+/* line 34, ../../app/stylesheets/screen.sass */
 .column .main_topics li {
   list-style: none;
 }
@@ -1086,7 +1085,7 @@ table.timeline td.active a {
   margin: 0 0 0 22px;
   margin: 0;
 }
-/* line 39, ../../app/stylesheets/screen.sass */
+/* line 38, ../../app/stylesheets/screen.sass */
 .column .main_topics li a {
   float: left;
   margin-right: 1em;
@@ -1150,7 +1149,7 @@ table.timeline td.active a {
 .activities .activity .outcomes {
   margin: 0 0 0 22px;
 }
-/* line 39, ../../app/stylesheets/screen.sass */
+/* line 38, ../../app/stylesheets/screen.sass */
 .activities .activity .outcomes a {
   float: left;
   margin-right: 1em;
@@ -1194,13 +1193,12 @@ table.timeline td.active a {
 /* line 30, ../../app/stylesheets/screen.sass */
 #courses .semester h5 {
   margin: 0 0 0 22px;
-  color: #666666;
 }
-/* line 33, ../../app/stylesheets/screen.sass */
+/* line 32, ../../app/stylesheets/screen.sass */
 #courses .semester ul {
   padding: 0;
 }
-/* line 35, ../../app/stylesheets/screen.sass */
+/* line 34, ../../app/stylesheets/screen.sass */
 #courses .semester li {
   list-style: none;
 }
@@ -1208,7 +1206,7 @@ table.timeline td.active a {
 #courses .semester .course {
   margin: 0 0 0 22px;
 }
-/* line 39, ../../app/stylesheets/screen.sass */
+/* line 38, ../../app/stylesheets/screen.sass */
 #courses .semester .course a {
   float: left;
   margin-right: 1em;
