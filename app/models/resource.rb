@@ -9,9 +9,6 @@ class Resource
   field :publisher, :type => String
   field :optional, :type => Boolean
  # field :type, :type => String
-  def name
-    read_attribute(:name) || self.id
-  end
   
   def author
     authors[0]

@@ -1,12 +1,12 @@
 GIT
-  remote: http://github.com/justinfrench/formtastic.git
-  revision: eeba8d402721a3b3ae3c6e0d8f1b123fcae96b65
-  branch: rails3
+  remote: http://github.com/mongoid/mongoid.git
+  revision: 8e8c4ec26e5382d1e0c19f9dfe389099220a7b17
   specs:
-    formtastic (1.1.0.beta)
-      actionpack (>= 2.3.0)
-      activesupport (>= 2.3.0)
-      i18n (>= 0.4.0)
+    mongoid (2.0.0.beta.19)
+      activemodel (~> 3.0)
+      mongo (~> 1.1)
+      tzinfo (~> 0.3.22)
+      will_paginate (~> 3.0.pre)
 
 GEM
   remote: http://rubygems.org/
@@ -41,10 +41,10 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     bcrypt-ruby (2.1.2)
-    bson (1.0.4)
-    bson_ext (1.0.4)
+    bson (1.1.1)
+    bson_ext (1.1.1)
     builder (2.1.2)
-    compass (0.10.4)
+    compass (0.10.5)
       haml (>= 3.0.4)
     devise (1.1.2)
       bcrypt-ruby (~> 2.1.2)
@@ -52,28 +52,28 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
-    haml (3.0.12)
+    formtastic (1.1.0)
+      actionpack (>= 2.3.0)
+      activesupport (>= 2.3.0)
+      i18n (>= 0.4.0)
+    haml (3.0.22)
     i18n (0.4.1)
     json (1.4.6)
-    mail (2.2.5)
+    mail (2.2.9)
       activesupport (>= 2.3.6)
-      mime-types
-      treetop (>= 1.4.5)
+      i18n (~> 0.4.1)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
     mime-types (1.16)
-    mongo (1.0.7)
-      bson (>= 1.0.4)
-    mongoid (2.0.0.beta.17)
-      activemodel (~> 3.0.0)
-      bson (= 1.0.4)
-      mongo (= 1.0.7)
-      tzinfo (~> 0.3.22)
-      will_paginate (~> 3.0.pre)
+    mongo (1.1.1)
+      bson (>= 1.1.1)
     nokogiri (1.4.2)
     polyglot (0.3.1)
+    pr_geohash (1.0.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
-    rack-test (0.5.4)
+    rack-test (0.5.6)
       rack (>= 1.0)
     rails (3.0.0)
       actionmailer (= 3.0.0)
@@ -83,7 +83,7 @@ GEM
       activesupport (= 3.0.0)
       bundler (~> 1.0.0)
       railties (= 3.0.0)
-    rails3-generators (0.12.1)
+    rails3-generators (0.14.0)
     railties (3.0.0)
       actionpack (= 3.0.0)
       activesupport (= 3.0.0)
@@ -92,16 +92,17 @@ GEM
     rake (0.8.7)
     rsolr (0.12.1)
       builder (>= 2.1.2)
-    sunspot (1.1.0)
+    sunspot (1.2.rc4)
       escape (= 0.0.4)
+      pr_geohash (~> 1.0)
       rsolr (= 0.12.1)
-    sunspot_mongoid (0.3.2)
+    sunspot_mongoid (0.4.0)
       mongoid
       sunspot (>= 1.1.0)
       sunspot_rails (>= 1.1.0)
-    sunspot_rails (1.1.0)
-      sunspot (= 1.1.0)
-    thor (0.14.0)
+    sunspot_rails (1.2.rc4)
+      sunspot (= 1.2.rc4)
+    thor (0.14.3)
     treetop (1.4.8)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
@@ -113,15 +114,16 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext (= 1.0.4)
+  bson_ext (= 1.1.1)
   compass (>= 0.10.2)
   devise (= 1.1.2)
-  formtastic!
-  haml (= 3.0.12)
+  formtastic (~> 1.1.0)
+  haml (= 3.0.22)
   json
-  mongoid (= 2.0.0.beta.17)
+  mongo (= 1.1.1)
+  mongoid!
   nokogiri (= 1.4.2)
   rails (= 3.0.0)
   rails3-generators
-  sunspot
-  sunspot_mongoid
+  sunspot_mongoid (= 0.4.0)
+  sunspot_rails (= 1.2.rc4)

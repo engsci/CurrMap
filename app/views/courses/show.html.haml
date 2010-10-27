@@ -6,7 +6,6 @@
   .column
     .course_description
       %h4 Course Description
-      - #course_descriptions = @courses.map{|c| c.calendar_entry.squeeze(" ").gsub(/’/,'\'')}.uniq
       - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.year_version => c.calendar_entry.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse
       - if course_descriptions.length > 1
         .mini-tabs

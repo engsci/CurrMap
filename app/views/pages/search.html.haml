@@ -53,11 +53,11 @@
   #courses.facet
     %h2 Courses
     %ul
-      - @courses.each do |course|
+      - @courses.inject({}) {|result, c| result.merge({c.short_code => c})}.invert.sort_by{|c| c[1]}.each do |course, ignore|
         %li
-          = link_to course.name, {:controller => :courses, :action => :show, :id => course, :query => params[:query]}#, :rel => 'facebox[.full]'
+          = link_to course.name, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}#, :rel => 'facebox[.full]'
           .author
-            = link_to course.id, course, {:query => @query}#, :rel => 'facebox[.full]'
+            = link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}#, :rel => 'facebox[.full]'
       -# %li.more= link_to "More"
 -if @resources && @resources.length > 0
   #resources.facet

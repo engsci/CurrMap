@@ -11,4 +11,8 @@
       -years.each do |year|
         %td(class="#{"active" if item_years.include?(year)}") 
           -if item_years.include?(year) && item_years.sort[0] == year
-            =link_to (item.respond_to?("name") ? item.name : item), item, :rel => "facebox"
+            - if item.respond_to?("short_code")
+              - course = item
+              =link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :anchor => course.year_version}, {:title => course.name}
+            - elsif item.respond_to?("name")
+              = link_to item.name, item, :rel => "facebox"

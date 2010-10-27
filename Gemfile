@@ -1,16 +1,17 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.0'
-gem 'mongoid', '2.0.0.beta.17'
-gem 'bson_ext', '1.0.4'
-gem 'haml', '3.0.12'
+gem 'mongoid', :git => "http://github.com/mongoid/mongoid.git"
+gem 'mongo', '1.1.1'
+gem 'bson_ext', '1.1.1'
+gem 'haml', '3.0.22'
 gem 'rails3-generators'
 gem 'compass', '>= 0.10.2'
 gem 'json'
 gem 'nokogiri', '1.4.2'
-gem 'sunspot', :require => 'sunspot'
-gem 'sunspot_mongoid'
-gem 'formtastic', :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
+gem 'sunspot_rails', '1.2.rc4' 
+gem 'sunspot_mongoid', '0.4.0'
+gem 'formtastic', '~> 1.1.0'
 gem 'devise', '1.1.2'
 
 # Bundle edge Rails instead:

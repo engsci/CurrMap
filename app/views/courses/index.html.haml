@@ -16,7 +16,7 @@
               - semesters.each do |semester, courses|
                 .semester 
                   %h5= "Semester #{semester}"
-                  - courses.each do |course|
+                  - courses.sort_by{|c| c.short_code}.each do |course|
                     .course
                       =link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :anchor => course.year_version}, {:title => course.name}
                       =course.name

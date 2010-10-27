@@ -4,10 +4,6 @@ class Person
   
   field :name, :type => String
   
-  def short_name
-    self.id
-  end
-  
   # SEARCH
   
   include Sunspot::Mongoid

@@ -8,10 +8,13 @@
 puts "IMPORTING PEOPLE"
 Person.destroy_all
 CouchPerson.get_all.each do |p| 
-  pp = p.to_hash
-  pp.delete("_rev")
-  pp.delete("class")
-  q = Professor.new(pp)
+  hash = p.to_hash
+  hash.delete("_rev")
+  hash.delete("class")
+  hash["short_name"] = hash["_id"]
+  hash.delete("_id")
+  
+  q = Professor.new(hash)
   q.save
 end
 
@@ -28,6 +31,10 @@ CouchResource.get_all.each do |r|
   
   hash["medium"] = hash["type"]
   hash.delete("type")
+  
+  hash["name"] ||= hash["_id"]
+  hash["old_id"] = hash["_id"]
+  hash.delete("_id")
   
   resource = Resource.new(hash)
   resource.save
@@ -64,14 +71,14 @@ CouchCourse.get_all.each do |c|
   
   # LINK TO PROFS
   profs.each do |id|
-    prof = Professor.find(id) 
+    prof = Professor.where(:short_name => id)[0]
     course.professors << prof
     prof.save
   end if profs
   
   # LINK TO RESOURCES
   resources.each do |id|
-    resource = Resource.find(id)
+    resource = Resource.where(:old_id => id)[0]
     course.resources << resource
     resource.save
   end if resources
@@ -88,7 +95,8 @@ CouchCollection.get_all.each do |c|
   courses = hash["courses"]
   hash.delete("courses")
   hash.delete("collections") #linked seperately, see below
-  
+  hash["name"] = hash["_id"]
+  hash.delete("_id")
   
   collection = Collection.new(hash)
   
@@ -110,10 +118,10 @@ CouchCollection.get_all.each do |c|
   hash = c.to_hash
   collections = hash["collections"]
   
-  collection = Collection.find(hash["_id"])
+  collection = Collection.where(:name => hash["_id"])[0]
 
   collections.each do |id|
-    col = Collection.find(id)
+    col = Collection.where(:name => id)
     collection.collections << col
     #col.save
   end if collections
@@ -132,3 +140,6 @@ Sunspot.index(Person.all)
 Sunspot.index(Resource.all)
 Sunspot.index(Course.all)
 Sunspot.index(Collection.all)
+
+puts "COMMITTING SOLR INDEX"
+Sunspot.commit

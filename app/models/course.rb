@@ -9,7 +9,7 @@ class Course
   field :semester, :type => String
   field :weight, :type => Float
   field :year, :type => Integer
-  field :main_topics, :type => String
+  field :main_topics, :type => Array
   #workload for lecture, tutorial, practice
   
   # RELATIONSHIPS
@@ -83,9 +83,7 @@ class Course
   searchable do
     text :name
     text :calendar_entry
-    text :course_code do
-      id
-    end
+    text :course_code
     text :short_code do
       course_code[0,6]
     end
@@ -97,9 +95,6 @@ class Course
     end
     text :activities do
       self["activities"] ? self["activities"].map {|a| a[1]["outcomes"].keys.join(" ")} : ""
-    end
-    text :blah do
-      "foo"
     end
   end
 end

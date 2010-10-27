@@ -22,9 +22,13 @@ class PeopleController < ApplicationController
     
     @person.courses.each do |course|
       @courses_by_year[course.short_code] ||= []
-      @courses_by_year[course.short_code] << course.year_version
+      @courses_by_year[course.short_code] << course
     end
-
+    
+    #original form: {short_code1 => [Course1, Course1b]}
+    #convert to form: {Course1 => [year, year], Course2 => [year, year]}
+    @courses_by_year = @courses_by_year.inject({}) {|result, i| result.merge({i[1][0]=>i[1].map{|c| c.year_version}})}
+    
     respond_to do |format|
       format.js 
       format.html # show.html.erb
