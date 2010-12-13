@@ -3,27 +3,54 @@
 - else 
   %h1= @courses[0].short_code
   %h3= @courses[0].name
+
   .column
     .course_description
-      %h4 Course Description
       - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.year_version => c.calendar_entry.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse
       - if course_descriptions.length > 1
         .mini-tabs
           %ul
+            %li.title Course Description
             - course_descriptions.each do |ce, year|
               %li
-                %a(href="#tabs-#{year}")= year
+                %a(href="#course_description_tabs_#{year}")= year
               
           - course_descriptions.each do |ce, year|
-            %div(id="tabs-#{year}")= ce
+            %div(id="course_description_tabs_#{year}")= ce
       - else
         %p= course_descriptions[0][0]
         
+      .mini-tabs
+        %ul
+          %li.title Misc Info
+          - @courses.sort_by{|c| c.year_version}.each do |course|
+            %li
+              %a(href="#course_info_tabs_#{course.year_version}")= course.year_version
+        - @courses.sort_by{|c| c.year_version}.each do |course|
+          %div(id="course_info_tabs_#{course.year_version}")
+            %ul.misc_info
+              %li
+                %strong Year
+                = course.year
+              %li
+                %strong Weight
+                = course.weight
+              %li
+                %strong Semester
+                = {"F"=>"Fall", "W"=>"Winter"}[course.semester]
+              %li 
+                %strong Workload 
+                %abbr(title='Lecture') L
+                =course.workload.lecture + " "
+                %abbr(title="Tutorial") T
+                =course.workload.tutorial + " "
+                %abbr(title="Practical") P
+                =course.workload.practical
     - main_topics = @courses.map{|c| c.main_topics}.flatten.uniq.compact
     - if main_topics.length > 0
       .main_topics
-        %h4 Main Topics
         %ul
+          %li.title Main Topics
           - main_topics.each do |t|
             %li= link_to t, {:controller => "pages", :action => "search", :query => t}, {:rel => "facebox"}
             
@@ -42,6 +69,7 @@
     
   #tabs
     %ul
+      %li.title Topics Covered
       - @courses.each do |course|
         %li
           %a(href="#{course.id}" title="#{course.year_version}")= course.course_code + " - " + course.year_version.to_s

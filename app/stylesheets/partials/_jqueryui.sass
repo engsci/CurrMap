@@ -9,23 +9,33 @@ body
   .ui-widget-header
     :background none
     :border none
-    :border-bottom 1px solid #AAAAAA
+    :border-bottom 1px solid #CCCCCC
   .ui-corner-all
     -moz-border-radius: none
+
+  .ui-state-active
+    :border-color #CCCCCC !important
   .ui-tabs
-    :padding 0
+    :padding 2em 0 0
     h1,h2,h3
       :display none
     .ui-tabs-nav
       :padding 0.2em 1em 0
       li
         :float right
+      li.title
+        :float left
+        :font-size 1.2em
+        :margin 0 0 0 -0.5em
+        :font-weight normal
+        :line-height 2em
         
   .mini-tabs
-    :margin-top -3.15em
-    ul
-      
-      :font-size 0.9em 
-      :border none
+    //:margin-top -3.15em
+    .ui-tabs-nav
+      :font-size 0.8em 
+      li.title
+        :font-size 1.25em * 1.2 !important
+        :line-height 1.25em !important
     .ui-tabs-panel
-      :padding 1em 0
+      //:padding 1em 0
