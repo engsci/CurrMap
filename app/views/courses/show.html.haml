@@ -7,18 +7,15 @@
   .column
     .course_description
       - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.year_version => c.calendar_entry.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse
-      - if course_descriptions.length > 1
-        .mini-tabs
-          %ul
-            %li.title Course Description
-            - course_descriptions.each do |ce, year|
-              %li
-                %a(href="#course_description_tabs_#{year}")= year
-              
+      .mini-tabs
+        %ul
+          %li.title Course Description
           - course_descriptions.each do |ce, year|
-            %div(id="course_description_tabs_#{year}")= ce
-      - else
-        %p= course_descriptions[0][0]
+            %li
+              %a(href="#course_description_tabs_#{year}")= year
+            
+        - course_descriptions.each do |ce, year|
+          %div(id="course_description_tabs_#{year}")= ce
         
       .mini-tabs
         %ul
