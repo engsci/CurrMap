@@ -71,7 +71,7 @@ $(document).ready(
    	 }
    });
    
-  hightlight_terms();
+   $('#main').highlight_terms();
   
     
   }
