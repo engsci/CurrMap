@@ -29,7 +29,19 @@ jQuery(document).ajaxSend(function(event, request, settings) {
 });
 
 
-
+jQuery.fn.highlight_terms = function(){
+  var o = $(this[0])
+  
+  //highlight search term    
+  var query = $.getUrlVar('query');
+  
+  if(query) {
+    terms = query.split('+');
+    for(x in terms){
+      o.highlight(terms[x]);
+    }
+  }
+}
 $(document).ready(
   function() {
     //adds facebox links to main content
@@ -55,18 +67,12 @@ $(document).ready(
    	 load: function(event,ui){
    	   //facebox ajax content
    	   $('#'+ui.panel.id+' a[rel*=facebox]').facebox();
+   	   $('#main').highlight_terms();
    	 }
    });
    
- 
-    //highlight search term    
-    var query = $.getUrlVar('query');
+  hightlight_terms();
+  
     
-    if(query) {
-      terms = query.split('+');
-      for(x in terms){
-        $('#main').highlight(terms[x]);
-      }
-    }
   }
 );
