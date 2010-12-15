@@ -12,6 +12,11 @@ class Course
   field :main_topics, :type => Array
   #workload for lecture, tutorial, practice
   
+  #field :workload, :type => Hash
+  embeds_one :workload
+  accepts_nested_attributes_for :workload
+  #accepts_nested_attributes_for :main_topics
+  
   # RELATIONSHIPS
   # embeds_many :activities
   references_many :resources, :stored_as => :array, :inverse_of => :courses, :index => true
@@ -53,17 +58,19 @@ class Course
     return read_attribute(:year)
   end
   
-  def lectures
-    return self.activities.find_all{|a| a.class}
-  end
-    
-  def midterms
-    return self.activities.find_all{|a| a.class}
-  end  
-  
   def short_code
     return self.course_code[0,6]
   end
+  
+  
+  def lectures
+    self.activities.find_all{|a| a.class == Lecture}
+  end
+  
+  def midterms
+    self.activities.find_all{|a| a.class == Midterm}
+  end
+  
   
   def collated_activities
     collated_activities = {}
@@ -97,4 +104,13 @@ class Course
       self["activities"] ? self["activities"].map {|a| a[1]["outcomes"].keys.join(" ")} : ""
     end
   end
+end
+
+class Workload
+  include Mongoid::Document
+  
+  field :lecture
+  field :tutorial
+  field :practical
+  embedded_in :course, :inverse_of => :workload
 end
