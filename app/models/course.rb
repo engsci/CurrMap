@@ -103,6 +103,9 @@ class Course
     text :activities do
       self["activities"] ? self["activities"].map {|a| a[1]["outcomes"].keys.join(" ")} : ""
     end
+    text :main_topics do
+      self["main_topics"] ? self["main_topics"].join(" ") : ""
+    end
   end
 end
 
