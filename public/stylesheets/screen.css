@@ -798,12 +798,13 @@ h5 {
   margin-bottom: -32767px;
   margin-right: -10px;
   padding-left: 20px;
+  height: 2em;
 }
 /* line 139, ../../../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.10.6/frameworks/blueprint/stylesheets/blueprint/_grid.scss */
 * html .facet h2 {
   overflow-x: hidden;
 }
-/* line 12, ../../app/stylesheets/partials/_results.sass */
+/* line 13, ../../app/stylesheets/partials/_results.sass */
 .facet ul {
   list-style: none;
   padding: 0;
@@ -812,26 +813,26 @@ h5 {
   padding-bottom: 32767px;
   margin-bottom: -32767px;
 }
-/* line 18, ../../app/stylesheets/partials/_results.sass */
+/* line 19, ../../app/stylesheets/partials/_results.sass */
 .facet ul li {
   padding: 0 0 0.5em;
   margin: 0 0 1em;
   overflow: hidden;
 }
-/* line 22, ../../app/stylesheets/partials/_results.sass */
+/* line 23, ../../app/stylesheets/partials/_results.sass */
 .facet ul li a {
   font-weight: bold;
 }
-/* line 25, ../../app/stylesheets/partials/_results.sass */
+/* line 26, ../../app/stylesheets/partials/_results.sass */
 .facet ul li.more a {
   padding-bottom: 5px;
   display: block;
 }
-/* line 28, ../../app/stylesheets/partials/_results.sass */
+/* line 29, ../../app/stylesheets/partials/_results.sass */
 .facet ul li.more li a {
   padding-bottom: 0;
 }
-/* line 30, ../../app/stylesheets/partials/_results.sass */
+/* line 31, ../../app/stylesheets/partials/_results.sass */
 .facet ul li h3 {
   font-size: 1em;
   line-height: 1.5em;
@@ -848,44 +849,44 @@ h5 {
 * html .facet ul li h3 {
   overflow-x: hidden;
 }
-/* line 36, ../../app/stylesheets/partials/_results.sass */
+/* line 37, ../../app/stylesheets/partials/_results.sass */
 .facet ul li ul {
   list-style: none;
   float: left;
   padding-bottom: 32767px;
   margin-bottom: -32767px;
 }
-/* line 39, ../../app/stylesheets/partials/_results.sass */
+/* line 40, ../../app/stylesheets/partials/_results.sass */
 .facet ul li ul li {
   padding: 0;
   margin: 0 0 5px;
 }
-/* line 42, ../../app/stylesheets/partials/_results.sass */
+/* line 43, ../../app/stylesheets/partials/_results.sass */
 .facet ul li ul li a {
   font-weight: normal;
 }
-/* line 44, ../../app/stylesheets/partials/_results.sass */
+/* line 45, ../../app/stylesheets/partials/_results.sass */
 .facet ul li ul li a.title {
   width: 150px;
   float: left;
 }
-/* line 47, ../../app/stylesheets/partials/_results.sass */
+/* line 48, ../../app/stylesheets/partials/_results.sass */
 .facet ul li ul li .nearterms {
   width: 270px;
   float: left;
   color: #777777;
 }
-/* line 51, ../../app/stylesheets/partials/_results.sass */
+/* line 52, ../../app/stylesheets/partials/_results.sass */
 .facet ul li ul li .nearterms em {
   color: #333333;
   font-style: normal;
 }
-/* line 54, ../../app/stylesheets/partials/_results.sass */
+/* line 55, ../../app/stylesheets/partials/_results.sass */
 .facet ul li ul li a.week {
   width: 70px;
   float: left;
 }
-/* line 60, ../../app/stylesheets/partials/_results.sass */
+/* line 61, ../../app/stylesheets/partials/_results.sass */
 .facet#courses ul, .facet#resources ul, .facet#people ul {
   margin: 0;
   padding: 0;
@@ -914,49 +915,49 @@ h5 {
 .facet#courses ul li:last-child, .facet#courses ul li.last, .facet#resources ul li:last-child, .facet#resources ul li.last, .facet#people ul li:last-child, .facet#people ul li.last {
   padding-right: 0;
 }
-/* line 63, ../../app/stylesheets/partials/_results.sass */
+/* line 64, ../../app/stylesheets/partials/_results.sass */
 .facet#courses ul li, .facet#resources ul li, .facet#people ul li {
   padding: 0 2em 0 0;
 }
-/* line 67, ../../app/stylesheets/partials/_results.sass */
+/* line 68, ../../app/stylesheets/partials/_results.sass */
 .facet#activities ul li, .facet#all ul li {
   border-bottom: #dddddd 1px solid;
 }
-/* line 69, ../../app/stylesheets/partials/_results.sass */
+/* line 70, ../../app/stylesheets/partials/_results.sass */
 .facet#activities ul li ul li, .facet#all ul li ul li {
   border-bottom: none;
 }
-/* line 71, ../../app/stylesheets/partials/_results.sass */
+/* line 72, ../../app/stylesheets/partials/_results.sass */
 .facet .author {
   display: block;
 }
-/* line 73, ../../app/stylesheets/partials/_results.sass */
+/* line 74, ../../app/stylesheets/partials/_results.sass */
 .facet .author a {
   font-weight: normal;
   margin-right: 1em;
 }
 
-/* line 77, ../../app/stylesheets/partials/_results.sass */
+/* line 78, ../../app/stylesheets/partials/_results.sass */
 .facet h2 {
   background: url() top left no-repeat;
 }
 
-/* line 80, ../../app/stylesheets/partials/_results.sass */
+/* line 81, ../../app/stylesheets/partials/_results.sass */
 #resources h2 {
   background-image: url(/images/icons/book.png);
 }
 
-/* line 82, ../../app/stylesheets/partials/_results.sass */
+/* line 83, ../../app/stylesheets/partials/_results.sass */
 #people h2 {
   background-image: url(/images/icons/status_online.png) !important;
 }
 
-/* line 84, ../../app/stylesheets/partials/_results.sass */
+/* line 85, ../../app/stylesheets/partials/_results.sass */
 #courses.facet h2 {
   background-image: url(/images/icons/database.png);
 }
 
-/* line 86, ../../app/stylesheets/partials/_results.sass */
+/* line 87, ../../app/stylesheets/partials/_results.sass */
 #collections h2 {
   background-image: url(/images/icons/sitemap_color.png);
 }
