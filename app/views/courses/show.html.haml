@@ -49,8 +49,8 @@
     - main_topics = @courses.map{|c| c.main_topics}.flatten.uniq.compact
     - if main_topics.length > 0
       .main_topics
+        %h4 Main Topics
         %ul
-          %li.title Main Topics
           - main_topics.each do |t|
             %li= link_to t, {:controller => "pages", :action => "search", :query => t}, {:rel => "facebox"}
             
