@@ -57,7 +57,7 @@ class CoursesController < ApplicationController
             @resources_by_year[resource] << course.year_version
           end
         end
-        
+        @profs_by_year = @profs_by_year.sort_by{ |p| p.last }.reverse
         
       }
       format.xml  { render :xml => @course }
