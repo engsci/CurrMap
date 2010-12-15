@@ -59,8 +59,10 @@ CouchCourse.get_all.each do |c|
   resources = hash["resources"]
   hash.delete("resources")
   
-  hash["main_topics"] = hash["main topics"]
-  hash.delete("main topics")
+  if hash["main topics"]
+    hash["main_topics"] = hash["main topics"]
+    hash.delete("main topics")
+  end
   
   puts hash["_id"] #LOG
   
@@ -129,17 +131,20 @@ CouchCollection.get_all.each do |c|
   collection.save
 end
 
-puts "CLEARING SOLR INDEX"
-Person.remove_all_from_index
-Resource.remove_all_from_index
-Course.remove_all_from_index
-Collection.remove_all_from_index
+if true
 
-puts "CREATING SOLR INDEX"
-Sunspot.index(Person.all)
-Sunspot.index(Resource.all)
-Sunspot.index(Course.all)
-Sunspot.index(Collection.all)
+  puts "CLEARING SOLR INDEX"
+  Person.remove_all_from_index
+  Resource.remove_all_from_index
+  Course.remove_all_from_index
+  Collection.remove_all_from_index
 
-puts "COMMITTING SOLR INDEX"
-Sunspot.commit
+  puts "CREATING SOLR INDEX"
+  Sunspot.index(Person.all)
+  Sunspot.index(Resource.all)
+  Sunspot.index(Course.all)
+  Sunspot.index(Collection.all)
+
+  puts "COMMITTING SOLR INDEX"
+  Sunspot.commit
+end
