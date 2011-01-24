@@ -1,11 +1,17 @@
 class CoursesController < ApplicationController
-  
-  before_filter :authenticate_admin!, :except => [:index, :show]
-  
+  #before_filter :check_permissions, :only => [:new, :create, :index]
+  #skip_before_filter :require_no_authentication
+
+  #before_filter :authenticate_user!, :except => [:show]
+ 
   # GET /courses
   # GET /courses.xml
+ 
+  
+
   def index
-   @courses_by_year_and_semester = {}
+	authorize! :manage, Course
+    @courses_by_year_and_semester = {}
     
    Course.all.each do |course|
       @courses_by_year_and_semester[course.year_version] ||= {}

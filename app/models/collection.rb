@@ -6,8 +6,8 @@ class Collection
     Collection.where(:collection_ids => self.id)
   end
   
-  references_many :courses, :stored_as => :array, :inverse_of => :collections, :index => true
-  references_many :collections, :stored_as => :array
+  references_and_referenced_in_many :courses,  :inverse_of => :collections, :index => true
+  references_and_referenced_in_many :collections
   
   include Sunspot::Mongoid
   searchable do

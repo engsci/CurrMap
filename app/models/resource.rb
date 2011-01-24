@@ -14,7 +14,7 @@ class Resource
     authors[0]
   end
   
-  references_many :courses, :stored_as => :array, :inverse_of => :resources, :index => true
+  references_and_referenced_in_many :courses, :inverse_of => :resources, :index => true
   
   #def logger
   #  RAILS_DEFAULT_LOGGER

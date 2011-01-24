@@ -19,9 +19,9 @@ class Course
   
   # RELATIONSHIPS
   # embeds_many :activities
-  references_many :resources, :stored_as => :array, :inverse_of => :courses, :index => true
-  references_many :professors, :stored_as => :array, :inverse_of => :courses, :index => true
-  references_many :collections, :stored_as => :array, :inverse_of => :courses, :index => true
+  references_and_referenced_in_many :resources, :inverse_of => :courses, :index => true
+  references_and_referenced_in_many :professors, :inverse_of => :courses, :index => true
+  references_and_referenced_in_many :collections,  :inverse_of => :courses, :index => true
   
   # VALIDATIONS
   #validates_presence_of :course_code, :name
@@ -47,7 +47,7 @@ class Course
   
   # METHODS  
   def name
-    return read_attribute(:name).split(" - ")[0]
+	return read_attribute(:name) ? read_attribute(:name).split(" - ")[0] : nil
   end
 
   def year

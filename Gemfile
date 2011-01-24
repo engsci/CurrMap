@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.3'
 gem 'mongoid', :git => "http://github.com/mongoid/mongoid.git"
-gem 'mongo', '1.1.1'
+gem 'mongo', '>= 1.1.1'
 gem 'bson_ext', '1.1.1'
 gem 'haml', '3.0.22'
 gem 'rails3-generators'
@@ -13,6 +13,11 @@ gem 'sunspot_rails', '1.2.rc4'
 gem 'sunspot_mongoid', :git => "http://github.com/rafd/sunspot_mongoid.git"
 gem 'formtastic', '~> 1.1.0'
 gem 'devise', '1.1.2'
+gem 'cancan', '1.5.1'
+gem 'roles_mongoid', '>= 0.4.5'
+gem 'roles_generic', '>= 0.3.7'
+
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -39,3 +44,4 @@ gem 'devise', '1.1.2'
 # group :test do
 #   gem 'webrat'
 # end
+
