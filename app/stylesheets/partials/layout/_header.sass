@@ -1,0 +1,64 @@
+#header
+  :background $bg_medium
+  :height 3em
+  
+  a
+    :color #fff
+    &:hover
+      :text-decoration none
+  
+  h1
+    :background $text_links
+    :font-size 1.5em
+    :height= 3em / 1.5
+    :line-height= 3em / 1.5
+    :text-indent 1em
+    
+  
+  ul#menu
+    +horizontal-list
+    li
+      :margin 0
+      :padding 0
+      a
+        :display block
+        :font-weight strong
+        :height 3em
+        :line-height 3em
+        :padding 0 10px
+        &:hover
+          :background $bg_light
+          
+  form#search
+    //:padding-right $blueprint-grid-width / 2
+    //:border-right 1px solid $bg_dark
+    :height 3em
+    #ferret_search
+      :color $text_light
+      :border 1px solid $bg_dark
+      :padding 0.2em 0.4em
+      :margin 0.5em 0
+      :height 1.5em
+      :background #fff url(/images/icons/magnifier.png) no-repeat right
+      :width 200px
+    #ferret_submit
+      :height 1em
+      :padding 0.4em
+      :border none
+      :background $text_light
+      :display none
+      
+#sheader
+  
+
+  
+     
+  #menu
+    
+    //:margin-left -10px
+    :padding 0 9px
+
+    :width 191px
+    li
+      
+      

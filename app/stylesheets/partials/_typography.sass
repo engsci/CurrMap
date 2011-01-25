@@ -1,0 +1,17 @@
+body
+  @include blueprint-typography
+  :font-family "lucida grande", tahoma, verdana, arial, sans-serif
+  :color $text_regular
+  :font-size 11px
+  :text-align left
+  :direction ltr
+  :line-height 1.5
+
+  a
+    :color $text_links
+    :text-decoration none
+    &:hover
+      :text-decoration underline
+
+  h2
+    :font-weight bold

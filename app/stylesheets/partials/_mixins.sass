@@ -1,0 +1,29 @@
+@mixin equal-column
+  :float left
+  :padding-bottom 32767px
+  :margin-bottom -32767px
+
+// MIXINS for semester listing, course topic listing, main topic listing
+
+@mixin category
+  :float left
+@mixin group
+  :float left
+  :background no-repeat 0px top
+  :margin 5px 0 5px 0
+  h5
+    :margin 0 0 0 22px
+  ul
+    :padding 0
+  li
+    :list-style none
+@mixin item
+  :margin 0 0 0 22px
+  a
+    :float left
+    :margin-right 1em
+
+@mixin padded_column(!n, !p1, !p2=!p1, !p3=!p1, !p4=!p2, !last = false)
+  +column(!n,!last)
+  :padding !p1 !p2 !p3 !p4
+  :width !blueprint_grid_width * !n + (!blueprint_grid_margin * (!n - 1)) - !p2 - !p4

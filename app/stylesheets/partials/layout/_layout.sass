@@ -1,0 +1,50 @@
+$blueprint-grid-columns   : 24
+$blueprint-container-size : 950px
+$blueprint-grid-width     : 30px
+$blueprint-grid-margin    : 10px
+$font-color               : #333
+
+$blueprint-grid-width: ($blueprint-container-size + $blueprint-grid-margin) / $blueprint-grid-columns - $blueprint-grid-margin
+
+$col1width: 4
+$col2width: 14
+$col3width: 6
+
+body
+
+
+#content
+  @include container
+  
+  #header
+    @include column($blueprint-grid-columns)
+    
+    h1
+      @include column($col1width)
+      :border-right 1px solid $bg_dark
+      :margin-right 9px
+    #menu
+      @include column($col2width)
+      :padding 0
+    #search
+      @include column($col3width, true)
+      :border-right 1px solid $bg_dark
+      :margin-left -1px
+  
+  #nav
+    @include padded_column($col1width, 10px, 10px, 10px, 10px)
+    :margin-right 0
+    
+  #main
+    @include padded_column($col2width+$col3width, 10px, 10px, 10px, 10px, true)
+    :border 1px solid $border_dark
+    :padding-right= 20px - 2px
+    :border-top none
+    :min-height 250px
+  
+    #sidebar
+      @include column($col3width, true)
+    
+  #footer
+    @include padded_column($col2width+$col3width, 10px, 10px, 10px, 10px, true)
+    @include prepend($col1width)

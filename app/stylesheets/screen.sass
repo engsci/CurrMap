@@ -1,8 +1,4 @@
-@import "blueprint/reset"
-@import "partials/base"
-@import "blueprint"
-@import "partials/form"
-@import "compass/utilities"
+// VARIABLES
 
 $bg_dark      : #001155
 $bg_medium    : #627AAD
@@ -15,106 +11,51 @@ $text_regular : #333333
 $text_light   : #777777
 $text_inverse : #FFFFFF //on blue
 
-@mixin equal-column
-  :float left
-  :padding-bottom 32767px
-  :margin-bottom -32767px
 
-// MIXINS for semester listing, course topic listing, main topic listing
-@mixin category
-  :float left
-@mixin group
-  :float left
-  :background no-repeat 0px top
-  :margin 5px 0 5px 0
-  h5
-    :margin 0 0 0 22px
-  ul
-    :padding 0
-  li
-    :list-style none
-@mixin item
-  :margin 0 0 0 22px
-  a
-    :float left
-    :margin-right 1em
+// INCLUDE BLUEPRINT + UTILITIES   
+
+@import "blueprint/reset"
+@import "blueprint"
+@import "compass/utilities"
+@import "partials/mixins"
+
+// MAIN LAYOUT
+
+@import "partials/layout/layout"
+
+// TYPOGRAPHY
+
+@import "partials/typography"
+
+// LAYOUT ELEMENTS
+
+@import "partials/layout/header"
+@import "partials/layout/nav"
+@import "partials/layout/sidebar"
+@import "partials/layout/footer"
+
+// SITE-WIDE MODULES
+
+@import "partials/notices"
+@import "partials/form"
+@import "partials/jqueryui"
+@import "partials/facebox"
+
+// PAGE SPECIFIC
+
+@import "partials/pages/results"
+@import "partials/pages/course"
+@import "partials/pages/courses"
 
 
 
-+blueprint-typography
+// TO INTEGRATE
 
-body
-  :font-family "lucida grande", tahoma, verdana, arial, sans-serif
-  :color $text_regular
-  :font-size 11px
-  :text-align left
-  :direction ltr
-  
-  a
-    :color $text_links
-    :text-decoration none
-    &:hover
-      :text-decoration underline
-      
-  h2
-    :font-weight bold
+// @import "partials/old"
 
-@import "partials/old"
-@import "partials/facebox"    
-@import "partials/header"   
-
-#content
-  +container
-  
-  
-  #main
-    +column(18)
-    :border-right $border_dark 1px solid
-    :border-bottom $border_dark 1px solid
-    :padding $blueprint-grid-width / 2 
-    :min-height 250px
-    :border-left $border_dark 1px solid
-    
-    .notice, .alert
-      :padding 0.5em
-      :margin 0 0 1em
-      :border 1px solid 
-    .notice
-      :color #009900
-      :background #ccffcc
-      :border-color #009900
-
-    .alert
-      :color #cc3300
-      :background #ffcccc
-      :border-color #cc3300
-      
-  #sidebar
-    +column(5,true)
-    h2
-      :font-size 1em
-      :height 2em
-      :line-height 2em
-      :margin-top 1em
-      :border-bottom 1px solid $spacer
-
-  #footer
-    +column(18.5)
-    :color $text_light
-    :padding 0.5em
-    ul
-      +horizontal-list
-      :padding 0
-      :float right
 
 .highlight
   :background-color yellow
   
 h5
   :color #666
-
-@import "partials/results"
-@import "partials/form"
-@import "partials/course"
-@import "partials/courses"
-@import "partials/jqueryui"
