@@ -1,6 +1,6 @@
 GIT
   remote: http://github.com/mongoid/mongoid.git
-  revision: 8af3b6ace655476d39c9ba38dba5019e09fa3b8e
+  revision: 17072e822f19396f13e54f1763fd6ccd29c5386b
   specs:
     mongoid (2.0.0.rc.6)
       activemodel (~> 3.0)
@@ -50,7 +50,7 @@ GEM
     arel (2.0.7)
     bcrypt-ruby (2.1.4)
     bson (1.2.0)
-    bson_ext (1.1.1)
+    bson_ext (1.2.0)
     builder (2.1.2)
     cancan (1.5.1)
     colorize (0.5.8)
@@ -68,6 +68,7 @@ GEM
       activesupport (>= 2.3.0)
       i18n (>= 0.4.0)
     haml (3.0.22)
+    hpricot (0.8.3)
     i18n (0.5.0)
     json (1.5.0)
     log4r-color (1.2)
@@ -164,9 +165,12 @@ GEM
     rspec-expectations (2.4.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.4.0)
+    ruby_parser (2.0.5)
+      sexp_processor (~> 3.0)
     scribe (0.2.2)
       rake
       thrift_client
+    sexp_processor (3.0.5)
     sugar-high (0.3.5)
       mocha (>= 0.9.8)
       require_all (~> 1.2.0)
@@ -191,19 +195,21 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext (= 1.1.1)
+  bson_ext (= 1.2.0)
   cancan (= 1.5.1)
   compass (>= 0.10.2)
   devise (= 1.1.2)
   formtastic (~> 1.1.0)
   haml (= 3.0.22)
+  hpricot (>= 0.8.3)
   json
-  mongo (>= 1.1.1)
+  mongo (>= 1.2.0)
   mongoid!
   nokogiri (= 1.4.2)
   rails (= 3.0.3)
   rails3-generators
   roles_generic (>= 0.3.7)
   roles_mongoid (>= 0.4.5)
+  ruby_parser
   sunspot_mongoid!
   sunspot_rails (= 1.2.rc4)

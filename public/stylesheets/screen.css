@@ -783,6 +783,23 @@ h5 {
   color: #666666;
 }
 
+/* line 4, ../../app/stylesheets/partials/_devise.sass */
+.error_flash {
+  border: 2px solid #ad0000;
+  padding: 8px;
+  color: #910c0c;
+  margin: 10px 2px;
+  background: #ffd9d9;
+}
+/* line 10, ../../app/stylesheets/partials/_devise.sass */
+.error_flash h2 {
+  font-family: serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  font-style: italic;
+  color: #910c0c;
+}
+
 /* line 1, ../../app/stylesheets/partials/_results.sass */
 .facet {
   overflow: hidden;

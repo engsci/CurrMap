@@ -4,7 +4,9 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
     if user.has_role?(:prof)
-      can :manage, Courses
+      can :manage, Course
+    elsif user.has_role?(:student)
+      can :edit_profile, User
     elsif user.admin?
       can :manage, :all
     end

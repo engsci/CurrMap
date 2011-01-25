@@ -16,4 +16,4 @@
       - @people.sort_by{|p| p.name}.each do |person|
         %li= link_to person.name, person, :rel => "facebox"
 
-= link_to 'New Person', new_person_path if admin_signed_in?
+= link_to 'New Person', new_person_path if can? :create, Person 
