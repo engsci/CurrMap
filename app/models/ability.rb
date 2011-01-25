@@ -5,9 +5,11 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.has_role?(:prof)
       can :manage, Course
-    elsif user.has_role?(:student)
+    end
+    if user.has_role?(:student)
       can :edit_profile, User
-    elsif user.admin?
+    end
+    if user.has_role?(:admin)
       can :manage, :all
     end
 
