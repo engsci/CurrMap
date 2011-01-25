@@ -1,16 +1,32 @@
-= form_for @course, :html=>{:class=>"formtastic"} do |f|
-  -if @course.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@course.errors.count, "error")} prohibited this course from being saved:"
-      %ul
-        - @course.errors.full_messages.each do |msg|
-          %li= msg
-  - semantic_form_for @course do |form|
-    - form.inputs do
+= semantic_form_for @course do |form|
+  = form.semantic_errors :state 
+  = form.inputs do
+    - form.inputs "Course", :id => "course" do
       = form.input :course_code
-      = form.input :calendar_entry, :as => :text, :input_html=>{:rows=>"4"}
       = form.input :name
-      = form.input :semester
-      = form.input :weight
-    .actions
-      = form.buttons
+      = form.input :calendar_entry, :as => :text, :input_html=>{:rows=>"4"}
+      - form.inputs "Details", :id => "details" do
+        - form.inputs "Stuff", :id => "stuff" do
+          = form.input :year
+          = form.input :semester
+          = form.input :weight
+        - form.inputs "Workload", :id => "workload" do 
+          = form.semantic_fields_for :workload do |workload|
+            = workload.input :lecture
+            = workload.input :tutorial
+            = workload.input :practical
+      = form.input "main_topics"
+        
+    - form.inputs "Connections", :id => 'connections' do
+      - form.inputs "Professors", :id => 'professors' do
+        - @course.professors.each do |prof|
+          %li 
+            .dynatab= prof.name
+        = "<auto search text field here> + "
+      - form.inputs "Resources", :id => 'resources' do
+        - @course.resources.each do |resource|
+          = resource.name
+        
+  .actions
+    = form.buttons
+    

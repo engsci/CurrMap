@@ -1,7 +1,15 @@
-%h1 Editing course
+- if request.format.js?
+  %h1 Editing course
 
-= render 'form'
+  = render 'form'
 
-= link_to 'Show', @course
-\|
-= link_to 'Back', courses_path
+  = link_to 'Back', course_path_(@course)
+  
+- else
+  #tabs
+    %ul
+      - @courses.each do |course|
+        %li
+          %a(href="../#{course.id}/edit" title="#{course.year_version}")= course.course_code + " - " + course.year_version.to_s
+
+

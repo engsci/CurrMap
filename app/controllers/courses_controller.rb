@@ -63,23 +63,7 @@ class CoursesController < ApplicationController
       format.xml  { render :xml => @course }
     end
   end
-  
-  def lectures
-    self.activities.find_all{|a| a.class == Lecture}
-  end
-  
-  def midterms
-    self.activities.find_all{|a| a.class == Midterm}
-  end
-  
-  def year
-    return self.course_code[3,1]
-  end
-  
-  def short_code
-    return self.course_code[0,6]
-  end
-  
+
   # GET /courses/new
   # GET /courses/new.xml
   def new
@@ -93,7 +77,17 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    @course = Course.find(params[:id])
+    
+    
+    
+    respond_to do |format|
+      format.js {
+        @course = Course.find(params[:id])
+      }
+      format.html {
+        @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+      }
+    end
   end
 
   # POST /courses
@@ -116,6 +110,9 @@ class CoursesController < ApplicationController
   # PUT /courses/1.xml
   def update
     @course = Course.find(params[:id])
+    redirect_to(@course, :notice => 'Course was successfully pseudo-updated.')
+    
+    
 
     respond_to do |format|
       if @course.update_attributes(params[:course])
@@ -125,7 +122,7 @@ class CoursesController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @course.errors, :status => :unprocessable_entity }
       end
-    end
+    end if false
   end
 
   # DELETE /courses/1

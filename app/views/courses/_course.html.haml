@@ -1,5 +1,5 @@
 - single_view = !request.format.js?
-
+= link_to 'Edit', course_path_(course, :edit), {:class => 'edit'} if admin_signed_in?
 .course
   -if single_view
     %h1
@@ -89,6 +89,3 @@
                   .outcomes
                     - a[1]["outcomes"].keys.each do |o|
                       = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
-
-
-  = link_to 'Edit', edit_course_path(course), :class => 'edit' if admin_signed_in?

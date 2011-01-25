@@ -1,8 +1,50 @@
 form
-  @include blueprint-form
 
   label
-    :display block
-    :width 5em
+    //:display block
+    //:width 5em
   
   
+form.formtastic
+  fieldset > ol > li
+    :overflow hidden
+    label
+      :float none
+      :width inherit
+      
+  &.course
+    fieldset legend
+      :display none
+      
+    #course
+      :width 60%
+      :float left
+      input
+        :max-width 90%
+        :width 90%
+      textarea
+        :width 90%
+      #details
+        fieldset 
+          :width 45%
+          :display inline-block
+        label
+          :float left
+          :width 6em
+        input
+          :width 4em
+          
+    
+    #connections
+      :width 40%
+      :float left
+      fieldset legend
+        :display block
+        
+    .dynatab
+      :float left
+      :display block
+      :padding 0.5em
+      :background #6D86B7
+      :border #627AAD 1px solid
+      :color #ffffff
