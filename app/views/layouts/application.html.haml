@@ -26,9 +26,9 @@
           %li= link_to "Courses", courses_path
           %li= link_to "Lexicon"
 
-          - if admin_signed_in?
+          -# if admin_signed_in?
             %li= link_to "Log Out", destroy_admin_session_path
-          - else
+          -# else
             -#%li= link_to "Register", new_user_registration_path
             %li= link_to "Log In", new_admin_session_path
             
@@ -37,8 +37,9 @@
           %input(type="submit" value="Search" id="ferret_submit")
 
       #nav
-        - if controller_name == 'courses'
+        - if controller_name == 'courses' && action_name != 'index'
           = render :partial => 'courses/nav'
+        = render :partial => 'layouts/sidebar'
         = yield :sidebar
         
       #main
@@ -46,7 +47,7 @@
           .notice= notice
         - if alert
           .alert= alert
-        - if controller_name == 'courses'
+        - if controller_name == 'courses' && action_name != 'index'
           = render :partial => 'head', :locals => {:course => @course}
         = yield
       -#

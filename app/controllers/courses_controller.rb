@@ -6,7 +6,7 @@ class CoursesController < ApplicationController
   # GET /courses.xml
 
   def index
-	  authorize! :manage, Course
+	  #authorize! :manage, Course
     
     @courses_by_year_and_semester = {}
     
