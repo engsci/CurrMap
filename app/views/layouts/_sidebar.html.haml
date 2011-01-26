@@ -15,11 +15,4 @@
   - else
     %li= link_to "Register", new_user_registration_path
     %li= link_to "Log In", new_user_session_path
-         
-      
-%h2 Explore
-%ul
-  - %w(course person resource collection).each do |model|
-    %li(class="#{"active" if params[:class] == model}")
-      %a(href="/#{model.pluralize}")= model.pluralize.capitalize
 
