@@ -45,9 +45,14 @@ class Course
     end
   end
   
+  
+  def self.find_course(course_code, year)
+    Course.where(:course_code => /^#{course_code}/, :year => year).limit(1)[0]
+  end
+  
   # METHODS  
   def name
-	return read_attribute(:name) ? read_attribute(:name).split(" - ")[0] : nil
+	  return read_attribute(:name) ? read_attribute(:name).split(" - ")[0] : nil
   end
 
   def year
@@ -60,6 +65,10 @@ class Course
   
   def short_code
     return self.course_code[0,6]
+  end
+  
+  def available_years
+    Course.where(:course_code => /^#{self.short_code}/).map {|c| c.year_version }
   end
   
   

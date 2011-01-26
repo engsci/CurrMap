@@ -45,6 +45,12 @@ class CoursesController < ApplicationController
         @course ||= Course.where(:course_code => /^#{params[:id]}/)[0]
       }
       format.html {
+        
+        # redirect to most recent
+        unless params[:year]
+          redirect_to :year => Course.where(:course_code => /^#{params[:id]}/).desc(:year).limit(1)[0].year_version
+        end
+        
         #display the course, with tabs for related courses (same code, different year)
         @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
         @course = @courses[0]
@@ -69,27 +75,27 @@ class CoursesController < ApplicationController
   end
   
   def overview
-    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+     @course = Course.find_course(params[:id], params[:year])      
   end
 
   def syllabus
-    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+    @course = Course.find_course(params[:id], params[:year])
   end
   
   def lectures
-    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]  
+    @course = Course.find_course(params[:id], params[:year])
   end
   
   def resources
-    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+    @course = Course.find_course(params[:id], params[:year])
   end
   
   def evaluations
-    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+    @course = Course.find_course(params[:id], params[:year])
   end
   
   def calendar
-    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+    @course = Course.find_course(params[:id], params[:year])
   end
 
 
@@ -115,6 +121,7 @@ class CoursesController < ApplicationController
       }
       format.html {
         @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+        @course = @courses[0]
       }
     end
   end

@@ -11,16 +11,10 @@ Currmap::Application.routes.draw do |map|
 
   resources :collections
 
-  resources :courses do
-    member do
-      get 'overview'
-      get 'syllabus'
-      get 'lectures'
-      get 'resources'
-      get 'evaluations'
-      get 'calendar'
-    end
-  end
+  match 'courses/:id/:year/', :controller => 'courses', :action => 'show'
+  match 'courses/:id/:year/:action', :controller => 'courses'
+  
+  resources :courses  
   
   resources :professors, :controller => 'people'
   

@@ -1,5 +1,9 @@
 - course = @course
 
+= @course.year_version
+- @course.available_years.each do |y|
+  = link_to y, :year => y
+
 %dl
   %dt Calendar Entry
   %dd= course.calendar_entry 
