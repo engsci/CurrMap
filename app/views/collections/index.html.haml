@@ -3,4 +3,4 @@
 - @collections.each do |c|
   %li= link_to c.name, c, :rel => "facebox"
 
-= link_to 'New Collection', new_collection_path if admin_signed_in?
+= link_to 'New Collection', new_collection_path if can? :create, Collection

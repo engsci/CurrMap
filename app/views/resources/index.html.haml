@@ -7,4 +7,4 @@
         %dd= a
 
 
-= link_to 'New Resource', new_resource_path if admin_signed_in?
+= link_to 'New Resource', new_resource_path if can? :create, Resource

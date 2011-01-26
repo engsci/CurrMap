@@ -25,4 +25,4 @@
   = render :partial => 'partials/timeline', :locals => {:years => @person.years_taught, :items_by_year => @courses_by_year, :heading => false}
       
 
-  = link_to 'Edit', edit_person_path(@person), :class => 'edit' if admin_signed_in?
+  = link_to 'Edit', edit_person_path(@person), :class => 'edit' if can? :edit, @person
