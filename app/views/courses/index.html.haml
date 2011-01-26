@@ -1,5 +1,6 @@
 %h2 Courses
 
+
 #tabs
   %ul
     -@courses_by_year_and_semester.keys.reverse.each do |year_version|
@@ -49,4 +50,4 @@
                     = link_to course, {:controller => :courses, :action => :show, :id => course}
 
 
-= link_to 'New Course', new_course_path if admin_signed_in?
+= link_to 'New Course', new_course_path if can? :create, Course 

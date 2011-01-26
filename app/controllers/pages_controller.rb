@@ -26,6 +26,9 @@ class PagesController < ApplicationController
     end
   end
   
+  def unauthorized
+  end
+ 
   def about
   end
   

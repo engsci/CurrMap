@@ -1,5 +1,25 @@
+%h2 Administer
+%ul
+  - if user_signed_in?
+    %li 
+      Signed in as 
+      %strong #{current_user.email}
+    - if can? :manage, User
+      %li= link_to "Manage Users", users_path
+    - if can? :edit_profile, User
+      %li= link_to "Edit Profile", edit_user_registration_path
+    Your roles are:
+    =current_user.roles*", "
+    %li= link_to "Log Out", destroy_user_session_path
+    
+  - else
+    %li= link_to "Register", new_user_registration_path
+    %li= link_to "Log In", new_user_session_path
+         
+      
 %h2 Explore
 %ul
   - %w(course person resource collection).each do |model|
     %li(class="#{"active" if params[:class] == model}")
       %a(href="/#{model.pluralize}")= model.pluralize.capitalize
+

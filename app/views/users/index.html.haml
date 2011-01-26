@@ -1,0 +1,24 @@
+- if flash[:error]
+  .error_flash
+    =flash[:error]
+%table
+  %tr 
+    %th Email
+    %th Last Sign In
+    %th{:colspan=>"2"} Roles
+  %tr
+  -@users.each do |user|
+    =form_for user do |u|
+      %tr
+        %td= user.email
+        %td= user.last_sign_in_at
+        %td
+          -user.valid_roles.each do |role|
+            =u.check_box(role, :checked=>user.has_role?(role))
+            =role 
+        %td     
+          =u.submit("Update Roles")  
+       
+          
+          
+
