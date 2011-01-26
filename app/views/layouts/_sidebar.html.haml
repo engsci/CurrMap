@@ -1,15 +1,10 @@
 %h2 Administer
 %ul
   - if user_signed_in?
-    %li 
-      Signed in as 
-      %strong #{current_user.email}
     - if can? :manage, User
       %li= link_to "Manage Users", users_path
     - if can? :edit_profile, User
       %li= link_to "Edit Profile", edit_user_registration_path
-    Your roles are:
-    =current_user.roles*", "
     %li= link_to "Log Out", destroy_user_session_path
     
   - else
