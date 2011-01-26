@@ -112,16 +112,15 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    
-    
+    @course = Course.find_course(params[:id], params[:year])
     
     respond_to do |format|
       format.js {
-        @course = Course.find(params[:id])
+        #@course = Course.find(params[:id])
       }
       format.html {
-        @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
-        @course = @courses[0]
+        #@courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+        #@course = @courses[0]
       }
     end
   end
