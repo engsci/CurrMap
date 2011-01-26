@@ -18,6 +18,8 @@ gem 'roles_mongoid', '>= 0.4.5'
 gem 'roles_generic', '>= 0.3.7'
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
+gem 'hassle', :git => 'git://github.com/koppen/hassle.git'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

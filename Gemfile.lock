@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/koppen/hassle.git
+  revision: a08c757bce033cebc7ef8a4a3a831127afcb956a
+  specs:
+    hassle (0.0.1)
+      haml
+      rack
+
+GIT
   remote: http://github.com/mongoid/mongoid.git
   revision: 9ecbe5da7d8412fdd8095c7d71f90f87bb44f649
   specs:
@@ -201,6 +209,7 @@ DEPENDENCIES
   devise (= 1.1.2)
   formtastic (~> 1.1.0)
   haml (= 3.0.22)
+  hassle!
   hpricot (>= 0.8.3)
   json
   mongo (>= 1.2.0)

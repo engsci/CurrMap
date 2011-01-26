@@ -4,3 +4,4 @@ log/**
 tmp/**/*
 solr/**
 *.tmproj
+public/stylesheets/*.css
