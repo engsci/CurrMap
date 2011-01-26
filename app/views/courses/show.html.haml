@@ -1,9 +1,6 @@
 - if request.format.js?
   = render :partial => "course", :locals => {:course => @course}
 - else 
-  %h1= @courses[0].short_code
-  %h3= @courses[0].name
-
   .column
     .course_description
       - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.year_version => c.calendar_entry.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse

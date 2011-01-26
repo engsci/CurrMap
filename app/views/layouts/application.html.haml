@@ -37,16 +37,17 @@
           %input(type="submit" value="Search" id="ferret_submit")
 
       #nav
-        %ul
-          %li= link_to "Something"
-          %li= link_to "Something Else"
-        = render :partial => 'layouts/sidebar'
+        - if controller_name == 'courses'
+          = render :partial => 'courses/nav'
         = yield :sidebar
+        
       #main
         - if notice
           .notice= notice
         - if alert
           .alert= alert
+        - if controller_name == 'courses'
+          = render :partial => 'head', :locals => {:course => @course}
         = yield
       -#
         #sidebar

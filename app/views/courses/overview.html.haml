@@ -1,0 +1,41 @@
+- course = @course
+
+%dl
+  %dt Calendar Entry
+  %dd= course.calendar_entry 
+
+%dl  
+  -if course.main_topics
+    %dt Main Topics
+    %dd
+      %ul
+        - course.main_topics.each do |t|
+          %li= t
+%dl
+  %dt Professors
+  -course.professors.each do |p|
+    %dd
+      =link_to p.name, p, :rel => "facebox"
+
+  - unless course.resources.empty?
+    %dt Resources
+    %dd
+      %ul
+        - course.resources.each do |r|
+          %li
+            = link_to r.name || "ISBN #{r._id}", r
+            - if r.optional
+              (optional)
+            - if r.authors
+              %ul
+                - r.authors.each do |a| 
+                  %li= a
+
+%dl      
+  - unless course.collections.empty?
+    %dt Collections
+    %dd
+      %ul
+        - course.collections.each do |c|
+          %li
+            = link_to c.name, c, :rel => 'facebox'

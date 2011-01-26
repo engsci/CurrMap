@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   
-  before_filter :authenticate_admin!, :except => [:index, :show]
+  before_filter :authenticate_admin!, :only => [:new, :edit, :create, :update, :destroy]
   
   # GET /courses
   # GET /courses.xml
@@ -44,6 +44,7 @@ class CoursesController < ApplicationController
       format.html {
         #display the course, with tabs for related courses (same code, different year)
         @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+        @course = @courses[0]
         
         @profs_by_year = {}
         @resources_by_year = {}
@@ -63,6 +64,31 @@ class CoursesController < ApplicationController
       format.xml  { render :xml => @course }
     end
   end
+  
+  def overview
+    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+  end
+
+  def syllabus
+    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+  end
+  
+  def lectures
+    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]  
+  end
+  
+  def resources
+    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+  end
+  
+  def evaluations
+    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+  end
+  
+  def calendar
+    @course = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse[0]
+  end
+
 
   # GET /courses/new
   # GET /courses/new.xml

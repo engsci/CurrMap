@@ -7,7 +7,16 @@ Currmap::Application.routes.draw do |map|
 
   resources :collections
 
-  resources :courses
+  resources :courses do
+    member do
+      get 'overview'
+      get 'syllabus'
+      get 'lectures'
+      get 'resources'
+      get 'evaluations'
+      get 'calendar'
+    end
+  end
   
   resources :professors, :controller => 'people'
   
