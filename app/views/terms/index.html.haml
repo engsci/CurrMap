@@ -1,0 +1,23 @@
+%h2 Tree of Knowledge
+- display_subs = Proc.new do |knol|
+  %dd
+    %dl
+      %dt
+        %p
+          = knol.name
+          - if knol.preferred != knol.name
+            = "(#{knol.preferred})"
+        - rels = knol.relns.reject {|k,v| k.to_s.match(/subtopics$/)}
+        - if !rels.empty?
+          %p= rels.inspect
+      - if knol.subtopics.empty?
+        %dd
+      - else
+        - knol.subtopics.each do |k|
+          - display_subs.call(k)
+%dl
+  %dt
+    =@yggdrasil.name
+  - @yggdrasil.subtopics.each do |knol|
+    - display_subs.call(knol)
+= link_to 'New', new_term_path
