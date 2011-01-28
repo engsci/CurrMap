@@ -14,7 +14,7 @@ class TermsController < ApplicationController
 
   # GET /terms/new
   def new
-    @term = Term.new({})
+    @term = Term.new
     respond_to do |format|
       format.html
     end
@@ -25,7 +25,7 @@ class TermsController < ApplicationController
     @term = Term.new(params[:term])
     respond_to do |format|
       if @term.save
-        format.html { redirect_to @term, :notice => 'Term successfully added' }
+        format.html { redirect_to terms_url, :notice => 'Term successfully added' }
       else
         format.html { render :action => 'new' }
       end

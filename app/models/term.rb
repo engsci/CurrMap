@@ -2,13 +2,21 @@ require 'net/http'
 require 'uri'
 require 'active_support'
 
+class ConnectionError < RuntimeError
+  attr_reader :result, :request
+  def initialize(request, result)
+    @request = request
+    @result = result
+  end
+end
+
 class Term
   attr_reader :name, :id, :relns, :synonyms, :subtopics, :preferred
-  attr_reader :errors
+  attr_reader :error_messages
 
-  def initialize(info)
+  def initialize(info = {})
     from_hash info
-    @errors = []
+    @error_messages = []
   end
 
   def from_hash(hash)
@@ -34,25 +42,28 @@ class Term
     return hsh
   end
 
+  def persisted?
+    @id != 0
+  end
+
   def save
     if @name && !@name.blank?
       begin
         saved = Term.add_resource @name
-      rescue Term::ConnectionError
+      rescue ConnectionError
         err_resp = $!.result.response
-        @errors = ["Connection Error: #{err_resp.code}: #{err_resp.message}"]
+        @error_messages = ["Connection Error: #{err_resp.code}: #{err_resp.message}"]
         return false
       end
       from_hash saved
       return saved
     else
-      @errors = ['Name cannot be blank']
+      @error_messages = ['Name cannot be blank']
       return false
     end
   end
 
   class << self
-
 
     def model_name
       TmpStr.new(self.to_s)
@@ -68,6 +79,18 @@ class Term
       else
         return Term.new(get_resource ['Knowledge', word].join '/')
       end
+    end
+
+    def add_resource(path)
+      put_to path
+    end
+
+    def add_synonym(word1, word2, preferred=false)
+      put_to "Synonym/#{word1}/#{word2}#{if preferred then '?preferred=true' else '' end}"
+    end
+
+    def add_relation(item1, reln, item2)
+      put_to "Relation/#{item1}/#{reln}/#{item2}"
     end
 
     protected
@@ -86,7 +109,7 @@ class Term
     end
 
     def get_uri(path)
-      path = strip_path path
+      path = strip_path path.gsub(/ /, '%20')
       path = [ENV['TOK_PATH'], path].join '/' unless ENV['TOK_PATH'].blank?
       URI.parse("http://#{ENV['TOK_HOST']}:#{ENV['TOK_PORT']}/#{path}")
     end
@@ -96,18 +119,6 @@ class Term
       req = Net::HTTP::Get.new(uri.path)
       res = request(req)
       Marshal.load(res.body)
-    end
-
-    def add_resource(path)
-      put_to path
-    end
-
-    def add_synonym(word1, word2, preferred=false)
-      put_to "Synonym/#{word1}/#{word2}#{if preferred then '?preferred=true' else '' end}"
-    end
-
-    def add_relation(item1, reln, item2)
-      put_to "Relation/#{item1}/#{reln}/#{item2}"
     end
 
     def put_to(path)
@@ -141,12 +152,5 @@ class Term
       raise e
     end
 
-    class ConnectionError < RuntimeError
-      attr_reader :result, :request
-      def initialize(request, result)
-        @request = request
-        @result = result
-      end
-    end
   end
 end
