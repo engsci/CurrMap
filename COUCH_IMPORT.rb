@@ -45,6 +45,7 @@ end
 # IMPORT COURSES
 puts "IMPORTING COURSES"
 Person #initialize Prof, other subclasses
+Professor.sunspot_options = {} # sadface
 Course.destroy_all
 CouchCourse.get_all.each do |c|
   hash = c.to_hash

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/koppen/hassle.git
-  revision: a08c757bce033cebc7ef8a4a3a831127afcb956a
+  revision: 97512c65f4c6fa34a4d4e284c416e8e6ebecbd44
   specs:
     hassle (0.0.1)
       haml
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: http://github.com/mongoid/mongoid.git
-  revision: 9ecbe5da7d8412fdd8095c7d71f90f87bb44f649
+  revision: e50527ae36ce73cabd85acaf49aba55d61ea31ed
   specs:
     mongoid (2.0.0.rc.6)
       activemodel (~> 3.0)
@@ -182,12 +182,13 @@ GEM
     sugar-high (0.3.5)
       mocha (>= 0.9.8)
       require_all (~> 1.2.0)
-    sunspot (1.2.rc4)
+    sunspot (1.2.1)
       escape (= 0.0.4)
       pr_geohash (~> 1.0)
       rsolr (= 0.12.1)
-    sunspot_rails (1.2.rc4)
-      sunspot (= 1.2.rc4)
+    sunspot_rails (1.2.1)
+      nokogiri
+      sunspot (= 1.2.1)
     thor (0.14.6)
     thrift (0.5.0)
     thrift_client (0.6.0)
@@ -221,4 +222,4 @@ DEPENDENCIES
   roles_mongoid (>= 0.4.5)
   ruby_parser
   sunspot_mongoid!
-  sunspot_rails (= 1.2.rc4)
+  sunspot_rails (= 1.2.1)
