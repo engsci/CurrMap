@@ -35,9 +35,9 @@
               %li 
                 %strong Workload 
                 %abbr(title='Lecture') L
-                =course.workload.lecture + " "
+                =course.workload.lecture.to_s + " "
                 %abbr(title="Tutorial") T
-                =course.workload.tutorial + " "
+                =course.workload.tutorial.to_s + " "
                 %abbr(title="Practical") P
                 =course.workload.practical
     - main_topics = @courses.map{|c| c.main_topics}.flatten.uniq.compact
