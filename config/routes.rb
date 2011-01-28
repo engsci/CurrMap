@@ -16,6 +16,8 @@ Currmap::Application.routes.draw do |map|
 
   resources :collections
 
+  resources :terms
+
   match 'courses/:id/:year/', :controller => 'courses', :action => 'show'
   match 'courses/:id/:year/:action', :controller => 'courses'
 
