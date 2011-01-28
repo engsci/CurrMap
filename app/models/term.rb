@@ -7,19 +7,18 @@ class Term
   attr_reader :errors
 
   def initialize(info)
-    @id        = info['id'] || info[:id] || 0
-    @name      = info['name'] || info[:name]
-    @relns     = info['relns'] || info[:relns]
-    @synonyms  = info['synonyms'] || info[:synonyms]
-    @preferred = info['preferred'] || info[:preferred]
-    if info['subtopics']
-      @subtopics = info['subtopics'].map { |sub| Term.new(sub) }
-    elsif info[:subtopics]
-      @subtopics = info[:subtopics].map { |sub| Term.new(sub) }
-    else
-      @subtopics = nil
-    end
+    from_hash info
     @errors = []
+  end
+
+  def from_hash(hash)
+    @id        = hash['id']        || hash[:id]        || 0
+    @name      = hash['name']      || hash[:name]
+    @relns     = hash['relns']     || hash[:relns]
+    @synonyms  = hash['synonyms']  || hash[:synonyms]
+    @preferred = hash['preferred'] || hash[:preferred]
+    subtopics  = hash['subtopics'] || hash[:subtopics]
+    @subtopics = subtopics.map { |sub| Term.new(sub) } if subtopics
   end
 
   def to_key
@@ -44,6 +43,7 @@ class Term
         @errors = ["Connection Error: #{err_resp.code}: #{err_resp.message}"]
         return false
       end
+      from_hash saved
       return saved
     else
       @errors = ['Name cannot be blank']
