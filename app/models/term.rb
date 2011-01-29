@@ -77,8 +77,16 @@ class Term
       ActiveModel::Name.new(self)
     end
 
-    def find neo_id
-      Term.new(get_resource "id/#{neo_id}")
+    def find identifier
+      begin
+        if identifier.is_a? Fixnum
+          return Term.new(get_resource "id/#{identifier}")
+        else
+          return Term.new(get_resource "Knowledge/#{identifier}")
+        end
+      rescue ConnectionError
+        return nil
+      end
     end
 
     def root
