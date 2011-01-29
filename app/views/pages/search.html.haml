@@ -1,3 +1,14 @@
+- content_for :sidebar do
+  %h2 Search info
+  %dl
+    - @query.split(/\s+/).each do |query|
+      - term =  Term.find(query.capitalize.singularize)
+      - if term
+        = render 'terms/tree', :root => term
+      - else
+        - term = Term.find(query.capitalize.pluralize)
+        - if term
+          = render 'terms/tree', :root => term
 - if @results.length == 0
   No results. :(
   
