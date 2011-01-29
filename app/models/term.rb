@@ -11,7 +11,7 @@ class ConnectionError < RuntimeError
 end
 
 class Term
-  attr_reader :name, :id, :relns, :synonyms, :subtopics, :preferred
+  attr_reader :name, :relns, :id, :synonyms, :subtopics, :preferred
   attr_reader :error_messages
 
   def initialize(info = {})
@@ -30,7 +30,11 @@ class Term
   end
 
   def to_key
-    [@id]
+    [@id.to_s]
+  end
+
+  def to_s
+    @id.to_s
   end
 
   def to_h
@@ -63,10 +67,18 @@ class Term
     end
   end
 
+  def to_model
+    self
+  end
+
   class << self
 
     def model_name
-      TmpStr.new(self.to_s)
+      ActiveModel::Name.new(self)
+    end
+
+    def find neo_id
+      Term.new(get_resource "id/#{neo_id}")
     end
 
     def root
@@ -94,15 +106,6 @@ class Term
     end
 
     protected
-
-    class TmpStr < String
-      def singular
-        self.downcase
-      end
-      def plural
-        self.downcase + "s"
-      end
-    end
 
     def strip_path(path)
       path.gsub %r{ (^/) | (/$) }xms, ''

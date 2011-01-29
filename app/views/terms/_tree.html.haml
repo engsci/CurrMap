@@ -1,0 +1,23 @@
+- display_subs = Proc.new do |knol,path|
+  %dd
+    %dl
+      %dt
+        %p
+          = link_to knol.name, term_path(knol)
+          = knol.id
+          = link_to '+', new_term_path, :class => 'add-tok-node'
+          - if knol.preferred != knol.name
+            = "(#{knol.preferred})"
+        - rels = knol.relns.reject {|k,v| k.to_s.match(/subtopics$/)}
+        - if !rels.empty?
+          %p= rels.inspect
+      - if knol.subtopics.empty?
+        %dd
+      - else
+        - knol.subtopics.each do |k|
+          - display_subs.call(k, [path, knol.name].join('/'))
+%dl
+  %dt
+    =root.name
+  - root.subtopics.each do |knol|
+    - display_subs.call(knol, root.name)

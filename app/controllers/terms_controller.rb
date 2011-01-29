@@ -10,6 +10,10 @@ class TermsController < ApplicationController
   end
 
   def show
+    @term = Term.find(params[:id])
+    respond_to do |format|
+      format.html
+    end
   end
 
   # GET /terms/new
