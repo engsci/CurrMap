@@ -1,3 +1,35 @@
+%script{:type => "text/javascript", :charset => "utf-8"}
+  //<![CDATA[
+  $(document).ready(function() 
+  {
+  // Notice the use of the each method to gain access to each element individually
+  $('.resource_icon').each(function()
+  {
+  // Create image content using websnapr thumbnail service
+  var content = '<div style="display:block"><img src="';
+  content += $(this).attr('rel');
+  
+  content += '" alt="Loading thumbnail..."/></div>';
+  // Setup the tooltip with the content
+  $(this).qtip(
+  {
+  content: content,
+  position: {
+  corner: {
+  tooltip: 'leftMiddle',
+  target: 'rightMiddle'
+  }
+  },
+  style: {
+  tip: true, // Give it a speech bubble tip with automatic corner detection
+  name: 'cream'
+  }
+  });
+  });
+  });
+
+  //]]>
+  
 .resource.object
   %h1= link_to @resource.name, @resource
   %dl
@@ -15,9 +47,9 @@
     -unless @resource.amazon_info.empty?
       %dt Find it on Amazon.ca
       - small_icon = @resource.amazon_info["images"]["small"]
-      - large_icon = @resource.amazon_info["images"]["large"]
-      %img{:src=>"#{small_icon}", :class=>"resource_icon", :ref=>"#{large_icon}"}/
-      %dd=link_to @resource.amazon_info["Title"], @resource.amazon_info["url"]
+      - large_icon = @resource.amazon_info["images"]["medium"]
+      %img{:src=>"#{small_icon}", :class=>"resource_icon", :rel=>"#{large_icon}"}/
+      %dd=link_to @resource.amazon_info["Title"], @resource.amazon_info["url"], {:class=>'resource_icon', :rel=>large_icon}
     -if @resource.courses
       %dt Courses
       - @resource.courses.each do |c| 
