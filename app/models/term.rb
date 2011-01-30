@@ -11,7 +11,7 @@ class ConnectionError < RuntimeError
 end
 
 class Term
-  attr_reader :name, :relns, :id, :synonyms, :subtopics, :preferred
+  attr_reader :name, :relns, :id, :synonyms, :subtopics, :preferred, :supertopics
   attr_reader :error_messages
 
   def initialize(info = {})
@@ -20,13 +20,14 @@ class Term
   end
 
   def from_hash(hash)
-    @id        = hash['id']        || hash[:id]        || 0
-    @name      = hash['name']      || hash[:name]
-    @relns     = hash['relns']     || hash[:relns]
-    @synonyms  = hash['synonyms']  || hash[:synonyms]
-    @preferred = hash['preferred'] || hash[:preferred]
-    subtopics  = hash['subtopics'] || hash[:subtopics]
-    @subtopics = subtopics.map { |sub| Term.new(sub) } if subtopics
+    @id          = hash['id']          || hash[:id]          || 0
+    @name        = hash['name']        || hash[:name]
+    @relns       = hash['relns']       || hash[:relns]
+    @synonyms    = hash['synonyms']    || hash[:synonyms]
+    @preferred   = hash['preferred']   || hash[:preferred]
+    @supertopics = hash['supertopics'] || hash[:supertopics]
+    subtopics    = hash['subtopics']   || hash[:subtopics]
+    @subtopics   = subtopics.map { |sub| Term.new(sub) } if subtopics
   end
 
   def to_key
@@ -39,7 +40,7 @@ class Term
 
   def to_h
     hsh = {}
-    %w(id name relns synonyms preferred).each do |prop|
+    %w(id name relns synonyms preferred supertopics).each do |prop|
       hsh[prop] = self.instance_variable_get(('@' + prop).intern)
     end
     hsh['subtopics'] = @subtopics.map(&:to_h)
