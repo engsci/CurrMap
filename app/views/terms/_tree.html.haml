@@ -17,6 +17,6 @@
           - display_subs.call(k, [path, knol.name].join('/'))
 %dl
   %dt
-    =root.name
+    = link_to root.name, term_path(root)
   - root.subtopics.each do |knol|
     - display_subs.call(knol, root.name)
