@@ -1,22 +1,47 @@
+- full ||= nil
+- query ||= nil
+
+- show_text = Proc.new do |knol|
+  %p
+    - if full
+      = link_to knol.name, term_path(knol)
+      = link_to '+', new_term_path, :class => 'add-tok-node'
+    - elsif query
+      - query_str = (query + ' ' + knol.name).gsub(/\s+/, '+')
+      = link_to knol.name, search_path + "?query=#{query_str}"
+    - else
+      = knol.name
+    - if knol.preferred != knol.name
+      = "(#{knol.preferred})"
+  - rels = knol.relns.reject {|k,v| k.to_s.match(/subtopics$/)}
+  - if !rels.empty?
+    %p= rels.inspect
+
 - display_subs = Proc.new do |knol,path|
   %dd
     %dl
       %dt
-        %p
-          = link_to knol.name, term_path(knol)
-          = link_to '+', new_term_path, :class => 'add-tok-node'
-          - if knol.preferred != knol.name
-            = "(#{knol.preferred})"
-        - rels = knol.relns.reject {|k,v| k.to_s.match(/subtopics$/)}
-        - if !rels.empty?
-          %p= rels.inspect
+        - show_text.call(knol)
       - if knol.subtopics.empty?
         %dd
       - else
         - knol.subtopics.each do |k|
           - display_subs.call(k, [path, knol.name].join('/'))
+
 %dl
-  %dt
-    = link_to root.name, term_path(root)
-  - root.subtopics.each do |knol|
-    - display_subs.call(knol, root.name)
+  - root.supertopics.each do |parent|
+    %dt
+      - if full
+        = link_to parent['name'], term_path(parent['id'])
+        = link_to '+', new_term_path, :class => 'add-tok-node'
+      - elsif query
+        - query_str = (query + ' ' + parent['name']).gsub(/\s+/, '+')
+        = link_to parent['name'], search_path + "?query=#{query_str}"
+      - else
+        = parent['name']
+  %dd
+    %dl
+      %dt.highlight
+        - show_text.call(root)
+      - root.subtopics.each do |knol|
+        - display_subs.call(knol, root.name)
