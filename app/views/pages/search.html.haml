@@ -10,7 +10,7 @@
         = render 'terms/tree', :root => term
 - if @results.length == 0
   No results. :(
-  
+
   Perhaps try one of these searches instead:
   %ul
     %li= link_to "engineering design", "/search?query=engineering+design"
@@ -21,19 +21,19 @@
     %h2 Activities
     %ul
       %li
-        %h3 
+        %h3
           %a(href="#") ECE453
         %ul
           %li
-            %a.title(href="#") Lecture 7 
+            %a.title(href="#") Lecture 7
             .nearterms text surrounding query
             %a.week(href="#") Week 2
           %li
-            %a.title(href="#") Lecture 8 
+            %a.title(href="#") Lecture 8
             .nearterms these words surround
             %a.week(href="#") Week 2
-          %li 
-            %a.title(href="#") Midterm 1 
+          %li
+            %a.title(href="#") Midterm 1
             .nearterms the query as well
             %a.week(href="#") Week 3
           %li.more
@@ -42,19 +42,19 @@
         %h3
           %a(href="#") CIV101
         %ul
-          %li 
+          %li
             %a.title(href="#") Lecture 4
             .nearterms some text goes here
             %a.week(href="#") Week 4
           %li.more
             %a(href="#") + 1 more
       %li
-        %h3 
+        %h3
           %a(href="#") ECE342
         %ul
           %li
             %a.title(href="#") Lecture 4
-            .nearterms some other words here 
+            .nearterms some other words here
             %a.week(href="#") Week 4
       -#
         %li.more
@@ -84,14 +84,14 @@
       -#
         %li.more
           %a(href="#") More
-        
+
 -if @people.length > 0
   #people.facet
     %h2 People
     %ul
       - @people.each do |person|
-        %li= link_to person.name, person, :query => @search
-        
+        %li= link_to person.name, person, :rel => 'facebox', :query => @search
+
 -if @collections.length > 0
   #collections.facet
     %h2 Collections
@@ -101,7 +101,7 @@
 - if @enable_all
   #all.facet
     %h2 All
-    %ul            
+    %ul
       - unless @results and @results.length > 0
         %li Sorry, no results. Please try another query.
       - else
