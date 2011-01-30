@@ -1,3 +1,4 @@
+require 'cgi'
 require 'net/http'
 require 'uri'
 require 'active_support'
@@ -121,7 +122,8 @@ class Term
     end
 
     def get_uri(path)
-      path = strip_path path.gsub(/ /, '%20')
+      path = path.split('/').map {|p| CGI.escape p}.join('/')
+      path = strip_path path
       path = [ENV['TOK_PATH'], path].join '/' unless ENV['TOK_PATH'].blank?
       URI.parse("http://#{ENV['TOK_HOST']}:#{ENV['TOK_PORT']}/#{path}")
     end
