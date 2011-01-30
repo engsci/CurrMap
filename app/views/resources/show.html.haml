@@ -11,9 +11,16 @@
       - if @resource.send(f)
         %dt= f.capitalize
         %dd= @resource.send(f)
+        
+    -unless @resource.amazon_info.empty?
+      %dt Find it on Amazon.ca
+      - small_icon = @resource.amazon_info["images"]["small"]
+      - large_icon = @resource.amazon_info["images"]["large"]
+      %img{:src=>"#{small_icon}", :class=>"resource_icon", :ref=>"#{large_icon}"}/
+      %dd=link_to @resource.amazon_info["Title"], @resource.amazon_info["url"]
     -if @resource.courses
       %dt Courses
       - @resource.courses.each do |c| 
-        %dd= link_to c.name, c, :rel => 'facebox'
+        %dd= #link_to c.name, c, :rel => 'facebox'
 
   = link_to 'Edit', edit_resource_path(@resource), :class => 'edit' if can? :edit, @resource

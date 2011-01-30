@@ -4,10 +4,9 @@ class CoursesController < ApplicationController
  
   # GET /courses
   # GET /courses.xml
-
   def index
 	  #authorize! :manage, Course
-    
+  
     @courses_by_year_and_semester = {}
     
    Course.all.each do |course|
