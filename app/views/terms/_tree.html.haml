@@ -4,7 +4,6 @@
       %dt
         %p
           = link_to knol.name, term_path(knol)
-          = knol.id
           = link_to '+', new_term_path, :class => 'add-tok-node'
           - if knol.preferred != knol.name
             = "(#{knol.preferred})"
