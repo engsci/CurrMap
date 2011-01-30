@@ -95,14 +95,6 @@ class Term
       Term.new(get_resource 'Knowledge')
     end
 
-    def lookup word
-      if word.respond_to :map
-        return word.map {|w| lookup w}
-      else
-        return Term.new(get_resource ['Knowledge', word].join '/')
-      end
-    end
-
     def add_resource(path)
       put_to path
     end
