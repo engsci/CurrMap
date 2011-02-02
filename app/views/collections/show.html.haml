@@ -13,5 +13,3 @@
       %dt Courses
       - @collection.courses.each do |c|
         %dd= link_to c.course_code, c, :rel => "facebox"
-
-  = link_to 'Edit', edit_collection_path(@collection), :class => 'edit' if can? :edit, @collection
