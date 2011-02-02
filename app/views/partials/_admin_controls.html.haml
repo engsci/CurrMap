@@ -4,7 +4,7 @@
       - if action_name == 'index'
         = link_to "New Course", new_course_path if can? :create, Course
       - elsif action_name == 'show'
-        = link_to 'Edit', {:action => 'edit', :id => @course.short_code, :delivered_year => @course.delivered_year}, :class => "#{"active" if action_name ==  "edit"}" if can? :manage, Course
+        = link_to 'Edit', {:action => 'edit', :id => @course.short_code, :delivered_year => @course.delivered_year}, :class => "#{"active" if action_name ==  "edit"}" if can? :edit, @course
       - elsif action_name == 'edit'
         = link_to 'Show', Course.path(@course) if can? :read, @course
         = link_to 'Delete', @course, :method => :delete, :confirm => "Are you sure?" if can? :destroy, @course
@@ -16,3 +16,11 @@
       - elsif action_name == 'edit'
         = link_to 'Show', polymorphic_path(@person) if can? :read, @person
         = link_to 'Delete', polymorphic_path(@person), :method => :delete, :confirm => "Are you sure?" if can? :destroy, @person
+    - if controller_name == 'resources'
+      - if action_name == 'index'
+        = link_to "New Resource", new_resource_path if can? :create, Resource
+      - elsif action_name == 'show'
+        = link_to 'Edit', edit_resource_path(@resource), :class => "#{"active" if action_name ==  "edit"}" if can? :edit, @resource
+      - elsif action_name == 'edit'
+        = link_to 'Show', @resource if can? :read, @resource
+        = link_to 'Delete', @resource, :method => :delete, :confirm => "Are you sure?" if can? :destroy, @resource

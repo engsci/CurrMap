@@ -26,7 +26,7 @@ CouchResource.get_all.each do |r|
   hash.delete("_rev")
   hash.delete("class")
    
-  hash["authors"] = hash["author"].class == String ? hash["author"].to_a : hash["author"] 
+  authors = hash["author"].class == String ? hash["author"].to_a : hash["author"] 
   hash.delete("author")
   
   hash["medium"] = hash["type"]
@@ -37,6 +37,11 @@ CouchResource.get_all.each do |r|
   hash.delete("_id")
   
   resource = Resource.new(hash)
+  
+  authors.each do |a|
+    resource.authors << Author.new(:name => a)
+  end if authors && authors.length > 0
+  
   resource.save
 end
 

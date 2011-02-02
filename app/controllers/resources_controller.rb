@@ -1,6 +1,6 @@
 class ResourcesController < ApplicationController
   
-  before_filter :authenticate_admin!, :except => [:index, :show]
+  load_and_authorize_resource
   
   # GET /resources
   # GET /resources.xml
@@ -29,6 +29,7 @@ class ResourcesController < ApplicationController
   # GET /resources/new.xml
   def new
     @resource = Resource.new
+    @resource.authors << Author.new
 
     respond_to do |format|
       format.html # new.html.erb

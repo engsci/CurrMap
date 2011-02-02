@@ -9,10 +9,15 @@ class Resource
   field :publisher, :type => String
   field :optional, :type => Boolean
  # field :type, :type => String
+ 
+  embeds_many :authors
+  accepts_nested_attributes_for :authors
   
-  def author
-    authors[0]
-  end
+  validates_presence_of :name
+  
+  #def author
+  #  authors[0]
+  #end
   
   references_and_referenced_in_many :courses, :inverse_of => :resources, :index => true
   
@@ -37,4 +42,16 @@ class Resource
   end  
   
   
+end
+
+class Author
+  include Mongoid::Document
+  
+  field :name
+  
+  embedded_in :course
+  
+  def to_s
+    self.name
+  end
 end

@@ -4,6 +4,11 @@ class Person
   
   field :name, :type => String
   
+  
+  def to_s
+    self.name
+  end
+  
   # SEARCH
   
   # include Sunspot::Mongoid
@@ -34,8 +39,4 @@ class Professor < Person
   def years_taught
     self.courses.map{|x| x.delivered_year}.uniq.sort
   end
-end
-
-class Author < Person
-
 end

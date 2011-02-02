@@ -1,12 +1,9 @@
-= form_for @resource, :html=>{:class=>"formtastic"} do |f|
-  -if @resource.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@resource.errors.count, "error")} prohibited this resource from being saved:"
-      %ul
-        - @resource.errors.full_messages.each do |msg|
-          %li= msg
-
-  - semantic_form_for @resource do |form|
-    = form.inputs :name, :authors, :edition, :publisher
-    .actions
-      = form.buttons
+= semantic_form_for @resource do |form|
+  = form.inputs :name, :edition, :publisher, :isbn
+  = form.semantic_fields_for :authors do |author|
+    = author.input :name
+  = form.input :optional, :as => :boolean
+  - form.buttons do
+    = form.commit_button
+    or 
+    =link_to "Go Back", @person
