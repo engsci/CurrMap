@@ -1,26 +1,33 @@
 Currmap::Application.routes.draw do |map|
 
+  # USERS
+
   devise_for :users
   resources :users
   match 'unauthorized' => "pages#unauthorized"
 
   
-  
+  # RESOURCES and COLLECTIONS
 
   resources :resources
-
-  resources :collections
+  resources :collections  
   
   
-
-  match 'courses/:id/:delivered_year/', :controller => 'courses', :action => 'show'
-  match 'courses/:id/:delivered_year/:action', :controller => 'courses'
+  # COURSES and INSTANCES
   
-  resources :courses  
+  resources :courses, :shallow => true do
+    resources :instances, :controller => 'course_instances'
+  end
+  
+  
+  # PEOPLE
   
   resources :people
   resources :professors, :controller => 'people'
   resources :authors, :controller => 'people'
+  
+  
+  # PAGES
   
   match 'search' => 'pages#search'
   match 'about' => 'pages#about'
@@ -83,5 +90,5 @@ Currmap::Application.routes.draw do |map|
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id(.:format)))'
 end
