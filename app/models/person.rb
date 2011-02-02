@@ -1,6 +1,5 @@
 class Person
   include Mongoid::Document
-  identity :type => String
   
   field :name, :type => String
   
@@ -15,7 +14,7 @@ class Person
   searchable do
     text :name
     text :course_descriptions do
-      self.courses.map(&:calendar_entry).join(" ")
+      self.courses.map(&:calendar_description).join(" ")
     end
     text :course_names do 
       self.courses.map(&:name).join(" ")

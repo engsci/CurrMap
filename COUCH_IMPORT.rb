@@ -50,12 +50,15 @@ end
 # IMPORT COURSES
 puts "IMPORTING COURSES"
 Person #initialize Prof, other subclasses
-Professor.sunspot_options = {} # sadface  
+#Professor.sunspot_options = {} # sadface  
 Course.destroy_all
 CouchCourse.get_all.each do |c|
   hash = c.to_hash
   hash.delete("_rev")   
   hash.delete("class")     
+  
+  hash["calendar_description"] = hash["calendar_description"]
+  hash.delete("calendar_description")
   
   hash["professor_ids"] = []
   profs = hash["staff"].keys if hash["staff"]

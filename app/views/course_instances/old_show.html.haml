@@ -3,7 +3,7 @@
 - else 
   .column
     .course_description
-      - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.delivered_year => c.calendar_entry.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse
+      - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.delivered_year => c.calendar_description.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse
       .mini-tabs
         %ul
           %li.title Course Description

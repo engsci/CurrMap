@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   
-  load_and_authorize_resource
+  load_and_authorize_resource :only => [:index]
  
   # GET /courses
   # GET /courses.xml
@@ -41,7 +41,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/1
   # GET /courses/1.xml
-  def shows
+  def show_old
     Person #need this in development mode b/c person subclasses aren't being eagerloaded :@
 
     respond_to do |format|
