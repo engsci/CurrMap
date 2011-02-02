@@ -1,12 +1,8 @@
-= form_for @person, :html=>{:class=>"formtastic"}  do |f|
-  -if @person.errors.any?
-    #errorExplanation
-      %h2= "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
-      %ul
-        - @person.errors.full_messages.each do |msg|
-          %li= msg
-
-  - semantic_form_for @person do |form|
-    = form.inputs :name, :phone, :website, :email
-    .actions
-      = form.buttons
+- semantic_form_for @person do |form|
+  = form.inputs :name
+  - if @person.class == Professor
+    = form.inputs :phone, :website, :email
+  - form.buttons do
+    = form.commit_button
+    or 
+    =link_to "Go Back", @person

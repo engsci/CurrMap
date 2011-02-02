@@ -2,7 +2,7 @@
   %h1= link_to @person.name, @person
   %dl
     - %w(phone website email).each do |f|
-      - if @person.send(f)
+      - if @person.send(f) && @person.send(f).length > 0
         %dt= f.capitalize
         - info = @person.send(f)
         - if info.kind_of? Array
@@ -22,7 +22,4 @@
   -unless @person.courses.empty?
     %h5 Courses Taught
         
-  = render :partial => 'partials/timeline', :locals => {:delivered_years => @person.years_taught, :items_by_year => @courses_by_year, :heading => false}
-      
-
-  = link_to 'Edit', edit_person_path(@person), :class => 'edit' if can? :edit, @person
+    = render :partial => 'partials/timeline', :locals => {:delivered_years => @person.years_taught, :items_by_year => @courses_by_year, :heading => false}

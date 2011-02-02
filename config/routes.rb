@@ -5,18 +5,22 @@ Currmap::Application.routes.draw do |map|
   match 'unauthorized' => "pages#unauthorized"
 
   
-  resources :people
+  
 
   resources :resources
 
   resources :collections
+  
+  
 
   match 'courses/:id/:delivered_year/', :controller => 'courses', :action => 'show'
   match 'courses/:id/:delivered_year/:action', :controller => 'courses'
   
   resources :courses  
   
+  resources :people
   resources :professors, :controller => 'people'
+  resources :authors, :controller => 'people'
   
   match 'search' => 'pages#search'
   match 'about' => 'pages#about'

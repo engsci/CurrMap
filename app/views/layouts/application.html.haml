@@ -12,6 +12,7 @@
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"
+    = javascript_include_tag 'rails.js'
     = javascript_include_tag "jquery.highlight-3.yui.js"
     = javascript_include_tag '/facebox/facebox', 'application', 'search'
     = javascript_include_tag 'viz.st.js'
@@ -33,6 +34,7 @@
           %input(type="submit" value="Search" id="ferret_submit")
 
       #nav
+        = render :partial => 'partials/admin_controls'
         - if controller_name == 'courses' && action_name != 'index'
           = render :partial => 'courses/nav'
         = render :partial => 'layouts/sidebar'

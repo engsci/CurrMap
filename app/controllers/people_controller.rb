@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
   
-  before_filter :authenticate_admin!, :except => [:index, :show]
+  #before_filter :authenticate_admin!, :except => [:index, :show]
+  load_and_authorize_resource
   
   # GET /people
   # GET /people.xml
@@ -39,7 +40,7 @@ class PeopleController < ApplicationController
   # GET /people/new
   # GET /people/new.xml
   def new
-    @person = Person.new
+    @person = params[:class].classify.constantize.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -55,7 +56,11 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.xml
   def create
-    @person = Person.new(params[:person])
+    if params[:person]
+      @person = Person.new(params[:person])
+    elsif params[:professor]
+      @person = Professor.new(params[:professor])
+    end
 
     respond_to do |format|
       if @person.save
@@ -71,10 +76,10 @@ class PeopleController < ApplicationController
   # PUT /people/1
   # PUT /people/1.xml
   def update
-    @person = Person.find(params[:id])
-
+    @person = Professor.find(params[:id])
+    
     respond_to do |format|
-      if @person.update_attributes(params[:person])
+      if @person.update_attributes(params[@person.class.to_s.underscore.to_sym])
         format.html { redirect_to(@person, :notice => 'Person was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -91,7 +96,7 @@ class PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to(people_url) }
+      format.html { redirect_to(people_url, :notice => 'Record was successfully destroyed.') }
       format.xml  { head :ok }
     end
   end

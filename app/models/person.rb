@@ -6,7 +6,7 @@ class Person
   
   # SEARCH
   
-  include Sunspot::Mongoid
+  # include Sunspot::Mongoid
   searchable do
     text :name
     text :course_descriptions do
@@ -15,7 +15,7 @@ class Person
     text :course_names do 
       self.courses.map(&:name).join(" ")
     end
-  end
+  end if false
 
 end
 
@@ -24,6 +24,8 @@ end
 #end
 
 class Professor < Person
+  include Mongoid::Document
+  
   references_and_referenced_in_many :courses, :inverse_of => :professors, :index => true
   field :phone, :type => String
   field :website, :type => String
