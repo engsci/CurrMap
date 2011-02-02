@@ -1,0 +1,81 @@
+- if request.format.js?
+  = render :partial => "course", :locals => {:course => @course}
+- else 
+  .column
+    .course_description
+      - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.delivered_year => c.calendar_entry.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse
+      .mini-tabs
+        %ul
+          %li.title Course Description
+          - course_descriptions.each do |ce, year|
+            %li
+              %a(href="#course_description_tabs_#{year}")= year
+            
+        - course_descriptions.each do |ce, year|
+          %div(id="course_description_tabs_#{year}")= ce
+        
+      .mini-tabs
+        %ul
+          %li.title Misc Info
+          - @courses.sort_by{|c| c.delivered_year}.each do |course|
+            %li
+              %a(href="#course_info_tabs_#{course.delivered_year}")= course.delivered_year
+        - @courses.sort_by{|c| c.delivered_year}.each do |course|
+          %div(id="course_info_tabs_#{course.delivered_year}")
+            %ul.misc_info
+              %li
+                %strong Year
+                = course.year
+              %li
+                %strong Weight
+                = course.weight
+              %li
+                %strong Semester
+                = {"F"=>"Fall", "W"=>"Winter"}[course.semester]
+              %li 
+                %strong Workload 
+                %abbr(title='Lecture') L
+                =course.workload.lecture.to_s + " "
+                %abbr(title="Tutorial") T
+                =course.workload.tutorial.to_s + " "
+                %abbr(title="Practical") P
+                =course.workload.practical.to_s
+    - main_topics = @courses.map{|c| c.main_topics}.flatten.uniq.compact
+    - if main_topics.length > 0
+      .main_topics
+        %h4 Main Topics
+        %ul
+          - main_topics.each do |t|
+            %li= link_to t, {:controller => "pages", :action => "search", :query => t}, {:rel => "facebox"}
+            
+  .column
+    - if @profs_by_year.length > 0
+      .professors
+        %h4 Professors
+        - years = @courses.map{|x| x.delivered_year}.reverse
+        = render :partial => 'partials/timeline', :locals => {:delivered_years => years, :items_by_year => @profs_by_year, :heading => false}
+    
+    - if @resources_by_year.length > 0
+      .resources  
+        %h4 Resources
+        = render :partial => 'partials/timeline', :locals => {:delivered_years => years, :items_by_year => @resources_by_year, :heading => false}
+      
+    
+  #tabs
+    %ul
+      %li.title Topics Covered
+      - @courses.each do |course|
+        %li
+          %a(href="#{course.id}" title="#{course.delivered_year}")= course.course_code + " - " + course.delivered_year.to_s
+          
+          
+  - content_for :sidebar do
+    - %w(professors resources collections).each do |model|
+      - links = @courses.map{|c| c.send(model).map{|p| p}}.flatten.uniq
+      - if links.length > 0
+        %h2= model.capitalize
+        %ul
+          -links.each do |l|
+            %li= link_to l.name, l, :rel => 'facebox'
+
+   

@@ -17,7 +17,8 @@ form.formtastic
       :display none
       
     #course
-      :width 60%
+      :width 45%
+      :margin-right 5%
       :float left
       input
         :max-width 90%
@@ -34,13 +35,20 @@ form.formtastic
         input
           :width 4em
           
-    
+    h3
+      @include nice_heading
+
     #connections
-      :width 40%
+      :width 45%
       :float left
+      
       fieldset legend
-        :display block
+        :display none
         
+        
+      #topics
+        label
+          :display none
     .dynatab
       :float left
       :display block

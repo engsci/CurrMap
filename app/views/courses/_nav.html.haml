@@ -1,16 +1,15 @@
-
-
 %ul.nav
-  %li= link_to 'Course Info', {:action => 'show', :id => @course.short_code, :year => @course.year_version}, :class => "#{"active" if action_name ==  'show'}"
-  - %w(overview syllabus lectures resources evaluations calendar).each do |p|
+  %li= link_to 'Overview', {:action => 'show', :id => @course.short_code, :delivered_year => @course.delivered_year}, :class => "#{"active" if action_name ==  'show'}"
+  - %w(syllabus lectures resources evaluations calendar).each do |p|
     %li
-      =link_to p.capitalize, {:action => p, :id => @course.short_code, :year => @course.year_version}, :class => "#{"active" if action_name ==  p}"
-      
+      =link_to p.capitalize, {:action => p, :id => @course.short_code, :delivered_year => @course.delivered_year}, :class => "#{"active" if action_name ==  p}"
+
+  %li= link_to 'Edit', {:action => 'edit', :id => @course.short_code, :delivered_year => @course.delivered_year}, :class => "#{"active" if action_name ==  "edit"}"
 
 %h2 Available Years
 %ul
   - @course.available_years.each do |y|
-    - if y == @course.year_version
+    - if y == @course.delivered_year
       %li= "#{y-1}-#{y} (active)"
     - else
-      %li= link_to "#{y-1}-#{y}", :year => y
+      %li= link_to "#{y-1}-#{y}", :delivered_year => y

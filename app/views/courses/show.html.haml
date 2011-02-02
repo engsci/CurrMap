@@ -1,81 +1,41 @@
-- if request.format.js?
-  = render :partial => "course", :locals => {:course => @course}
-- else 
-  .column
-    .course_description
-      - course_descriptions = @courses.inject({}) {|result, c| result.merge({c.year_version => c.calendar_entry.squeeze(" ").gsub(/’/,'\'')})}.invert.sort.reverse
-      .mini-tabs
-        %ul
-          %li.title Course Description
-          - course_descriptions.each do |ce, year|
-            %li
-              %a(href="#course_description_tabs_#{year}")= year
-            
-        - course_descriptions.each do |ce, year|
-          %div(id="course_description_tabs_#{year}")= ce
-        
-      .mini-tabs
-        %ul
-          %li.title Misc Info
-          - @courses.sort_by{|c| c.year_version}.each do |course|
-            %li
-              %a(href="#course_info_tabs_#{course.year_version}")= course.year_version
-        - @courses.sort_by{|c| c.year_version}.each do |course|
-          %div(id="course_info_tabs_#{course.year_version}")
-            %ul.misc_info
-              %li
-                %strong Year
-                = course.year
-              %li
-                %strong Weight
-                = course.weight
-              %li
-                %strong Semester
-                = {"F"=>"Fall", "W"=>"Winter"}[course.semester]
-              %li 
-                %strong Workload 
-                %abbr(title='Lecture') L
-                =course.workload.lecture + " "
-                %abbr(title="Tutorial") T
-                =course.workload.tutorial + " "
-                %abbr(title="Practical") P
-                =course.workload.practical
-    - main_topics = @courses.map{|c| c.main_topics}.flatten.uniq.compact
-    - if main_topics.length > 0
-      .main_topics
-        %h4 Main Topics
-        %ul
-          - main_topics.each do |t|
-            %li= link_to t, {:controller => "pages", :action => "search", :query => t}, {:rel => "facebox"}
-            
-  .column
-    - if @profs_by_year.length > 0
-      .professors
-        %h4 Professors
-        - years = @courses.map{|x| x.year_version}.reverse
-        = render :partial => 'partials/timeline', :locals => {:years => years, :items_by_year => @profs_by_year, :heading => false}
-    
-    - if @resources_by_year.length > 0
-      .resources  
-        %h4 Resources
-        = render :partial => 'partials/timeline', :locals => {:years => years, :items_by_year => @resources_by_year, :heading => false}
-      
-    
-  #tabs
-    %ul
-      %li.title Topics Covered
-      - @courses.each do |course|
-        %li
-          %a(href="#{course.id}" title="#{course.year_version}")= course.course_code + " - " + course.year_version.to_s
-          
-          
-  - content_for :sidebar do
-    - %w(professors resources collections).each do |model|
-      - links = @courses.map{|c| c.send(model).map{|p| p}}.flatten.uniq
-      - if links.length > 0
-        %h2= model.capitalize
-        %ul
-          -links.each do |l|
-            %li= link_to l.name, l, :rel => 'facebox'
+- course = @course
 
-   
+.column
+  - if course.calendar_entry.length > 0
+    .course_description
+      %h4 Calendar Entry
+      %p= course.calendar_entry
+
+  - if course.main_topics && course.main_topics.length > 0
+    .main_topics
+      %h4 Main Topics
+      %ul
+        - course.main_topics.each do |t|
+          %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
+.column
+  .professors
+    %h4 Professors
+    %ul
+      -course.professors.each do |p|
+        %li
+          =link_to p.name, p, :rel => "facebox"
+  - unless course.resources.empty?
+    .resources
+      %h4 Resources
+      %ul
+        - course.resources.each do |r|
+          %li
+            = link_to r.name || "ISBN #{r._id}", r
+            - if r.optional
+              (optional)
+            - if r.authors
+              %ul
+                - r.authors.each do |a| 
+                  %li= a
+    
+  - unless course.collections.empty?
+    %h4 Collections
+    %ul
+      - course.collections.each do |c|
+        %li
+          = link_to c.name, c, :rel => 'facebox'

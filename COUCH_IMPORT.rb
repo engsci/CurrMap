@@ -45,7 +45,7 @@ end
 # IMPORT COURSES
 puts "IMPORTING COURSES"
 Person #initialize Prof, other subclasses
-Professor.sunspot_options = {} # sadface
+Professor.sunspot_options = {} # sadface  
 Course.destroy_all
 CouchCourse.get_all.each do |c|
   hash = c.to_hash
@@ -60,17 +60,30 @@ CouchCourse.get_all.each do |c|
   resources = hash["resources"]
   hash.delete("resources")
   
-  if hash["main topics"]
-    hash["main_topics"] = hash["main topics"]
-    hash.delete("main topics")
-  end
+  main_topics = hash["main_topics"] || hash["main topics"]
+  
+  hash.delete("main topics")
+  hash.delete("main_topics")
   
   puts hash["_id"] #LOG
   
   hash["course_code"] = hash["_id"].split("-")[0].strip #remove '- 2010' classification
   hash.delete("_id")
   
+  hash["delivered_year"] = hash["year"].to_i
+  hash.delete("year")
+  
+  
   course = Course.new(hash)
+  
+   # MAIN TOPICS
+  
+  main_topics.each do |t|
+    topic = Topic.new(:name => t)
+    course.main_topics << topic
+  end if main_topics && main_topics.length > 0
+  
+ 
   
   # LINK TO PROFS
   profs.each do |id|
@@ -132,7 +145,7 @@ CouchCollection.get_all.each do |c|
   collection.save
 end
 
-if true
+if false
 
   puts "CLEARING SOLR INDEX"
   Person.remove_all_from_index

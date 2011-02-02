@@ -2,17 +2,17 @@
   %tr
     - if heading
       %th= heading
-    - years.each do |year_version|
-      %th= year_version
-  -items_by_year.each do |item, item_years|
+    - delivered_years.each do |delivered_year|
+      %th= delivered_year
+  - items_by_year.each do |item, item_years|
     %tr
       - if heading
         %td= link_to item.name, item, :rel => "facebox"
-      -years.each do |year|
+      - delivered_years.each do |year|
         %td(class="#{"active" if item_years.include?(year)}") 
           -if item_years.include?(year) && item_years.sort[0] == year
             - if item.respond_to?("short_code")
               - course = item
-              =link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :anchor => course.year_version}, {:title => course.name}
+              =link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :anchor => course.delivered_year}, {:title => course.name}
             - elsif item.respond_to?("name")
               = link_to item.name, item, :rel => "facebox"

@@ -10,7 +10,7 @@
   
  
   #year
-    = render :partial => 'partials/timeline', :locals => {:years => @people.inject([]){|result, p| result | p.years_taught}.sort, :items_by_year => @people.inject({}){|result,p| result.merge({p=>p.years_taught})}.sort_by{|k,v| k.name}.reverse.sort_by{|k,v| v.reverse}.reverse, :heading => false}
+    = render :partial => 'partials/timeline', :locals => {:delivered_years => @people.inject([]){|result, p| result | p.years_taught}.sort, :items_by_year => @people.inject({}){|result,p| result.merge({p=>p.years_taught})}.sort_by{|k,v| k.name}.reverse.sort_by{|k,v| v.reverse}.reverse, :heading => false}
   #alpha
     %ul
       - @people.sort_by{|p| p.name}.each do |person|

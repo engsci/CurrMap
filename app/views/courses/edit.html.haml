@@ -1,11 +1,8 @@
-%h1 Editing course
-
 = render 'form'
 
 = link_to 'Back', course_path_(@course)
 
 -# if request.format.js?
-  %h1 Editing course
 
   = render 'form'
 
@@ -16,6 +13,6 @@
     %ul
       - @courses.each do |course|
         %li
-          %a(href="../#{course.id}/#{course.year_version}/edit" title="#{course.year_version}")= course.course_code + " - " + course.year_version.to_s
+          %a(href="../#{course.id}/#{course.delivered_year}/edit" title="#{course.delivered_year}")= course.course_code + " - " + course.delivered_year.to_s
 
 

@@ -30,7 +30,7 @@ class Professor < Person
   field :email, :type => String
   
   def years_taught
-    self.courses.map{|x| x.year_version}.uniq.sort
+    self.courses.map{|x| x.delivered_year}.uniq.sort
   end
 end
 

@@ -3,16 +3,16 @@
 
 #tabs
   %ul
-    -@courses_by_year_and_semester.keys.reverse.each do |year_version|
+    -@courses_by_year_and_semester.keys.reverse.each do |delivered_year|
       %li
-        %a(href="##{year_version}" title="#{year_version}")= year_version
+        %a(href="##{delivered_year}" title="#{delivered_year}")= delivered_year
     %li
       %a(href="#all" title="all") All
-  -@courses_by_year_and_semester.keys.reverse.each do |year_version|
-    %div(id="#{year_version}")
-      %h3= year_version
+  -@courses_by_year_and_semester.keys.reverse.each do |delivered_year|
+    %div(id="#{delivered_year}")
+      %h3= delivered_year
       #courses
-        - @courses_by_year_and_semester[year_version].each do |year, semesters|
+        - @courses_by_year_and_semester[delivered_year].each do |year, semesters|
           .year
             %h4= "Year #{year}"
             .semesters
@@ -28,8 +28,8 @@
     %table.timeline
       %tr
         %th &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        - years.each do |year_version|
-          %th= year_version
+        - years.each do |delivered_year|
+          %th= delivered_year
           
       - @courses_by_magic.each do |year, semesters|
         %tr

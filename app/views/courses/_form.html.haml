@@ -2,7 +2,9 @@
   = form.semantic_errors :state 
   = form.inputs do
     - form.inputs "Course", :id => "course" do
+      %h3 Course
       = form.input :course_code
+      = form.input :delivered_year
       = form.input :name
       = form.input :calendar_entry, :as => :text, :input_html=>{:rows=>"4"}
       - form.inputs "Details", :id => "details" do
@@ -15,14 +17,19 @@
             = workload.input :lecture
             = workload.input :tutorial
             = workload.input :practical
-      = form.input "main_topics"
         
     - form.inputs "Connections", :id => 'connections' do
+      %h3 Main Topics
+      - form.inputs "Main Topics", :id => "topics" do 
+        = form.semantic_fields_for :main_topics do |topic|
+          = topic.input :name
+      %h3 Professors
       - form.inputs "Professors", :id => 'professors' do
         - @course.professors.each do |prof|
           %li 
             .dynatab= prof.name
         = "<auto search text field here> + "
+      %h3 Resources
       - form.inputs "Resources", :id => 'resources' do
         - @course.resources.each do |resource|
           = resource.name

@@ -10,21 +10,22 @@ class CoursesController < ApplicationController
     
     @courses_by_year_and_semester = {}
     
+   #TODO: add field limit(...) to this query
    Course.all.each do |course|
-      @courses_by_year_and_semester[course.year_version] ||= {}
-      @courses_by_year_and_semester[course.year_version][course.year] ||= {}
-      @courses_by_year_and_semester[course.year_version][course.year][course.semester] ||= []
-      @courses_by_year_and_semester[course.year_version][course.year][course.semester] << course
+      @courses_by_year_and_semester[course.delivered_year] ||= {}
+      @courses_by_year_and_semester[course.delivered_year][course.year] ||= {}
+      @courses_by_year_and_semester[course.delivered_year][course.year][course.semester] ||= []
+      @courses_by_year_and_semester[course.delivered_year][course.year][course.semester] << course
     end
     
     
     @courses_by_magic = {}
-    # @courses_by_magic[course.year][course.semester][course] = [year_version, year_version]
+    # @courses_by_magic[course.year][course.semester][course] = [delivered_year, delivered_year]
     Course.all.each do |course|
       @courses_by_magic[course.year] ||= {}
       @courses_by_magic[course.year][course.semester] ||= {}
       @courses_by_magic[course.year][course.semester][course.short_code] ||= []
-      @courses_by_magic[course.year][course.semester][course.short_code] << course.year_version
+      @courses_by_magic[course.year][course.semester][course.short_code] << course.delivered_year
     end
 
     respond_to do |format|
@@ -33,9 +34,14 @@ class CoursesController < ApplicationController
     end
   end
 
+
+  def show
+    @course = Course.find_course(params[:id], params[:delivered_year].to_s)
+  end
+
   # GET /courses/1
   # GET /courses/1.xml
-  def show
+  def shows
     Person #need this in development mode b/c person subclasses aren't being eagerloaded :@
 
     respond_to do |format|
@@ -47,12 +53,17 @@ class CoursesController < ApplicationController
       format.html {
         
         # redirect to most recent
-        unless params[:year]
-          redirect_to :year => Course.where(:course_code => /^#{params[:id]}/).desc(:year).limit(1)[0].year_version
+        unless params[:delivered_year]
+          if @course = Course.where(:id => BSON::ObjectId(params[:id]))[0]
+            redirect_to :id => @course.short_code, :delivered_year => @course.delivered_year
+          else
+            redirect_to :delivered_year => Course.where(:course_code => /^#{params[:id]}/).desc(:delivered_year).limit(1)[0].delivered_year
+          end
+          
         end
         
         #display the course, with tabs for related courses (same code, different year)
-        @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+        @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.delivered_year}.reverse
         @course = @courses[0]
         
         @profs_by_year = {}
@@ -60,11 +71,11 @@ class CoursesController < ApplicationController
         @courses.each do |course|
           course.professors.each do |prof|
             @profs_by_year[prof] ||= []
-            @profs_by_year[prof] << course.year_version
+            @profs_by_year[prof] << course.delivered_year
           end
           course.resources.each do |resource|
             @resources_by_year[resource] ||= []
-            @resources_by_year[resource] << course.year_version
+            @resources_by_year[resource] << course.delivered_year
           end
         end
         @profs_by_year = @profs_by_year.sort_by{ |p| p.last }.reverse
@@ -75,27 +86,27 @@ class CoursesController < ApplicationController
   end
   
   def overview
-     @course = Course.find_course(params[:id], params[:year])      
+     @course = Course.find_course(params[:id], params[:delivered_year])      
   end
 
   def syllabus
-    @course = Course.find_course(params[:id], params[:year])
+    @course = Course.find_course(params[:id], params[:delivered_year])
   end
   
   def lectures
-    @course = Course.find_course(params[:id], params[:year])
+    @course = Course.find_course(params[:id], params[:delivered_year])
   end
   
   def resources
-    @course = Course.find_course(params[:id], params[:year])
+    @course = Course.find_course(params[:id], params[:delivered_year])
   end
   
   def evaluations
-    @course = Course.find_course(params[:id], params[:year])
+    @course = Course.find_course(params[:id], params[:delivered_year])
   end
   
   def calendar
-    @course = Course.find_course(params[:id], params[:year])
+    @course = Course.find_course(params[:id], params[:delivered_year])
   end
 
 
@@ -112,14 +123,14 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    @course = Course.find_course(params[:id], params[:year])
+    @course = Course.find_course(params[:id], params[:delivered_year])
     
     respond_to do |format|
       format.js {
         #@course = Course.find(params[:id])
       }
       format.html {
-        #@courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.year_version}.reverse
+        #@courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.delivered_year}.reverse
         #@course = @courses[0]
       }
     end
@@ -145,19 +156,16 @@ class CoursesController < ApplicationController
   # PUT /courses/1.xml
   def update
     @course = Course.find(params[:id])
-    redirect_to(@course, :notice => 'Course was successfully pseudo-updated.')
-    
-    
 
     respond_to do |format|
       if @course.update_attributes(params[:course])
-        format.html { redirect_to(@course, :notice => 'Course was successfully updated.') }
+        format.html { redirect_to(Course.path(@course), :notice => 'Course was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @course.errors, :status => :unprocessable_entity }
       end
-    end if false
+    end
   end
 
   # DELETE /courses/1

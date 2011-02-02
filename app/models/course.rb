@@ -1,6 +1,8 @@
 class Course
   include Mongoid::Document
-  identity :type => String
+  #identity :type => String
+  
+  attr_protected :_id
   
   # FIELDS
   field :course_code, :type => String
@@ -8,14 +10,15 @@ class Course
   field :name, :type => String
   field :semester, :type => String
   field :weight, :type => Float
-  field :year, :type => Integer
-  field :main_topics, :type => Array
+  field :delivered_year, :type => Integer
+  #field :main_topics, :type => Array
+  embeds_many :main_topics, :class_name => 'Topic'
   #workload for lecture, tutorial, practice
   
   #field :workload, :type => Hash
   embeds_one :workload
   accepts_nested_attributes_for :workload
-  #accepts_nested_attributes_for :main_topics
+  accepts_nested_attributes_for :main_topics
   
   # RELATIONSHIPS
   # embeds_many :activities
@@ -47,7 +50,14 @@ class Course
   
   
   def self.find_course(course_code, year)
-    Course.where(:course_code => /^#{course_code}/, :year => year).limit(1)[0]
+    Course.where(:course_code => /^#{course_code}/, :delivered_year => year).limit(1)[0]
+    #Course.where(:delivered_year => year).where(:course_code => /^P/).limit(1)[0]
+  end
+  
+  # use Course.path(...) instead of just @course
+  
+  def self.path(course, action= :show)
+    {:controller => :courses, :action => action, :id => course.short_code, :delivered_year => course.delivered_year }
   end
   
   # METHODS  
@@ -59,16 +69,12 @@ class Course
     return self.course_code[3,1]
   end
   
-  def year_version
-    return read_attribute(:year)
-  end
-  
   def short_code
     return self.course_code[0,6]
   end
   
   def available_years
-    Course.where(:course_code => /^#{self.short_code}/).map {|c| c.year_version }
+    Course.where(:course_code => /^#{self.short_code}/).map {|c| c.delivered_year }
   end
   
   
@@ -125,4 +131,16 @@ class Workload
   field :tutorial
   field :practical
   embedded_in :course, :inverse_of => :workload
+end
+
+
+class Topic
+  include Mongoid::Document
+  
+  field :name
+  embedded_in :course, :inverse_of => :main_topics
+  
+  def to_s
+    self.name
+  end
 end
