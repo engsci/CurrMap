@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   
-  # before_filter :authenticate_user!, :except => [:show]
+  load_and_authorize_resource
  
   # GET /courses
   # GET /courses.xml
@@ -114,6 +114,7 @@ class CoursesController < ApplicationController
   # GET /courses/new.xml
   def new
     @course = Course.new
+    @course.workload = Workload.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -143,7 +144,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
-        format.html { redirect_to(@course, :notice => 'Course was successfully created.') }
+        format.html { redirect_to(Course.path(@course), :notice => 'Course was successfully created.') }
         format.xml  { render :xml => @course, :status => :created, :location => @course }
       else
         format.html { render :action => "new" }

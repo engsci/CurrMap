@@ -48,6 +48,3 @@
                 %td(class="#{"active" if item_years.include?(year)}") 
                   -if item_years.include?(year) && item_years.sort[0] == year
                     = link_to course, {:controller => :courses, :action => :show, :id => course}
-
-
-= link_to 'New Course', new_course_path if can? :create, Course 

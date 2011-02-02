@@ -27,8 +27,12 @@ class Course
   references_and_referenced_in_many :collections,  :inverse_of => :courses, :index => true
   
   # VALIDATIONS
-  #validates_presence_of :course_code, :name
-  
+  validates_presence_of :course_code, :delivered_year, :name, :calendar_entry
+  validates_format_of :course_code, :with => /[A-Za-z]{3}[0-9]{3}[HF]{1}[0-9]{1}/
+  validates_format_of :delivered_year, :with => /[0-9]{4}/
+  validates_inclusion_of :semester, :in => ["S","F","Y"], :message => "must be S, F or Y"
+  validates_numericality_of :delivered_year, :weight
+  #validates_length_of :semester, :minimum => 1, :maximum => 1, :allow_blank => true
   # OTHER
   
   #ID should be key
@@ -74,7 +78,7 @@ class Course
   end
   
   def available_years
-    Course.where(:course_code => /^#{self.short_code}/).map {|c| c.delivered_year }
+    Course.where(:course_code => /^#{self.short_code}/).map {|c| c.delivered_year }.compact
   end
   
   
@@ -127,10 +131,13 @@ end
 class Workload
   include Mongoid::Document
   
-  field :lecture
-  field :tutorial
-  field :practical
+  field :lecture, :type => Float
+  field :tutorial, :type => Float
+  field :practical, :type => Float
+  
   embedded_in :course, :inverse_of => :workload
+  
+  validates_numericality_of :lecture, :tutorial, :practical
 end
 
 

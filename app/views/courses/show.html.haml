@@ -1,7 +1,7 @@
 - course = @course
 
 .column
-  - if course.calendar_entry.length > 0
+  - if course.calendar_entry && course.calendar_entry.length > 0
     .course_description
       %h4 Calendar Entry
       %p= course.calendar_entry

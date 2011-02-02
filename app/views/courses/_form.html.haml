@@ -9,7 +9,7 @@
       = form.input :calendar_entry, :as => :text, :input_html=>{:rows=>"4"}
       - form.inputs "Details", :id => "details" do
         - form.inputs "Stuff", :id => "stuff" do
-          = form.input :year
+          = #
           = form.input :semester
           = form.input :weight
         - form.inputs "Workload", :id => "workload" do 
@@ -34,6 +34,8 @@
         - @course.resources.each do |resource|
           = resource.name
         
-  .actions
-    = form.buttons
+  - form.buttons do
+    = form.commit_button
+    or 
+    =link_to "Go Back", Course.path(@course)
     
