@@ -1,150 +1,115 @@
 class CourseInstance
   include Mongoid::Document
   
-  attr_accessible :calendar_description
+  key :course_code, :delivered_year
   
-  # FIELDS
   field :course_code, :type => String
-  field :calendar_description, :type => String
+  field :delivered_year, :type => Integer
+  
+  attr_accessible :name, :semester, :calendar_description, :weight
+  
   field :name, :type => String
   field :semester, :type => String
+  field :calendar_description, :type => String
   field :weight, :type => Float
-  field :delivered_year, :type => Integer
-  #field :main_topics, :type => Array
+  
+  # EMBEDDED
+  
+  embeds_many :activities
+  
   embeds_many :main_topics, :class_name => 'Topic'
-  #workload for lecture, tutorial, practice
-  
-  #field :workload, :type => Hash
-  embeds_one :workload
-  accepts_nested_attributes_for :workload
   accepts_nested_attributes_for :main_topics
+
+  embeds_one :contact_hours, :class_name => 'ContactHours'
+  accepts_nested_attributes_for :contact_hours
   
-  # RELATIONSHIPS
-  # embeds_many :activities
-  references_and_referenced_in_many :resources, :inverse_of => :courses, :index => true
-  references_and_referenced_in_many :professors, :inverse_of => :courses, :index => true
-  references_and_referenced_in_many :collections,  :inverse_of => :courses, :index => true
+  # RELATIONAL
+  
+  references_and_referenced_in_many :resources, :index => true
+  references_and_referenced_in_many :instructors, :index => true
+  references_and_referenced_in_many :collections,  :index => true
+  references_and_referenced_in_many :courses,  :index => true
   
   # VALIDATIONS
-  validates_presence_of :course_code, :delivered_year, :name, :calendar_description
-  validates_format_of :course_code, :with => /[A-Za-z]{3}[0-9]{3}[HF]{1}[0-9]{1}/
-  validates_format_of :delivered_year, :with => /[0-9]{4}/
+  
+  validates_presence_of :course_code, :delivered_year, :name, :calendar_description, :semester, :weight
+  validates_format_of :course_code, :with => /[A-Za-z]{3}[0-9]{3}[HY]{1}[0-9]{1}/, :message => "must be of form ABC123A1"
+  validates_format_of :delivered_year, :with => /[0-9]{4}/, :message => "must be four digits"
   validates_inclusion_of :semester, :in => ["S","F","Y"], :message => "must be S, F or Y"
   validates_numericality_of :delivered_year, :weight
-  #validates_length_of :semester, :minimum => 1, :maximum => 1, :allow_blank => true
-  # OTHER
-  
-  #ID should be key
-  #key :course_code
-  
-  #references_many :related_concepts, :stored_as => :array, :inverse_of => :courses 
-  #references_many :courses, :stored_as => :array, :inverse_of => :related_courses
-  def init
-    add_nested_docs "activities" do |key,activity|
-      if key =~ /^L\d+/
-        CouchLecture.new activity
-      elsif key =~ /^MT\d+/
-        CouchMidterm.new activity
-      else
-        CouchActivity.new activity
-      end
-    end
-  end
-  
-  
-  def self.find_course(course_code, year)
-    Course.where(:course_code => /^#{course_code}/, :delivered_year => year).limit(1)[0]
-    #Course.where(:delivered_year => year).where(:course_code => /^P/).limit(1)[0]
-  end
-  
-  # use Course.path(...) instead of just @course
-  
-  def self.path(course, action= :show)
-    {:controller => :courses, :action => action, :id => course.short_code, :delivered_year => course.delivered_year }
-  end
-  
-  # METHODS  
-  def name
-	  return read_attribute(:name) ? read_attribute(:name).split(" - ")[0] : nil
-  end
 
-  def year
-    return self.course_code[3,1]
+  # METHODS  
+
+  def level
+    self.course_code[3,1]
   end
   
   def short_code
-    return self.course_code[0,6]
-  end
-  
-  def available_years
-    Course.where(:course_code => /^#{self.short_code}/).map {|c| c.delivered_year }.compact
-  end
-  
-  
-  def lectures
-    self.activities.find_all{|a| a.class == Lecture}
-  end
-  
-  def midterms
-    self.activities.find_all{|a| a.class == Midterm}
-  end
-  
-  
-  def collated_activities
-    collated_activities = {}
-    self.activities.each do |a|
-      collated_activities[a[1]["week"]] ||= {"lectures" => [], "other" => []}
-      if a[0] =~ /^L\d+/
-        collated_activities[a[1]["week"]]["lectures"] << a
-      else
-        collated_activities[a[1]["week"]]["other"] << a
-      end
-    end
-    return collated_activities
+    self.course_code[0,6]
   end
 
-  # SEARCH
-  include Sunspot::Mongoid
-  searchable do
-    text :name
-    text :calendar_description
-    text :course_code
-    text :short_code do
-      course_code[0,6]
-    end
-    text :department do
-      course_code[0,3]
-    end
-    text :collections do
-      collections.map(&:name).join(" ")
-    end
-    text :activities do
-      self["activities"] ? self["activities"].map {|a| a[1]["outcomes"].keys.join(" ")} : ""
-    end
-    text :main_topics do
-      self["main_topics"] ? self["main_topics"].join(" ") : ""
-    end
-  end
 end
 
-class Workload
+# EMBEDDED MODELS
+
+class ContactHours
   include Mongoid::Document
   
   field :lecture, :type => Float
   field :tutorial, :type => Float
   field :practical, :type => Float
   
-  embedded_in :course, :inverse_of => :workload
+  embedded_in :course, :inverse_of => :contact_hours
   
   validates_numericality_of :lecture, :tutorial, :practical
 end
 
+class Activity
+  include Mongoid::Document
+  
+  attr_accessible :week, :number
+
+  field :week, :type => Integer
+  field :number, :type => Integer
+  
+  embedded_in :course, :inverse_of => :activities
+  embeds_many :topics
+end
+
+class Session < Activity
+end
+class Lecture < Session
+end
+class Tutorial < Session
+end
+class Practical < Session
+end
+class Assignment < Activity
+end
+class ProblemSet < Assignment
+end
+class Project < Assignment
+end
+class Evaluation < Activity
+end
+class Quiz < Evaluation
+end
+class Midterm < Evaluation
+end
+class Exam < Evaluation
+end
 
 class Topic
   include Mongoid::Document
   
-  field :name
+  attr_accessible :name
+  
+  field :name, :type => String
+  
   embedded_in :course, :inverse_of => :main_topics
+  embedded_in :activity, :inverse_of => :topics
+  
+  validates_presence_of :name
   
   def to_s
     self.name

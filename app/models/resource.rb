@@ -1,55 +1,52 @@
 class Resource
   include Mongoid::Document
-  identity :type => String
+
+  attr_accessible :name, :optional
   
-  field :isbn, :type => String
-  field :authors, :type => Array
-  field :edition, :type => String #Integer
   field :name, :type => String
-  field :publisher, :type => String
   field :optional, :type => Boolean
- # field :type, :type => String
- 
-  embeds_many :authors
-  accepts_nested_attributes_for :authors
   
   validates_presence_of :name
   
-  #def author
-  #  authors[0]
-  #end
-  
-  references_and_referenced_in_many :courses, :inverse_of => :resources, :index => true
-  
-  #def logger
-  #  RAILS_DEFAULT_LOGGER
-  #end
-  
-  def author
-    read_attribute(:author) || "Unknown"
-  end
+  references_and_referenced_in_many :course_instances, :index => true
   
   # SEARCH
   
-  include Sunspot::Mongoid
-  searchable do
-    text :publisher
-    text :name
-    text :authors do 
-      self.authors ? self.authors.join(" ") : nil
-    end
-    text :isbn
-  end  
-  
+  if false
+    include Sunspot::Mongoid
+    searchable do
+      text :publisher
+      text :name
+      text :authors do 
+        self.authors ? self.authors.join(" ") : nil
+      end
+      text :isbn
+    end  
+  end
   
 end
+
+# TYPES
+
+class Textbook < Resource  
+  attr_accessible :isbn, :edition, :publisher
+  
+  field :isbn, :type => String
+  field :edition, :type => String
+  field :publisher, :type => String
+  
+  embeds_many :authors
+  accepts_nested_attributes_for :authors
+end
+
+# EMBEDDED
 
 class Author
   include Mongoid::Document
   
   field :name
   
-  embedded_in :course
+  embedded_in :textbook
   
   def to_s
     self.name

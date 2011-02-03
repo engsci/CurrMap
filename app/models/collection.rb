@@ -1,25 +1,38 @@
 class Collection
   include Mongoid::Document
   
+  attr_accessible :name
+  
   field :name, :type => String
   
-  references_and_referenced_in_many :courses,  :inverse_of => :collections, :index => true
-  references_and_referenced_in_many :collections
+  # RELATIONAL
+  
+  references_and_referenced_in_many :collections, :index => true
+  references_and_referenced_in_many :courses, :index => true
+  references_and_referenced_in_many :course_instances, :index => true
+  
+  # VALIDATIONS
+  
+  validates_presence_of :name
+  
+  # METHODS 
   
   def parents
     Collection.where(:collection_ids => self.id)
   end
   
+  # SEARCH
   
-  
-  #include Sunspot::Mongoid
-  searchable do
-    text :name do
-      id
+  if false
+    include Sunspot::Mongoid
+    searchable do
+      text :name do
+        id
+      end
+      text :course_names do 
+        self.courses.map(&:name).join(" ")
+      end
     end
-    text :course_names do 
-      self.courses.map(&:name).join(" ")
-    end
-  end if false
+  end
   
 end

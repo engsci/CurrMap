@@ -1,8 +1,15 @@
 class Person
   include Mongoid::Document
   
-  field :name, :type => String
+  key :slug
   
+  field :slug, :type => String
+  
+  attr_accessible :name
+  
+  field :name, :type => String 
+  
+  # METHODS
   
   def to_s
     self.name
@@ -10,30 +17,31 @@ class Person
   
   # SEARCH
   
-  # include Sunspot::Mongoid
-  searchable do
-    text :name
-    text :course_descriptions do
-      self.courses.map(&:calendar_description).join(" ")
+  if false
+    include Sunspot::Mongoid
+    searchable do
+      text :name
+      text :course_descriptions do
+        self.courses.map(&:calendar_description).join(" ")
+      end
+      text :course_names do 
+        self.courses.map(&:name).join(" ")
+      end
     end
-    text :course_names do 
-      self.courses.map(&:name).join(" ")
-    end
-  end if false
+  end
 
 end
 
-#class Employee < Person
-#  
-#end
-
-class Professor < Person
-  include Mongoid::Document
+class Instructor < Person
   
-  references_and_referenced_in_many :courses, :inverse_of => :professors, :index => true
+  attr_accessible :phone, :website, :email
+  
   field :phone, :type => String
   field :website, :type => String
   field :email, :type => String
+
+  
+  references_and_referenced_in_many :course_instances, :index => true
   
   def years_taught
     self.courses.map{|x| x.delivered_year}.uniq.sort
