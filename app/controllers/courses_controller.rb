@@ -6,6 +6,10 @@ class CoursesController < ApplicationController
   # GET /courses.xml
 
   def index
+    
+  end
+
+  def indexs
 	  #authorize! :manage, Course
     
     @courses_by_year_and_semester = {}
@@ -69,7 +73,7 @@ class CoursesController < ApplicationController
         @profs_by_year = {}
         @resources_by_year = {}
         @courses.each do |course|
-          course.professors.each do |prof|
+          course.instructors.each do |prof|
             @profs_by_year[prof] ||= []
             @profs_by_year[prof] << course.delivered_year
           end

@@ -19,7 +19,7 @@
               %a(href="#{info}")=info
           -else
             %dd= info
-  -unless @person.courses.empty?
+  -unless @person.course_instances.empty?
     %h5 Courses Taught
         
     = render :partial => 'partials/timeline', :locals => {:delivered_years => @person.years_taught, :items_by_year => @courses_by_year, :heading => false}

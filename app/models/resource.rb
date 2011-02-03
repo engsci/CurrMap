@@ -29,14 +29,14 @@ end
 # TYPES
 
 class Textbook < Resource  
-  attr_accessible :isbn, :edition, :publisher
+  attr_accessible :isbn, :edition, :publisher, :authors_attributes
   
   field :isbn, :type => String
   field :edition, :type => String
   field :publisher, :type => String
   
   embeds_many :authors
-  accepts_nested_attributes_for :authors
+  accepts_nested_attributes_for :authors, :reject_if => proc { |attributes| attributes['name'].blank? }
 end
 
 # EMBEDDED
@@ -44,7 +44,11 @@ end
 class Author
   include Mongoid::Document
   
-  field :name
+  attr_accessible :name
+  
+  field :name, :type => String
+  
+  validates_presence_of :name
   
   embedded_in :textbook
   

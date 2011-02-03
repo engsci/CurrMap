@@ -50,8 +50,8 @@
             
   .column
     - if @profs_by_year.length > 0
-      .professors
-        %h4 Professors
+      .instructors
+        %h4 Instructors
         - years = @courses.map{|x| x.delivered_year}.reverse
         = render :partial => 'partials/timeline', :locals => {:delivered_years => years, :items_by_year => @profs_by_year, :heading => false}
     
@@ -70,7 +70,7 @@
           
           
   - content_for :sidebar do
-    - %w(professors resources collections).each do |model|
+    - %w(instructors resources collections).each do |model|
       - links = @courses.map{|c| c.send(model).map{|p| p}}.flatten.uniq
       - if links.length > 0
         %h2= model.capitalize

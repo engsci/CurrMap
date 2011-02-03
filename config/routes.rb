@@ -7,24 +7,28 @@ Currmap::Application.routes.draw do |map|
   match 'unauthorized' => "pages#unauthorized"
 
   
-  # RESOURCES and COLLECTIONS
-
+  # RESOURCES
+  
   resources :resources
+  resources :textbooks, :controller => 'resources' #reqd for formtastic
+  
+  # COLLECTIONS
+  
   resources :collections  
   
   
   # COURSES and INSTANCES
   
-  resources :courses, :shallow => true do
+  resources :courses do
     resources :instances, :controller => 'course_instances'
   end
   
   
   # PEOPLE
   
-  resources :people
-  resources :professors, :controller => 'people'
-  resources :authors, :controller => 'people'
+  resources :people, :only => [:destroy]
+  resources :instructors, :controller => 'people'
+  #resources :authors, :controller => 'people'
   
   
   # PAGES

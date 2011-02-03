@@ -1,9 +1,12 @@
 = semantic_form_for @resource do |form|
-  = form.inputs :name, :edition, :publisher, :isbn
-  = form.semantic_fields_for :authors do |author|
-    = author.input :name
+  = form.inputs :name
+  - if @resource.class == Textbook
+    = form.inputs :edition, :publisher, :isbn
+    %h3 Author(s)
+    = form.semantic_fields_for :authors do |author|
+      = author.input :name
   = form.input :optional, :as => :boolean
   - form.buttons do
     = form.commit_button
     or 
-    =link_to "Go Back", @person
+    =link_to "Go Back", @resource

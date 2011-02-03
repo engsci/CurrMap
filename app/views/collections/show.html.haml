@@ -1,13 +1,13 @@
 .collection.object
   %h1= link_to @collection.name, @collection
   %dl
-    -if @collection.parents.length > 0
+    -if @collection.parent_collections.length > 0
       %dt Parent Collections
-      - @collection.parents.each do |c|
+      - @collection.parent_collections.each do |c|
         %dd= link_to c.name, c, :rel => "facebox"
-    -if @collection.collections.length > 0
+    -if @collection.child_collections.length > 0
       %dt Child Collections
-      - @collection.collections.each do |c|
+      - @collection.child_collections.each do |c|
         %dd= link_to c.name, c, :rel => "facebox"
     - unless @collection.courses.empty?
       %dt Courses

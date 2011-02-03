@@ -13,10 +13,10 @@
         - course.main_topics.each do |t|
           %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
 .column
-  .professors
-    %h4 Professors
+  .instructors
+    %h4 Instructors
     %ul
-      -course.professors.each do |p|
+      -course.instructors.each do |p|
         %li
           =link_to p.name, p, :rel => "facebox"
   - unless course.resources.empty?

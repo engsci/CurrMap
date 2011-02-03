@@ -44,6 +44,6 @@ class Instructor < Person
   references_and_referenced_in_many :course_instances, :index => true
   
   def years_taught
-    self.courses.map{|x| x.delivered_year}.uniq.sort
+    self.course_instances.map{|x| x.delivered_year}.uniq.sort
   end
 end

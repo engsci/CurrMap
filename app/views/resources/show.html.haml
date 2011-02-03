@@ -1,5 +1,5 @@
 .resource.object
-  %h1= link_to @resource.name, @resource
+  %h1= link_to @resource.name, resource_path(@resource)
   %dl
     
     - if @resource.authors
@@ -11,9 +11,7 @@
       - if @resource.send(f)
         %dt= f.capitalize
         %dd= @resource.send(f)
-    -if @resource.courses
+    -if @resource.course_instances
       %dt Courses
-      - @resource.courses.each do |c| 
+      - @resource.course_instances.each do |c| 
         %dd= link_to c.name, c, :rel => 'facebox'
-
-  = link_to 'Edit', edit_resource_path(@resource), :class => 'edit' if can? :edit, @resource

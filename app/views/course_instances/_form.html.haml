@@ -23,9 +23,9 @@
       - form.inputs "Main Topics", :id => "topics" do 
         = form.semantic_fields_for :main_topics do |topic|
           = topic.input :name
-      %h3 Professors
-      - form.inputs "Professors", :id => 'professors' do
-        - @course.professors.each do |prof|
+      %h3 Instructors
+      - form.inputs "Instructors", :id => 'instructors' do
+        - @course.instructors.each do |prof|
           %li 
             .dynatab= prof.name
         = "<auto search text field here> + "

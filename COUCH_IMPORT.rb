@@ -173,7 +173,7 @@ CouchCollection.get_all.each do |c|
 
   collections.each do |id|
     col = Collection.where(:name => id)[0]
-    collection.collections << col
+    collection.child_collections << col
   end if collections
   
 end

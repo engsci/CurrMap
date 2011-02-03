@@ -1,13 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  calendar_entry: MyString
+  calendar_description: MyString
   name: MyString
   semester: MyString
   weight: 1.5
 
 two:
-  calendar_entry: MyString
+  calendar_description: MyString
   name: MyString
   semester: MyString
   weight: 1.5

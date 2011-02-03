@@ -1,7 +1,7 @@
 %h2 Resources
 %dl
   - @resources.each do |r|
-    %dt= link_to r.name, r, :rel => 'facebox'
+    %dt= link_to r.name, resource_path(r), :rel => 'facebox'
     - if r.authors
       - r.authors.each do |a| 
         %dd= a

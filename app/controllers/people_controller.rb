@@ -20,9 +20,9 @@ class PeopleController < ApplicationController
 
     @courses_by_year = {}
     
-    @person.courses.each do |course|
-      @courses_by_year[course.short_code] ||= []
-      @courses_by_year[course.short_code] << course
+    @person.course_instances.each do |c|
+      @courses_by_year[c.short_code] ||= []
+      @courses_by_year[c.short_code] << c
     end
     
     #original form: {short_code1 => [Course1, Course1b]}
@@ -57,8 +57,8 @@ class PeopleController < ApplicationController
   def create
     if params[:person]
       @person = Person.new(params[:person])
-    elsif params[:professor]
-      @person = Professor.new(params[:professor])
+    elsif params[:instructor]
+      @person = Instructor.new(params[:instructor])
     end
 
     respond_to do |format|
@@ -75,7 +75,7 @@ class PeopleController < ApplicationController
   # PUT /people/1
   # PUT /people/1.xml
   def update
-    @person = Professor.find(params[:id])
+    @person = Instructor.find(params[:id])
     
     respond_to do |format|
       if @person.update_attributes(params[@person.class.to_s.underscore.to_sym])
@@ -95,7 +95,7 @@ class PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to(people_url, :notice => 'Record was successfully destroyed.') }
+      format.html { redirect_to(instructors_url, :notice => 'Record was successfully destroyed.') }
       format.xml  { head :ok }
     end
   end

@@ -7,7 +7,9 @@ class Collection
   
   # RELATIONAL
   
-  references_and_referenced_in_many :collections, :index => true
+  references_and_referenced_in_many :parent_collections, :inverse_of => :child_collections, :class_name => 'Collection'
+  references_and_referenced_in_many :child_collections, :inverse_of => :parent_collections,  :class_name => 'Collection'
+  
   references_and_referenced_in_many :courses, :index => true
   references_and_referenced_in_many :course_instances, :index => true
   
@@ -17,9 +19,6 @@ class Collection
   
   # METHODS 
   
-  def parents
-    Collection.where(:collection_ids => self.id)
-  end
   
   # SEARCH
   

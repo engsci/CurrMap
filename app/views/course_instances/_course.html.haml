@@ -18,8 +18,8 @@
             - course.main_topics.each do |t|
               %li= t
     %dl
-      %dt Professors
-      -course.professors.each do |p|
+      %dt Instructors
+      -course.instructors.each do |p|
         %dd
           =link_to p.name, p, :rel => "facebox"
 

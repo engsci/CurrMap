@@ -28,7 +28,7 @@ class ResourcesController < ApplicationController
   # GET /resources/new
   # GET /resources/new.xml
   def new
-    @resource = Resource.new
+    @resource = Textbook.new
     @resource.authors << Author.new
 
     respond_to do |format|
@@ -40,12 +40,20 @@ class ResourcesController < ApplicationController
   # GET /resources/1/edit
   def edit
     @resource = Resource.find(params[:id])
+    
+    if @resource.class == Textbook
+      @resource.authors << Author.new
+    end
   end
 
   # POST /resources
   # POST /resources.xml
   def create
-    @resource = Resource.new(params[:resource])
+    if params[:resource]
+      @person = Resource.new(params[:resource])
+    elsif params[:textbook]
+      @person = Textbook.new(params[:textbook])
+    end
 
     respond_to do |format|
       if @resource.save
@@ -64,7 +72,7 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
 
     respond_to do |format|
-      if @resource.update_attributes(params[:resource])
+      if @resource.update_attributes(params[:resource] || params[:textbook])
         format.html { redirect_to(@resource, :notice => 'Resource was successfully updated.') }
         format.xml  { head :ok }
       else
