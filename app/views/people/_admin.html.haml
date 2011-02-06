@@ -1,0 +1,7 @@
+- if action_name == 'index'
+  = link_to 'New Instructor', {:action => :new, :class => "instructor"} if can? :create, Person
+- elsif action_name == 'show'
+  = link_to 'Edit', edit_polymorphic_path(@person) if can? :edit, @person
+- elsif action_name == 'edit'
+  = link_to 'Show', polymorphic_path(@person) if can? :read, @person
+  = link_to 'Delete', polymorphic_path(@person), :method => :delete, :confirm => "Are you sure?" if can? :destroy, @person

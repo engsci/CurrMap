@@ -34,9 +34,11 @@
           %input(type="submit" value="Search" id="ferret_submit")
 
       #nav
-        = render :partial => 'partials/admin_controls'
-        - if controller_name == 'courses' && action_name != 'index'
-          = render :partial => 'courses/nav'
+        -if user_signed_in?
+          #admin_controls
+            = render :partial => 'admin'
+        - if controller_name == 'course_instances' && action_name != 'index'
+          = render :partial => 'course_instances/nav'
         = render :partial => 'layouts/sidebar'
         = yield :sidebar
         
@@ -45,7 +47,7 @@
           .notice= notice
         - if alert
           .alert= alert
-        - if controller_name == 'courses' && action_name != 'index'
+        - if ['course_instances', 'courses'].include?(controller_name)
           = render :partial => 'head', :locals => {:course => @course}
         = yield
       -#

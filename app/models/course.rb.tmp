@@ -1,0 +1,85 @@
+class OldCourseStuff
+  
+  #validates_length_of :semester, :minimum => 1, :maximum => 1, :allow_blank => true
+   # OTHER
+
+   #ID should be key
+   #key :course_code
+
+   #references_many :related_concepts, :stored_as => :array, :inverse_of => :courses 
+   #references_many :courses, :stored_as => :array, :inverse_of => :related_courses
+   def init
+     add_nested_docs "activities" do |key,activity|
+       if key =~ /^L\d+/
+         CouchLecture.new activity
+       elsif key =~ /^MT\d+/
+         CouchMidterm.new activity
+       else
+         CouchActivity.new activity
+       end
+     end
+   end
+
+  
+  
+  def self.find_course(course_code, year)
+    Course.where(:course_code => /^#{course_code}/, :delivered_year => year).limit(1)[0]
+    #Course.where(:delivered_year => year).where(:course_code => /^P/).limit(1)[0]
+  end
+  
+  
+  # use Course.path(...) instead of just @course
+  
+  def self.path(course, action= :show)
+    {:controller => :courses, :action => action, :id => course.short_code, :delivered_year => course.delivered_year }
+  end
+  
+  def available_years
+    Course.where(:course_code => /^#{self.short_code}/).map {|c| c.delivered_year }.compact
+  end
+  
+  def lectures
+    self.activities.find_all{|a| a.class == Lecture}
+  end
+  
+  def midterms
+    self.activities.find_all{|a| a.class == Midterm}
+  end
+  
+  
+  def collated_activities
+    collated_activities = {}
+    self.activities.each do |a|
+      collated_activities[a[1]["week"]] ||= {"lectures" => [], "other" => []}
+      if a[0] =~ /^L\d+/
+        collated_activities[a[1]["week"]]["lectures"] << a
+      else
+        collated_activities[a[1]["week"]]["other"] << a
+      end
+    end
+    return collated_activities
+  end
+
+  # SEARCH
+  include Sunspot::Mongoid
+  searchable do
+    text :name
+    text :calendar_description
+    text :course_code
+    text :short_code do
+      course_code[0,6]
+    end
+    text :department do
+      course_code[0,3]
+    end
+    text :collections do
+      collections.map(&:name).join(" ")
+    end
+    text :activities do
+      self["activities"] ? self["activities"].map {|a| a[1]["outcomes"].keys.join(" ")} : ""
+    end
+    text :main_topics do
+      self["main_topics"] ? self["main_topics"].join(" ") : ""
+    end
+  end
+end if false

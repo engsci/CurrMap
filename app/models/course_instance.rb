@@ -6,17 +6,16 @@ class CourseInstance
   field :course_code, :type => String
   field :delivered_year, :type => Integer
   
-  attr_accessible :name, :semester, :calendar_description, :weight
+  attr_accessible :name, :calendar_description, :weight, :contact_hours_attributes
   
   field :name, :type => String
-  field :semester, :type => String
+  
   field :calendar_description, :type => String
   field :weight, :type => Float
   
   # EMBEDDED
   
   embeds_many :activities
-  
   embeds_many :main_topics, :class_name => 'Topic'
   accepts_nested_attributes_for :main_topics
 
@@ -28,14 +27,13 @@ class CourseInstance
   references_and_referenced_in_many :resources, :index => true
   references_and_referenced_in_many :instructors, :index => true
   references_and_referenced_in_many :collections,  :index => true
-  references_and_referenced_in_many :courses,  :index => true
+  referenced_in :course,  :index => true
   
   # VALIDATIONS
   
-  validates_presence_of :course_code, :delivered_year, :name, :calendar_description, :semester, :weight
-  validates_format_of :course_code, :with => /[A-Za-z]{3}[0-9]{3}[HY]{1}[0-9]{1}/, :message => "must be of form ABC123A1"
+  validates_presence_of :course_code, :delivered_year, :name, :calendar_description, :weight
+  validates_format_of :course_code, :with => /[A-Za-z]{3}[0-9]{3}[HY]{1}[0-9]{1}[SFY]{1}/, :message => "must be of form ABC123H1X"
   validates_format_of :delivered_year, :with => /[0-9]{4}/, :message => "must be four digits"
-  validates_inclusion_of :semester, :in => ["S","F","Y"], :message => "must be S, F or Y"
   validates_numericality_of :delivered_year, :weight
 
   # METHODS  
@@ -47,7 +45,28 @@ class CourseInstance
   def short_code
     self.course_code[0,6]
   end
-
+  
+  def semester
+    self.course_code[8,1]
+  end
+  
+  def year_span
+    "#{self.delivered_year-1}-#{self.delivered_year}"
+  end
+  
+  def collated_activities
+    collated_activities = {}
+    self.activities.each do |a|
+      collated_activities[a.week || 0] ||= {"lectures" => [], "other" => []}
+      if a.class == Lecture
+        collated_activities[a.week || 0]["lectures"] << a
+      else
+        collated_activities[a.week || 0]["other"] << a
+      end
+    end
+    return collated_activities
+  end
+  
 end
 
 # EMBEDDED MODELS

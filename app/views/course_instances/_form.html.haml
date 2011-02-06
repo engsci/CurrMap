@@ -3,20 +3,20 @@
   = form.inputs do
     - form.inputs "Course", :id => "course" do
       %h3 Course
-      = form.input :course_code
-      = form.input :delivered_year
+      = form.input :course_code, :input_html => {:disabled => (action_name == 'edit')}
+      = form.input :delivered_year, :input_html => {:disabled => (action_name == 'edit')}
       = form.input :name
       = form.input :calendar_description, :as => :text, :input_html=>{:rows=>"4"}
       - form.inputs "Details", :id => "details" do
         - form.inputs "Stuff", :id => "stuff" do
           = #
-          = form.input :semester
+          = #
           = form.input :weight
         - form.inputs "Workload", :id => "workload" do 
-          = form.semantic_fields_for :workload do |workload|
-            = workload.input :lecture
-            = workload.input :tutorial
-            = workload.input :practical
+          = form.semantic_fields_for :contact_hours do |c|
+            = c.input :lecture
+            = c.input :tutorial
+            = c.input :practical
         
     - form.inputs "Connections", :id => 'connections' do
       %h3 Main Topics
@@ -37,5 +37,5 @@
   - form.buttons do
     = form.commit_button
     or 
-    =link_to "Go Back", Course.path(@course)
+    =link_to "Go Back", @course
     

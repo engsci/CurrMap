@@ -1,0 +1,16 @@
+= semantic_form_for @course do |form|
+  = form.semantic_errors :state 
+  = form.inputs do
+    - form.inputs "Course", :id => "course" do
+      %h3 Course
+      = form.input :course_code, :input_html => { :disabled => (action_name == 'edit') }
+      = form.input :name
+    - form.inputs "Course Instances", :id => "course_instances" do
+      %ul
+        - @course.course_instances.each do |ci|
+          %li= ci.year_span
+          
+  - form.buttons do
+    = form.commit_button
+    or 
+    =link_to "Go Back", @course

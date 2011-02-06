@@ -2,21 +2,21 @@
 - if course.respond_to?(:activities) && course.activities
   .activities
     - week = 0
-    -course.collated_activities.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week|
-      .week(class="#{"no-others" if week[1]["other"].length == 0}")
-        %h4= "Week #{week[0]}"
+    -course.collated_activities.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week, activities|
+      .week(class="#{"no-others" if activities["other"].length == 0}")
+        %h4= "Week #{week}"
         .lectures
-          - week[1]["lectures"].each do |a|
-            .activity.lecture(title="Lecture #{a[1]["number"]}")
-              %h5= "Lecture #{a[1]["number"]}"
+          - activities["lectures"].each do |a|
+            .activity.lecture(title="Lecture #{a.number}")
+              %h5= "Lecture #{a.number}"
               .outcomes
-                - a[1]["outcomes"].keys.each do |o|
+                - a.topics.each do |o|
                   = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
         .others
-          - week[1]["other"].each do |a|
-            - type = activity_type(a[0])
-            .activity(class="#{type}" title="#{type} #{a[1]["number"]}")
-              %h5= "#{type.titlecase} #{a[1]["number"]}"
+          - activities["other"].each do |a|
+            - type = a.class.to_s.downcase
+            .activity(class="#{type}" title="#{type} #{a.number}")
+              %h5= "#{type.titlecase} #{a.number}"
               .outcomes
-                - a[1]["outcomes"].keys.each do |o|
+                - a.topics.each do |o|
                   = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}

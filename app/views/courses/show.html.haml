@@ -1,0 +1,6 @@
+.object
+  - if @course.course_instances.length > 0
+    %h4 Years Delivered
+    %ul
+    - @course.course_instances.each do |c|
+      %li= link_to c.year_span, course_instance_path(@course, c)

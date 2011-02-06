@@ -6,30 +6,27 @@ class CoursesController < ApplicationController
   # GET /courses.xml
 
   def index
-    
-  end
-
-  def indexs
 	  #authorize! :manage, Course
+    @courses = Course.all
     
     @courses_by_year_and_semester = {}
     
    #TODO: add field limit(...) to this query
-   Course.all.each do |course|
+   CourseInstance.all.each do |course|
       @courses_by_year_and_semester[course.delivered_year] ||= {}
-      @courses_by_year_and_semester[course.delivered_year][course.year] ||= {}
-      @courses_by_year_and_semester[course.delivered_year][course.year][course.semester] ||= []
-      @courses_by_year_and_semester[course.delivered_year][course.year][course.semester] << course
+      @courses_by_year_and_semester[course.delivered_year][course.level] ||= {}
+      @courses_by_year_and_semester[course.delivered_year][course.level][course.semester] ||= []
+      @courses_by_year_and_semester[course.delivered_year][course.level][course.semester] << course
     end
     
     
     @courses_by_magic = {}
     # @courses_by_magic[course.year][course.semester][course] = [delivered_year, delivered_year]
-    Course.all.each do |course|
-      @courses_by_magic[course.year] ||= {}
-      @courses_by_magic[course.year][course.semester] ||= {}
-      @courses_by_magic[course.year][course.semester][course.short_code] ||= []
-      @courses_by_magic[course.year][course.semester][course.short_code] << course.delivered_year
+    CourseInstance.all.each do |course|
+      @courses_by_magic[course.level] ||= {}
+      @courses_by_magic[course.level][course.semester] ||= {}
+      @courses_by_magic[course.level][course.semester][course.short_code] ||= []
+      @courses_by_magic[course.level][course.semester][course.short_code] << course.delivered_year
     end
 
     respond_to do |format|
@@ -40,7 +37,18 @@ class CoursesController < ApplicationController
 
 
   def show
-    @course = Course.find_course(params[:id], params[:delivered_year].to_s)
+    @course = Course.find(params[:id])
+    
+    respond_to do |format|
+      format.js {
+        
+      }
+      format.html {
+        if @course.respond_to?('course')
+          redirect_to course_instance_path(@course, @course.course_instances.sort_by {|c| c.delivered_year }.reverse[0])
+        end
+      } 
+    end
   end
 
   # GET /courses/1
@@ -88,38 +96,12 @@ class CoursesController < ApplicationController
       format.xml  { render :xml => @course }
     end
   end
-  
-  def overview
-     @course = Course.find_course(params[:id], params[:delivered_year])      
-  end
-
-  def syllabus
-    @course = Course.find_course(params[:id], params[:delivered_year])
-  end
-  
-  def lectures
-    @course = Course.find_course(params[:id], params[:delivered_year])
-  end
-  
-  def resources
-    @course = Course.find_course(params[:id], params[:delivered_year])
-  end
-  
-  def evaluations
-    @course = Course.find_course(params[:id], params[:delivered_year])
-  end
-  
-  def calendar
-    @course = Course.find_course(params[:id], params[:delivered_year])
-  end
-
 
   # GET /courses/new
   # GET /courses/new.xml
   def new
     @course = Course.new
-    @course.workload = Workload.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @course }
@@ -128,17 +110,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    @course = Course.find_course(params[:id], params[:delivered_year])
-    
-    respond_to do |format|
-      format.js {
-        #@course = Course.find(params[:id])
-      }
-      format.html {
-        #@courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.delivered_year}.reverse
-        #@course = @courses[0]
-      }
-    end
+    @course = Course.find(params[:id])
   end
 
   # POST /courses
@@ -148,7 +120,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
-        format.html { redirect_to(Course.path(@course), :notice => 'Course was successfully created.') }
+        format.html { redirect_to(@course, :notice => 'Course was successfully created.') }
         format.xml  { render :xml => @course, :status => :created, :location => @course }
       else
         format.html { render :action => "new" }
@@ -164,7 +136,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.update_attributes(params[:course])
-        format.html { redirect_to(Course.path(@course), :notice => 'Course was successfully updated.') }
+        format.html { redirect_to(@course, :notice => 'Course was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
