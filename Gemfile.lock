@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: http://github.com/mongoid/mongoid.git
-  revision: e50527ae36ce73cabd85acaf49aba55d61ea31ed
+  revision: 72952b4309bab798e3617925b9eef6ba96318d53
   specs:
-    mongoid (2.0.0.rc.6)
+    mongoid (2.0.0.rc.7)
       activemodel (~> 3.0)
       mongo (~> 1.2)
       tzinfo (~> 0.3.22)
@@ -71,10 +71,10 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
-    formtastic (1.1.0)
-      actionpack (>= 2.3.0)
-      activesupport (>= 2.3.0)
-      i18n (>= 0.4.0)
+    formtastic (1.2.3)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      i18n (~> 0.4)
     haml (3.0.22)
     hpricot (0.8.3)
     i18n (0.5.0)
@@ -208,7 +208,7 @@ DEPENDENCIES
   cancan (= 1.5.1)
   compass (>= 0.10.2)
   devise (= 1.1.2)
-  formtastic (~> 1.1.0)
+  formtastic (~> 1.2.3)
   haml (= 3.0.22)
   hassle!
   hpricot (>= 0.8.3)

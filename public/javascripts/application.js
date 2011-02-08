@@ -73,6 +73,17 @@ $(document).ready(
    
    $('#main').highlight_terms();
   
+  $("#add_relation_text").autocomplete({
+  			source: "/instructors.js",
+  			minLength: 1,
+  			select: function( event, ui ) {
+  				//id = ui.item.id; //$("#add_relation_text").val();
+          // add to form
+          $('#course_instance_instructor_input ol').append("<li><label for=\"course_instance_instructor_"+ui.item.id+"\"><input checked=\"checked\" id=\"course_instance_instructor_"+ui.item.id+"\" name=\"course_instance[instructor][]\" type=\"checkbox\" value=\""+ui.item.id+"\"> "+ui.item.label+"</label></li>");
+          this.value = "";
+          return false;
+  			}
+  		});
     
   }
 );

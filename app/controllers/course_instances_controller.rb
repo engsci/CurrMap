@@ -31,7 +31,6 @@ class CourseInstancesController < ApplicationController
     @course = CourseInstance.find(params[:id])
   end
   
-  
   def new
     @course_instance = CourseInstance.new
     @course_instance.contact_hours = ContactHours.new
@@ -49,7 +48,7 @@ class CourseInstancesController < ApplicationController
     @course = CourseInstance.find(params[:id])
 
     respond_to do |format|
-      if @course.update_attributes(params[:course_instance])
+      if @course.update_attributes(params[:course_instance]) && @course.update_instructors(params[:course_instance][:instructor])
         format.html { redirect_to(@course, :notice => 'Course instance was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -60,6 +59,15 @@ class CourseInstancesController < ApplicationController
   end
   
   def destroy
+    @course_instance = CourseInstance.find(params[:id])
+  end
+  
+  def add_connection
+    @course_instance = CourseInstance.find(params[:id])
+    
+  end
+  
+  def remove_connection
     @course_instance = CourseInstance.find(params[:id])
   end
 end

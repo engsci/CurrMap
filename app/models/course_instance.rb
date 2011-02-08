@@ -67,6 +67,27 @@ class CourseInstance
     return collated_activities
   end
   
+  # needed for formtastic to work :@
+  def instructor
+    instructors
+  end
+  
+  def update_instructors(array_of_ids)
+    new_instructors = array_of_ids.drop(1).map {|i| Instructor.where(:_id => i)[0]}
+    current_instructors = self.instructors
+    # remove old ones
+    (current_instructors - new_instructors).each do |i|
+      self.instructors.delete(i)
+      self.save
+      i.save
+    end
+    # add new ones
+    (new_instructors - current_instructors).each do |i|
+      self.instructors << i
+    end
+    
+  end
+
 end
 
 # EMBEDDED MODELS

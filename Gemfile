@@ -11,7 +11,7 @@ gem 'json'
 gem 'nokogiri', '1.4.2'
 gem 'sunspot_rails', '1.2.1' 
 gem 'sunspot_mongoid', :git => "http://github.com/rafd/sunspot_mongoid.git"
-gem 'formtastic', '~> 1.1.0'
+gem 'formtastic', '~> 1.2.3'
 gem 'devise', '1.1.2'
 gem 'cancan', '1.5.1'
 gem 'roles_mongoid', '>= 0.4.5'

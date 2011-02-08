@@ -10,6 +10,10 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @people }
+      format.js { 
+        @people = params[:term].length == 1 ? Person.where(:name => /^#{params[:term]}/i) : Person.where(:name => /#{params[:term]}/i)
+        render :json => @people.map {|x| {"label" => x.name, "id" => x._id, "value"=> x.name}} 
+        }
     end
   end
 

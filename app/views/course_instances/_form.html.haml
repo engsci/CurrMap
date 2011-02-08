@@ -23,12 +23,16 @@
       - form.inputs "Main Topics", :id => "topics" do 
         = form.semantic_fields_for :main_topics do |topic|
           = topic.input :name
+     
       %h3 Instructors
-      - form.inputs "Instructors", :id => 'instructors' do
-        - @course.instructors.each do |prof|
-          %li 
-            .dynatab= prof.name
-        = "<auto search text field here> + "
+      - form.inputs "Instructors", :id => 'instructors', :class => 'relation' do
+        = form.input :instructor, :as => :check_boxes, |
+          :collection => [@course.instructors].flatten, |
+          :label_method => :name
+        
+      %label Add Instructor:
+      %input(type="text" name="id" value="" size="40" id="add_relation_text")
+
       %h3 Resources
       - form.inputs "Resources", :id => 'resources' do
         - @course.resources.each do |resource|
