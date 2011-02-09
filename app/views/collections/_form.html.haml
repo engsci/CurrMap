@@ -1,6 +1,13 @@
 - semantic_form_for @collection do |form|
-  = form.inputs :name
-  = form.buttons do
+  = form.inputs do 
+    .column
+      = form.inputs :name
+  
+    .column
+      = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @collection, :relation => 'course_instances'}
+      = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @collection, :relation => 'courses'}
+      
+  - form.buttons do
     = form.commit_button
     or 
     =link_to "Go Back", @collection

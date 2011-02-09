@@ -1,5 +1,6 @@
 class Collection
   include Mongoid::Document
+  include SexyRelations
   
   attr_accessible :name
   
@@ -19,6 +20,9 @@ class Collection
   
   # METHODS 
   
+  def to_s
+    name
+  end
   
   # SEARCH
   

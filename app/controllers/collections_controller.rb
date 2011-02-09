@@ -51,7 +51,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(params[:collection])
 
     respond_to do |format|
-      if @collection.save
+      if @collection.save && @collection.update_relations(params[:collection])
         format.html { redirect_to(@collection, :notice => 'Collection was successfully created.') }
         format.xml  { render :xml => @collection, :status => :created, :location => @collection }
       else
