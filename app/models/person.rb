@@ -1,6 +1,8 @@
 class Person
   include Mongoid::Document
   
+  before_save :slugify
+  
   key :slug
   
   field :slug, :type => String
@@ -36,6 +38,15 @@ class Person
       text :course_names do 
         self.courses.map(&:name).join(" ")
       end
+    end
+  end
+  
+  private
+  
+  def slugify
+    unless slug
+      split_name = self.name.sub(/[.]/,"").split(" ", 2)
+      self.slug = split_name[0][0].chr.downcase + split_name[1].sub(/ /,"").underscore
     end
   end
 

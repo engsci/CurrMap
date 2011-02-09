@@ -6,7 +6,7 @@ CouchPerson.get_all.each do |p|
   hash = p.to_hash
   
   q = Instructor.new(hash)
-  name = q.name.sub(/[.]/,"").split(" ", 2)
+  #name = q.name.sub(/[.]/,"").split(" ", 2)
   q.slug = hash["_id"]#|| name[0][0].chr.downcase + name[1].sub(/ /,"").underscore
   puts q.slug
   q.save
