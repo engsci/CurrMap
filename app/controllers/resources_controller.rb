@@ -10,6 +10,9 @@ class ResourcesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @resources }
+      format.js { 
+        render :json => Resource.search_as_you_type(params[:term]) 
+        }
     end
   end
 
@@ -50,9 +53,9 @@ class ResourcesController < ApplicationController
   # POST /resources.xml
   def create
     if params[:resource]
-      @person = Resource.new(params[:resource])
+      @resource = Resource.new(params[:resource])
     elsif params[:textbook]
-      @person = Textbook.new(params[:textbook])
+      @resource = Textbook.new(params[:textbook])
     end
 
     respond_to do |format|

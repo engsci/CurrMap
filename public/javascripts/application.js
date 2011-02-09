@@ -42,6 +42,31 @@ jQuery.fn.highlight_terms = function(){
     }
   }
 }
+
+jQuery.fn.relation_add = function(){
+  $(this).each(function(){
+    var obj = $(this);
+    var model = obj.data('model');
+    var relation_model = obj.data('relation-model');
+    
+    obj.autocomplete({
+    	source: "/"+relation_model+"s.js",
+  		minLength: 1,
+  		select: function( event, ui ) {
+        // add to form
+        $('#'+model+'_'+relation_model+'s_input ol').append("<li><label for=\""+model+"_"+relation_model+"_ids_"+ui.item.id+"\"><input checked=\"checked\" id=\""+model+"_"+relation_model+"_ids_"+ui.item.id+"\" name=\""+model+"["+relation_model+"_ids][]\" type=\"checkbox\" value=\""+ui.item.id+"\"> "+ui.item.label+"</label></li>");
+        // clear search field 
+        this.value = "";
+        // prevent form submit
+        return false;
+  		},
+  		focus: function(){
+  		  return false;
+  		}
+    }); 
+  });
+}
+
 $(document).ready(
   function() {
     //adds facebox links to main content
@@ -73,17 +98,8 @@ $(document).ready(
    
    $('#main').highlight_terms();
   
-  $("#add_relation_text").autocomplete({
-  			source: "/instructors.js",
-  			minLength: 1,
-  			select: function( event, ui ) {
-  				//id = ui.item.id; //$("#add_relation_text").val();
-          // add to form
-          $('#course_instance_instructor_input ol').append("<li><label for=\"course_instance_instructor_"+ui.item.id+"\"><input checked=\"checked\" id=\"course_instance_instructor_"+ui.item.id+"\" name=\"course_instance[instructor][]\" type=\"checkbox\" value=\""+ui.item.id+"\"> "+ui.item.label+"</label></li>");
-          this.value = "";
-          return false;
-  			}
-  		});
+  
+  $(".add_relation_search").relation_add();
     
   }
 );

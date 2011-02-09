@@ -13,3 +13,7 @@
       %dt Courses
       - @collection.courses.each do |c|
         %dd= link_to c.course_code, c, :rel => "facebox"
+    - unless @collection.course_instances.empty?
+      %dt Course Instances
+      - @collection.course_instances.each do |c|
+        %dd= link_to c.course_code, course_instance_path(c.course, c), :rel => "facebox"

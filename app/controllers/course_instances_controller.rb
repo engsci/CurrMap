@@ -48,7 +48,7 @@ class CourseInstancesController < ApplicationController
     @course = CourseInstance.find(params[:id])
 
     respond_to do |format|
-      if @course.update_attributes(params[:course_instance]) && @course.update_instructors(params[:course_instance][:instructor])
+      if @course.update_attributes(params[:course_instance]) && @course.update_relations(params[:course_instance], [:instructors, :collections, :resources])
         format.html { redirect_to(@course, :notice => 'Course instance was successfully updated.') }
         format.xml  { head :ok }
       else

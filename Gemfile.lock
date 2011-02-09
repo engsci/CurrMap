@@ -17,6 +17,15 @@ GIT
       will_paginate (~> 3.0.pre)
 
 GIT
+  remote: http://github.com/rafd/formtastic.git
+  revision: 2ff38c3478baee0708d02cd626ca0541744bf62a
+  specs:
+    formtastic (1.2.3)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      i18n (~> 0.4)
+
+GIT
   remote: http://github.com/rafd/sunspot_mongoid.git
   revision: b315b7abb8fa03cd1c3373daa69919cdac154c87
   specs:
@@ -71,10 +80,6 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
-    formtastic (1.2.3)
-      actionpack (>= 2.3.7)
-      activesupport (>= 2.3.7)
-      i18n (~> 0.4)
     haml (3.0.22)
     hpricot (0.8.3)
     i18n (0.5.0)
@@ -208,7 +213,7 @@ DEPENDENCIES
   cancan (= 1.5.1)
   compass (>= 0.10.2)
   devise (= 1.1.2)
-  formtastic (~> 1.2.3)
+  formtastic!
   haml (= 3.0.22)
   hassle!
   hpricot (>= 0.8.3)

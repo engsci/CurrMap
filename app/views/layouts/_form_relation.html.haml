@@ -1,0 +1,11 @@
+-# object = @course
+-# relation = collections
+
+%h3= "Related #{relation.capitalize}"
+- form.inputs relation.capitalize, :id => relation, :class => 'relation' do
+  = form.input relation.to_sym, :as => :check_boxes, |
+    :collection => [object.send(relation)].flatten, |
+    :label_method => :name
+
+%label= "Add #{relation.capitalize.singularize}:"
+%input(type="text" name="id" size="40" data-model="#{object.class.to_s.underscore}" data-relation-model="#{relation.singularize}" class="add_relation_search")

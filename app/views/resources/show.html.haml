@@ -14,4 +14,4 @@
     -if @resource.course_instances
       %dt Courses
       - @resource.course_instances.each do |c| 
-        %dd= link_to c.name, c, :rel => 'facebox'
+        %dd= link_to c.name, course_instance_path(c.course, c), :rel => 'facebox'

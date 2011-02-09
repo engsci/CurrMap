@@ -12,6 +12,15 @@ class Resource
   
   # SEARCH
   
+  def self.search_as_you_type(term)
+    if term && term.length
+      results = term.length > 1 ? Resource.where(:name => /#{term}/i) : Resource.where(:name => /^#{term}/i)
+      return results.map {|x| {"label" => x.name, "id" => x._id, "value"=> x.name}}
+    else
+      return []
+    end
+  end
+  
   if false
     include Sunspot::Mongoid
     searchable do

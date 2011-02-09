@@ -32,6 +32,10 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @courses }
+      format.js { 
+        @courses = Course.search_as_you_type(params[:term]) 
+        render :json => @people.map {|x| {"label" => x.name, "id" => x._id, "value"=> x.name}} 
+        }
     end
   end
 
@@ -48,52 +52,6 @@ class CoursesController < ApplicationController
           redirect_to course_instance_path(@course, @course.course_instances.sort_by {|c| c.delivered_year }.reverse[0])
         end
       } 
-    end
-  end
-
-  # GET /courses/1
-  # GET /courses/1.xml
-  def show_old
-    Person #need this in development mode b/c person subclasses aren't being eagerloaded :@
-
-    respond_to do |format|
-      format.js {
-        #just display the one course, using its docid
-        @course = Course.where(:_id => params[:id])[0]
-        @course ||= Course.where(:course_code => /^#{params[:id]}/)[0]
-      }
-      format.html {
-        
-        # redirect to most recent
-        unless params[:delivered_year]
-          if @course = Course.where(:id => BSON::ObjectId(params[:id]))[0]
-            redirect_to :id => @course.short_code, :delivered_year => @course.delivered_year
-          else
-            redirect_to :delivered_year => Course.where(:course_code => /^#{params[:id]}/).desc(:delivered_year).limit(1)[0].delivered_year
-          end
-          
-        end
-        
-        #display the course, with tabs for related courses (same code, different year)
-        @courses = Course.where(:course_code => /^#{params[:id]}/).sort_by{|course| course.delivered_year}.reverse
-        @course = @courses[0]
-        
-        @profs_by_year = {}
-        @resources_by_year = {}
-        @courses.each do |course|
-          course.instructors.each do |prof|
-            @profs_by_year[prof] ||= []
-            @profs_by_year[prof] << course.delivered_year
-          end
-          course.resources.each do |resource|
-            @resources_by_year[resource] ||= []
-            @resources_by_year[resource] << course.delivered_year
-          end
-        end
-        @profs_by_year = @profs_by_year.sort_by{ |p| p.last }.reverse
-        
-      }
-      format.xml  { render :xml => @course }
     end
   end
 

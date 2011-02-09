@@ -17,9 +17,6 @@ class Course
   validates_presence_of :name, :course_code
   validates_format_of :course_code, :with => /[A-Za-z]{3}[0-9]{3}/, :message => "must be of form ABC123"
   
-  # SEARCH
-  
-  
   # METHODS
   
   def to_s
@@ -29,4 +26,17 @@ class Course
   def level
     self.course_code[3,1]
   end
+  
+  # SEARCH
+  
+  def self.search_as_you_type(term)
+    if term && term.length
+      results = term.length > 1 ? (Course.where(:name => /#{term}/i) + Course.where(:id => /#{term}/i)).uniq  : (Course.where(:name => /^#{term}/i) + Course.where(:id => /^#{term}/i)).uniq
+      return results.map {|x| {"label" => x.name, "id" => x._id, "value"=> x.name}}
+    else
+      return []
+    end
+  end
+  
+  
 end

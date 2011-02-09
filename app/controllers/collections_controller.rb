@@ -10,6 +10,10 @@ class CollectionsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @collections }
+      format.js { 
+        @collections = params[:term].length == 1 ? Collection.where(:name => /^#{params[:term]}/i) : Collection.where(:name => /#{params[:term]}/i)
+        render :json => @collections.map {|x| {"label" => x.name, "id" => x._id, "value"=> x.name}} 
+        }
     end
   end
 
