@@ -73,7 +73,7 @@ class CoursesController < ApplicationController
     @course = Course.new(params[:course])
 
     respond_to do |format|
-      if @course.save
+      if @course.save && @course.update_relations(params[:course])
         format.html { redirect_to(@course, :notice => 'Course was successfully created.') }
         format.xml  { render :xml => @course, :status => :created, :location => @course }
       else

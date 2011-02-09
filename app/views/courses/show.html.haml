@@ -4,3 +4,8 @@
     %ul
     - @course.course_instances.each do |c|
       %li= link_to c.year_span, course_instance_path(@course, c)
+  - if @course.collections.length > 0
+    %h4 Collections
+    %ul
+    - @course.collections.each do |c|
+      %li= link_to c, c

@@ -1,5 +1,6 @@
 class Course
   include Mongoid::Document
+  include SexyRelations
   
   key :course_code
   
