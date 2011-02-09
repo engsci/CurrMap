@@ -1,7 +1,17 @@
 class CourseInstancesController < ApplicationController
-  #def index
-  #
-  #end
+  
+  # index is not nested, ie. it is /course_instances, not /course/.../instances (as with all the other)
+  def index
+    @course_instances = CourseInstance.all
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @course_instances }
+      format.js { 
+        render :json => CourseInstance.search_as_you_type(params[:term]) 
+        }
+    end
+  end
   
   def show
     @course = CourseInstance.find(params[:id])

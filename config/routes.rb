@@ -31,6 +31,7 @@ Currmap::Application.routes.draw do |map|
     end
   end
   
+  resources :course_instances, :only => ['index']
   
   # PEOPLE
   

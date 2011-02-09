@@ -38,7 +38,10 @@ class CourseInstance
   validates_numericality_of :delivered_year, :weight
 
   # METHODS  
-
+  def to_s
+    self.course_code + " " + self.year_span  
+  end
+  
   def level
     self.course_code[3,1]
   end
@@ -66,6 +69,17 @@ class CourseInstance
       end
     end
     return collated_activities
+  end
+
+  # SEARCH
+  
+  def self.search_as_you_type(term)
+    if term && term.length
+      results = term.length > 1 ? CourseInstance.where(:course_code => /#{term}/i) : CourseInstance.where(:course_code => /^#{term}/i)
+      return results.map {|x| {"label" => x.to_s, "id" => x._id, "value"=> x.to_s}}
+    else
+      return []
+    end
   end
 
 end
