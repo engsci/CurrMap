@@ -1,7 +1,7 @@
 = semantic_form_for @course do |form|
   = form.semantic_errors :state 
   = form.inputs do
-    - form.inputs "Course", :id => "course" do
+    .column
       %h3 Course
       = form.input :course_code, :input_html => {:disabled => (action_name == 'edit')}
       = form.input :delivered_year, :input_html => {:disabled => (action_name == 'edit')}
@@ -17,17 +17,16 @@
             = c.input :lecture
             = c.input :tutorial
             = c.input :practical
-        
-    - form.inputs "Connections", :id => 'connections' do
+    .column    
       %h3 Main Topics
       - form.inputs "Main Topics", :id => "topics" do 
         = form.semantic_fields_for :main_topics do |topic|
           = topic.input :name
-     
+   
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'instructors'}
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'resources'}
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'collections'}
-      
+    
   - form.buttons do
     = form.commit_button
     or 

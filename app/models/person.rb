@@ -1,5 +1,6 @@
 class Person
   include Mongoid::Document
+  include SexyRelations
   
   before_save :slugify
   

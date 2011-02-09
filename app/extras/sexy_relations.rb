@@ -2,7 +2,9 @@ module SexyRelations
   # receive check_boxes attributes from formtastic and save to mongoid
   # may be made useless if mongoid is changed to deal properly with attributes (ex. params[:course][:instructor_ids])
   # at the moment, if course.instructor_ids is modified, mongoid does not detect and modify the instructor side
-    
+  def self.included( klass )  
+  end
+  
   # override and 
   def update_attributes(attributes)
     self.attributes = attributes

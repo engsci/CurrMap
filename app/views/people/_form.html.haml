@@ -1,7 +1,14 @@
 - semantic_form_for @person do |form|
-  = form.inputs :name
-  - if @person.class == Instructor
-    = form.inputs :phone, :website, :email
+  = form.inputs do
+    .column
+      %h3 Person
+      = form.inputs :name
+      - if @person.class == Instructor
+        = form.inputs :phone, :website, :email
+    .column
+      - if @person.class == Instructor
+        = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @person, :relation => 'course_instances'}
+  
   - form.buttons do
     = form.commit_button
     or 

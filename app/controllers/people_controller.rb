@@ -65,7 +65,7 @@ class PeopleController < ApplicationController
     end
 
     respond_to do |format|
-      if @person.save
+      if @person.save && @person.update_attributes(params[@person.class.to_s.underscore.to_sym])
         format.html { redirect_to(@person, :notice => 'Person was successfully created.') }
         format.xml  { render :xml => @person, :status => :created, :location => @person }
       else

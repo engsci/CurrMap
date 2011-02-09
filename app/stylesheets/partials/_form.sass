@@ -8,8 +8,8 @@ form
 form.formtastic
   fieldset
     :overflow hidden
-  fieldset.buttons
-    :padding 0
+    &.buttons
+      :padding 0
 
   fieldset > ol > li
     :overflow hidden
@@ -19,43 +19,54 @@ form.formtastic
       
     fieldset ol
       :padding-left 5%
+  
+    &.check_boxes fieldset ol li label
+      :width inherit
+  
+  h3
+    @include nice_heading
+    
+  label
+    :margin 1em 0 0.25em 0
+    :display block
+  
+  
+  .column  
+    input
+      :max-width 95%
+      :width 95%
+    textarea
+      :width 95%
+  
+  .relation
+    legend
+      :display none
+    label
+      :display inline
+    input
+      :width inherit
+  
+  
       
   &.course_instance, &.course
-    fieldset legend
-      :display none
+  
       
-    #course
-      :width 45%
-      :margin-right 5%
-      :float left
-      input
-        :max-width 90%
-        :width 90%
-      textarea
-        :width 90%
-      #details
-        fieldset 
-          :width 45%
-          :display inline-block
-        label
-          :float left
-          :width 6em
-        input
-          :width 4em
-          
-    h3
-      @include nice_heading
-
-    #connections
-      :width 45%
-      :float left
-      
-      fieldset legend
+    #details
+      :margin-top 1em
+      legend
         :display none
-        
-        
-      #topics
-        label
-          :display none
+      fieldset 
+        :width 50%
+        :display inline-block
+      label
+        :float left
+        :width 6em
+        :margin 0
+      input
+        :width 4em
+          
+    #topics
+      label
+        :display none
       
   
