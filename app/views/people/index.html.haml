@@ -14,4 +14,4 @@
   #alpha
     %ul
       - @people.sort_by{|p| p.name}.each do |person|
-        %li= link_to person.name, person, :rel => "facebox"
+        %li= link_to person.name, person

@@ -7,7 +7,7 @@
   - items_by_year.each do |item, item_years|
     %tr
       - if heading
-        %td= link_to item.name, item, :rel => "facebox"
+        %td= link_to item.name, item
       - delivered_years.each do |year|
         %td(class="#{"active" if item_years.include?(year)}") 
           -if item_years.include?(year) && item_years.sort[0] == year
@@ -16,4 +16,4 @@
             - elsif item.class == CourseInstance
               = link_to item.short_code, course_instance_path(item.course, item), {:title => item.name}
             - elsif item.respond_to?("name")
-              = link_to item.name, item, :rel => "facebox"
+              = link_to item.name, item

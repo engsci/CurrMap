@@ -55,9 +55,9 @@
     %ul
       - @courses.inject({}) {|result, c| result.merge({c.short_code => c})}.invert.sort_by{|c| c[1]}.each do |course, ignore|
         %li
-          = link_to course.name, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}#, :rel => 'facebox[.full]'
+          = link_to course.name, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}
           .author
-            = link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}#, :rel => 'facebox[.full]'
+            = link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}
       -# %li.more= link_to "More"
 -if @resources && @resources.length > 0
   #resources.facet
@@ -65,7 +65,7 @@
     %ul
       - @resources.each do |resource|
         %li
-          = link_to resource.name, resource, :rel => 'facebox', :class => 'title', :query => @search
+          = link_to resource.name, resource, :class => 'title', :query => @search
           -#.nearterms= resource[:highlight].join(' ')
           .author
             - if resource.authors && resource.authors.length > 0
@@ -80,14 +80,14 @@
     %h2 People
     %ul
       - @people.each do |person|
-        %li= link_to person.name, person, :rel => 'facebox', :query => @search
+        %li= link_to person.name, person, :query => @search
         
 -if @collections.length > 0
   #collections.facet
     %h2 Collections
     %ul
       - @collections.each do |collection|
-        %li= link_to collection.name, collection, :rel => 'facebox', :query => @search
+        %li= link_to collection.name, collection, :query => @search
 - if @enable_all
   #all.facet
     %h2 All
@@ -97,7 +97,7 @@
       - else
         - @results.each do |result|
           %li
-            %h3= link_to result.name || result.id, result, :rel => "facebox[.full]", :query => @search
+            %h3= link_to result.name || result.id, result, :query => @search
           -#
             %ul
               %li

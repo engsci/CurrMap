@@ -21,7 +21,7 @@
       %dt Instructors
       -course.instructors.each do |p|
         %dd
-          =link_to p.name, p, :rel => "facebox"
+          =link_to p.name, p
 
       - unless course.resources.empty?
         %dt Resources
@@ -44,7 +44,7 @@
           %ul
             - course.collections.each do |c|
               %li
-                = link_to c.name, c, :rel => 'facebox'
+                = link_to c.name, c
   -#
     %h4 Visualization Type
     %table
