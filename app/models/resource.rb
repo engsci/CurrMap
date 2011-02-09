@@ -1,5 +1,6 @@
 class Resource
   include Mongoid::Document
+  include SexyRelations
 
   attr_accessible :name, :optional
   

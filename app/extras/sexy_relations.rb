@@ -9,14 +9,15 @@ module SexyRelations
   def update_attributes(attributes)
     self.attributes = attributes
     if save
-      # get the habtm relations of this class, ex. [:instructors, :collections, :resources]
-      many_to_many_refs = self.class.relations.values.map{|v| v.name if v.macro == :references_and_referenced_in_many}.compact
-      self.update_relations(attributes, many_to_many_refs)
+      self.update_relations(attributes)
     end
   end
   
-  # receives for ex. (params[:course], [:instructors, :collections])
-  def update_relations(params, array_of_relations)
+  # receives for ex. (params[:course])
+  def update_relations(params)
+    # get the habtm relations of this class, ex. [:instructors, :collections, :resources]
+    array_of_relations = self.class.relations.values.map{|v| v.name if v.macro == :references_and_referenced_in_many}.compact
+    
     array_of_relations.each do |relation|
       # drop(1) because the formtastic makes the first element ""
       attributes = params[relation.to_s.singularize + "_ids"].drop(1)

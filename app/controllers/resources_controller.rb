@@ -59,7 +59,7 @@ class ResourcesController < ApplicationController
     end
 
     respond_to do |format|
-      if @resource.save
+      if @resource.save && @resource.update_relations(params[@resource.class.to_s.underscore.to_sym])
         format.html { redirect_to(@resource, :notice => 'Resource was successfully created.') }
         format.xml  { render :xml => @resource, :status => :created, :location => @resource }
       else
