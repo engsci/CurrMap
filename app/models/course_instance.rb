@@ -1,5 +1,6 @@
 class CourseInstance
   include Mongoid::Document
+  include SexyRelations
   
   key :course_code, :delivered_year
   
@@ -65,52 +66,6 @@ class CourseInstance
       end
     end
     return collated_activities
-  end
-  
-  # handle the relation saving
-  
-  def update_instructors(array_of_ids)
-    new_instructors = array_of_ids.drop(1).map {|i| Instructor.where(:_id => i)[0]}
-    current_instructors = self.instructors
-    # remove old ones
-    (current_instructors - new_instructors).each do |i|
-      self.instructors.delete(i)
-      self.save
-      i.save
-    end
-    # add new ones
-    (new_instructors - current_instructors).each do |i|
-      self.instructors << i
-    end
-    
-  end
-  
-  # receives: (params[:course], [:instructors, :collections])
-  
-  def update_relations(params, array_of_relations)
-    array_of_relations.each do |relation|
-      # drop(1) because the formtastic makes the first element ""
-      update_relation(params[relation.to_s.singularize + "_ids"].drop(1), relation)
-    end
-  end
-  
-  def update_relation(array_of_ids, relation)
-    new_relations = array_of_ids.map {|i| relation.to_s.classify.constantize.where(:_id => i).limit(1)[0]}
-    current_relations = self.send(relation)
-    
-    # remove old ones
-    (current_relations - new_relations).each do |r|
-       self.send(relation).delete(r)
-       r.save
-    end
-    
-    self.save
-    
-    # add new ones
-    (new_relations - current_relations).each do |r|
-      self.send(relation) << r
-    end
-    
   end
 
 end
