@@ -11,6 +11,12 @@ class Resource
   
   references_and_referenced_in_many :course_instances, :index => true
   
+  # METHODS
+  
+  def to_s
+    name
+  end
+  
   # SEARCH
   
   def self.search_as_you_type(term)

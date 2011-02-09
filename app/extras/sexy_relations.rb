@@ -20,8 +20,8 @@ module SexyRelations
     
     array_of_relations.each do |relation|
       # drop(1) because the formtastic makes the first element ""
-      attributes = params[relation.to_s.singularize + "_ids"].drop(1)
-      update_relation(params[relation.to_s.singularize + "_ids"].drop(1), relation) if attributes.length > 0
+      attributes = params[relation.to_s.singularize + "_ids"]
+      update_relation(attributes.drop(1), relation) if attributes && attributes.length > 1
     end
   end
   

@@ -31,8 +31,8 @@ class Course
   
   def self.search_as_you_type(term)
     if term && term.length
-      results = term.length > 1 ? (Course.where(:name => /#{term}/i) + Course.where(:id => /#{term}/i)).uniq  : (Course.where(:name => /^#{term}/i) + Course.where(:id => /^#{term}/i)).uniq
-      return results.map {|x| {"label" => x.name, "id" => x._id, "value"=> x.name}}
+      results = term.length > 1 ? (Course.where(:name => /#{term}/i) + Course.where(:_id => /#{term}/i)).uniq  : (Course.where(:name => /^#{term}/i) + Course.where(:_id => /^#{term}/i)).uniq
+      return results.map {|x| {"label" => x.to_s, "id" => x._id, "value"=> x.to_s}}
     else
       return []
     end
