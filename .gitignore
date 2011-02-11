@@ -5,3 +5,4 @@ tmp/**/*
 solr/**
 *.tmproj
 public/stylesheets/*.css
+futon4mongo/**

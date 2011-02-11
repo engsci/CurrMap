@@ -16,7 +16,7 @@
           %dd= @resource.send(f)
       -unless @resource.amazon_info.empty?
         %dt Amazon.ca Information
-        #amazon_info{:style=>'background:#dfebf9;padding:4px; height: 85px;  -moz-border-radius: 0.5em; border-radius: 0.5em;'}
+        #amazon_info{:style=>'background:#fffccb;color:#e1a23f;border:1px solid #f3e280;padding:4px; height: 85px;  -moz-border-radius: 0.5em; border-radius: 0.5em;'}
           - small_icon = @resource.amazon_info.images.small
           - large_icon = @resource.amazon_info.images.medium
           %table
