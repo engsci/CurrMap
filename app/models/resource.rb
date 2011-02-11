@@ -28,18 +28,19 @@ class Resource
     #quick check for inconsistent database naming
     isbn = read_attribute(:isbn) 
     isbn ||= read_attribute(:ISBN)
-    info = {}
+    info = nil
     unless isbn.nil?
       amz_search = AmazonSearch.new
       response  = amz_search.lookup(isbn, {:IdType=>'ISBN', :SearchIndex=>'Books', :ResponseGroup=>'Reviews,Images,ItemAttributes'})
-      #the following merges two hashes together very ad-hoc esque
-      #ideally each should be sanitized, lower-cased
+      #Build a Hashie object to return
       unless response.raw.DetailPageURL.nil?
-        info = {"url"=>response.raw.DetailPageURL}.merge(response.raw.ItemAttributes).merge("images"=>{
-                                                                                  "small"=>response.raw.SmallImage.URL,
-                                                                                  "medium"=>response.raw.MediumImage.URL,
-                                                                                  "large"=>response.raw.LargeImage.URL}
-                                                                                  )
+        info = Hashie::Mash.new
+        info.URL = response.raw.DetailPageURL
+        info.attributes = response.raw.ItemAttributes
+        info.images!.small = response.raw.SmallImage
+        info.images!.medium = response.raw.MediumImage
+        info.images!.large = response.raw.LargeImage
+        return info
       end
     end
   end

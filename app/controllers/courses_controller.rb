@@ -87,6 +87,23 @@ class CoursesController < ApplicationController
   
   def resources
     @course = Course.find_course(params[:id], params[:year])
+    @resource = Resource.skip(rand(20))[0]  
+    require 'net/http'
+    require 'json'
+    require 'uri'
+    
+    #Ocwsearch.com API integration
+    
+    #Mandatory "About Us" url parameter
+    our_url = "http%3a%2f%2fcurrmap.heroku.com"
+    
+    ocw_search = URI.escape(@course.name)
+    ocw_url = "http://www.ocwsearch.com/api/v1/search.json?q=" + ocw_search + "&contact=" + our_url
+
+    result = Net::HTTP.get(URI.parse(ocw_url))
+    ocw = JSON.parse(result)
+
+    @related_courses = ocw["Results"]
   end
   
   def evaluations
@@ -151,7 +168,7 @@ class CoursesController < ApplicationController
     respond_to do |format|
       if @course.update_attributes(params[:course])
         format.html { redirect_to(@course, :notice => 'Course was successfully updated.') }
-        format.xml  { head :ok }
+        format.xml  { •••••••head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @course.errors, :status => :unprocessable_entity }
