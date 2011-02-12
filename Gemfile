@@ -19,7 +19,7 @@ gem 'roles_generic', '>= 0.3.7'
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
 gem 'hassle', :git => 'git://github.com/koppen/hassle.git'
-gem 'asin'
+gem 'asin', :git => 'git://github.com/phoet/asin.git'
 gem 'httpclient'
 
 

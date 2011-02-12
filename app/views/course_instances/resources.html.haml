@@ -13,7 +13,7 @@
         - if @resource.send(f)
           %dt= f.capitalize
           %dd= @resource.send(f)
-      -unless @resource.amazon_info.empty?
+      -#unless @resource.amazon_info.empty?
         %dt Amazon.ca Information
         #amazon_info{:style=>'background:#dfebf9;padding:4px; height: 85px;  -moz-border-radius: 0.5em; border-radius: 0.5em;'}
           - small_icon = @resource.amazon_info.images.small
@@ -25,10 +25,10 @@
               %td 
                 %dd=link_to @resource.amazon_info.attributes.Title, @resource.amazon_info.URL, {:class=>'resource_icon', :rel=>(large_icon.URL + '##' + large_icon.Width)}
                 %dd #{"Listed Price:" + @resource.amazon_info.attributes.ListPrice.FormattedPrice unless @resource.amazon_info.attributes.ListPrice.empty?}
-      -unless @resource.courses.empty?
+      -unless @resource.course_instances.empty?
         %dt Courses
-        - @resource.courses.each do |c| 
-          %dd= #link_to c.name, c, :rel => 'facebox'
+        - @resource.course_instances.each do |c| 
+          %dd= link_to c.name, course_instance_path(c.course, c)
 
 .column
   %h2 Related Courses from MIT

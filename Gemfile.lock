@@ -7,6 +7,15 @@ GIT
       rack
 
 GIT
+  remote: git://github.com/phoet/asin.git
+  revision: 4481cbdfa88e4403c6beb5092df5c19caaa746bd
+  specs:
+    asin (0.2.0)
+      crack (~> 0.1.8)
+      hashie (~> 1.0.0)
+      httpi (~> 0.7.9)
+
+GIT
   remote: http://github.com/mongoid/mongoid.git
   revision: efb1e13abfc5d7a908b01ebf1c50ba3277924ea5
   specs:
@@ -65,10 +74,6 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     arel (2.0.7)
-    asin (0.1.0)
-      crack (~> 0.1.8)
-      hashie (~> 0.4.0)
-      httpi (~> 0.7.6)
     bcrypt-ruby (2.1.4)
     bson (1.2.0)
     bson_ext (1.2.0)
@@ -86,7 +91,7 @@ GEM
       abstract (>= 1.0.0)
     escape (0.0.4)
     haml (3.0.22)
-    hashie (0.4.0)
+    hashie (1.0.0)
     hpricot (0.8.3)
     httpclient (2.1.6.1)
     httpi (0.7.9)
@@ -218,7 +223,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  asin
+  asin!
   bson_ext (= 1.2.0)
   cancan (= 1.5.1)
   compass (>= 0.10.2)

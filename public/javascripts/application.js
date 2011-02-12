@@ -68,39 +68,59 @@ jQuery.fn.relation_add = function(){
   });
 }
 
-$(document).ready(
-  function() {
-    //adds facebox links to main content
-    $('a[rel*=facebox]').facebox();
+$(document).ready(function() {
+  //adds facebox links to main content
+  $('a[rel*=facebox]').facebox();
 
-    //adds facebox links to content loaded into facebox
-    $(document).bind('reveal.facebox',
-      function() {
-        $('#facebox a[rel*=facebox]').facebox();
-      }
-    );
+  //adds facebox links to content loaded into facebox
+  $(document).bind('reveal.facebox',
+    function() {
+      $('#facebox a[rel*=facebox]').facebox();
+    }
+  );
 
-   //add tabs
-   $(".mini-tabs").tabs();
-   $("#tabs").tabs({
-     cache: true,
-     spinner: 'Retrieving data...',
-     ajaxOptions: {
-       error: function(xhr, status, index, anchor) {
-         $(anchor.hash).html("Request Failed.");
-       }
-   	 },
-   	 load: function(event,ui){
-   	   //facebox ajax content
-   	   $('#'+ui.panel.id+' a[rel*=facebox]').facebox();
-   	   $('#main').highlight_terms();
-   	 }
-   });
-   
-   $('#main').highlight_terms();
-  
+  //add tabs
+  $(".mini-tabs").tabs();
+  $("#tabs").tabs({
+   cache: true,
+   spinner: 'Retrieving data...',
+   ajaxOptions: {
+     error: function(xhr, status, index, anchor) {
+       $(anchor.hash).html("Request Failed.");
+     }
+  	 },
+  	 load: function(event,ui){
+  	   //facebox ajax content
+  	   $('#'+ui.panel.id+' a[rel*=facebox]').facebox();
+  	   $('#main').highlight_terms();
+  	 }
+  });
+ 
+  $('#main').highlight_terms();  
   
   $(".add_relation_search").relation_add();
-    
-  }
-);
+  
+  /*$(".resource_icon").each(function(){
+    // Create image content using websnapr thumbnail service
+    var obj = $(this);
+    var content = '<div style="display:block"><img src="';
+    content += obj.attr('rel');
+    content += '" alt="Loading thumbnail..."/></div>';
+    // Setup the tooltip with the content
+    obj.qtip({
+      content: content,
+      position: {
+        corner: {
+          tooltip: 'leftMiddle',
+          target: 'rightMiddle'
+        }
+      },
+      style: {
+        tip: true, // Give it a speech bubble tip with automatic corner detection
+        name: 'cream'//,
+        width: obj.data('model') + 22
+      }
+    });
+  });*/
+
+});
