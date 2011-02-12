@@ -6,3 +6,4 @@ solr/**
 *.tmproj
 public/stylesheets/*.css
 futon4mongo/**
+sublime_proj
