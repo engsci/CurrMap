@@ -4,53 +4,11 @@ class CoursesController < ApplicationController
  
   # GET /courses
   # GET /courses.xml
-
   def index
 	  #authorize! :manage, Course
     @courses = Course.all
-    
-    @courses_by_year_and_semester = {}
-    
-   #TODO: add field limit(...) to this query
-   CourseInstance.all.each do |course|
-      @courses_by_year_and_semester[course.delivered_year] ||= {}
-      @courses_by_year_and_semester[course.delivered_year][course.level] ||= {}
-      @courses_by_year_and_semester[course.delivered_year][course.level][course.semester] ||= []
-      @courses_by_year_and_semester[course.delivered_year][course.level][course.semester] << course
-    end
-    
-    
-    @courses_by_magic = {}
-    # @courses_by_magic[course.year][course.semester][course] = [delivered_year, delivered_year]
-    CourseInstance.all.each do |course|
-      @courses_by_magic[course.level] ||= {}
-      @courses_by_magic[course.level][course.semester] ||= {}
-      @courses_by_magic[course.level][course.semester][course.short_code] ||= []
-      @courses_by_magic[course.level][course.semester][course.short_code] << course.delivered_year
-    end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @courses }
-      format.js {
-        render :json =>  Course.search_as_you_type(params[:term]) 
-        }
-    end
   end
-
-
-  def show
-    @course = Course.find(params[:id])
-    
-    respond_to do |format|
-      format.html {
-        if @course.respond_to?('course_instances') && @course.course_instances.length > 0
-          redirect_to course_instance_path(@course, @course.course_instances.sort_by {|c| c.delivered_year }.reverse[0])
-        end
-      } 
-    end
-  end
-
+  
   # GET /courses/new
   # GET /courses/new.xml
   def new

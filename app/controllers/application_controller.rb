@@ -8,7 +8,12 @@ class ApplicationController < ActionController::Base
         redirect_to new_user_session_url
     end
   end
-  
+  def url_escape(string)
+    string.gsub(/([^ a-zA-Z0-9_.-]+)/n) do
+    '%' + $1.unpack('H2' * $1.size).join('%').upcase
+    end.tr(' ', '+')
+  end
+
   protect_from_forgery
   layout 'application'
 end

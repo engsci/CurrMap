@@ -1,7 +1,39 @@
+%script{:type => "text/javascript", :charset => "utf-8"}
+  //<![CDATA[
+  $(document).ready(function() 
+  {
+  // Notice the use of the each method to gain access to each element individually
+  $('.resource_icon').each(function()
+  {
+  // Create image content using websnapr thumbnail service
+  var content = '<div style="display:block"><img src="';
+  content += $(this).attr('rel');
+  
+  content += '" alt="Loading thumbnail..."/></div>';
+  // Setup the tooltip with the content
+  $(this).qtip(
+  {
+  content: content,
+  position: {
+  corner: {
+  tooltip: 'leftMiddle',
+  target: 'rightMiddle'
+  }
+  },
+  style: {
+  tip: true, // Give it a speech bubble tip with automatic corner detection
+  name: 'cream',
+  width: #{(@resource.amazon_info.images.medium.Width.to_i + 22) unless @resource.amazon_info.empty?}
+  }
+  });
+  });
+  });
+
+  //]]>
+  
 .resource.object
   %h1= link_to @resource.name, resource_path(@resource)
   %dl
-    
     - if @resource.authors
       %dt Authors
       - @resource.authors.each do |a| 
@@ -11,7 +43,23 @@
       - if @resource.send(f)
         %dt= f.capitalize
         %dd= @resource.send(f)
+<<<<<<< HEAD
     -if @resource.course_instances
       %dt Courses
       - @resource.course_instances.each do |c| 
         %dd= link_to c, course_instance_path(c.course, c)#, :rel => 'facebox'
+=======
+    -unless @resource.amazon_info.empty?
+      %dt Find it on Amazon.ca
+      - small_icon = @resource.amazon_info.images.small
+      - large_icon = @resource.amazon_info.images.medium
+      %img{:src=>"#{small_icon.URL}", :width=>"#{small_icon.Width}px", :height=>"#{small_icon.Height}px", :class=>"resource_icon", :rel=>"#{large_icon.URL}"}/
+      %dd=link_to @resource.amazon_info.attributes.Title, @resource.amazon_info.URL, {:class=>'resource_icon', :rel=>large_icon.URL}
+      %dd #{"Listed Price:" + @resource.amazon_info.attributes.ListPrice.FormattedPrice unless @resource.amazon_info.attributes.ListPrice.empty?}
+    -unless @resource.courses.empty?
+      %dt Courses
+      - @resource.courses.each do |c| 
+        %dd= #link_to c.name, c, :rel => 'facebox'
+
+  = link_to 'Edit', edit_resource_path(@resource), :class => 'edit' if can? :edit, @resource
+>>>>>>> 47934344fa771c3a56e6bff32c24a7bb7318d057

@@ -1,0 +1,43 @@
+.left_resource{:style=>'float:left; width:350px;'}
+
+  %h2 Textbook
+  .resource.object
+    %h3= link_to @resource.name, @resource
+    %dl
+      
+      - if @resource.authors
+        %dt Authors
+        - @resource.authors.each do |a| 
+          %dd= a
+
+      - %w(publisher type isbn edition).each do |f|
+        - if @resource.send(f)
+          %dt= f.capitalize
+          %dd= @resource.send(f)
+      -unless @resource.amazon_info.empty?
+        %dt Amazon.ca Information
+        #amazon_info{:style=>'background:#fffccb;color:#e1a23f;border:1px solid #f3e280;padding:4px; height: 85px;  -moz-border-radius: 0.5em; border-radius: 0.5em;'}
+          - small_icon = @resource.amazon_info.images.small
+          - large_icon = @resource.amazon_info.images.medium
+          %table
+            %tr
+              %td
+                %img{:src=>"#{small_icon.URL}", :width=>"#{small_icon.Width}px", :height=>"#{small_icon.Height}px", :class=>"resource_icon", :rel=>"#{large_icon.URL + '##' + large_icon.Width}"}/
+              %td 
+                %dd=link_to @resource.amazon_info.attributes.Title, @resource.amazon_info.URL, {:class=>'resource_icon', :rel=>(large_icon.URL + '##' + large_icon.Width)}
+                %dd #{"Listed Price:" + @resource.amazon_info.attributes.ListPrice.FormattedPrice unless @resource.amazon_info.attributes.ListPrice.empty?}
+      -unless @resource.courses.empty?
+        %dt Courses
+        - @resource.courses.each do |c| 
+          %dd= #link_to c.name, c, :rel => 'facebox'
+      = link_to 'Edit', edit_resource_path(@resource), :class => 'edit' if can? :edit, @resource
+.right_resource{:style=>'width:350px; float:right;'}
+
+  %h2 Related Courses from MIT
+  -(1..3).each do |i|
+    -unless @related_courses[i.to_s]["Title"].nil?
+      %h4{:style=>'padding-top:0px;'}= link_to @related_courses[i.to_s]["Title"], @related_courses[i.to_s]["CourseURL"], :class=>:ocw_link, :rel=>@related_courses[i.to_s]["Description"]
+      %p= @related_courses[i.to_s]["Description"][0..150] + '...'
+        
+      
+

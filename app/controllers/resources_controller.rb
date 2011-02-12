@@ -20,7 +20,7 @@ class ResourcesController < ApplicationController
   # GET /resources/1.xml
   def show
     @resource = Resource.find(params[:id])
-
+        
     respond_to do |format|
       format.js 
       format.html # show.html.erb
@@ -96,4 +96,8 @@ class ResourcesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  
+ 
+  
 end

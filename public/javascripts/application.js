@@ -16,6 +16,7 @@ $.extend({
   }
 });
 
+
 //set ajax requests as js type instead of html
 jQuery(document).ajaxSend(function(event, request, settings) {
   request.setRequestHeader("Accept", "text/javascript");

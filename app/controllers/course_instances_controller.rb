@@ -31,6 +31,24 @@ class CourseInstancesController < ApplicationController
   
   def resources
     @course = CourseInstance.find(params[:id])
+    
+    @resource = Resource.skip(rand(20))[0]  
+    require 'net/http'
+    require 'json'
+    require 'uri'
+
+    #Ocwsearch.com API integration
+
+    #Mandatory "About Us" url parameter
+    our_url = "http%3a%2f%2fcurrmap.heroku.com"
+
+    ocw_search = URI.escape(@course.name)
+    ocw_url = "http://www.ocwsearch.com/api/v1/search.json?q=" + ocw_search + "&contact=" + our_url
+
+    result = Net::HTTP.get(URI.parse(ocw_url))
+    ocw = JSON.parse(result)
+
+    @related_courses = ocw["Results"]  
   end
   
   def evaluations

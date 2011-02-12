@@ -1,3 +1,4 @@
 -unless ['new','index'].include? action_name
-  %h1= course.course_code
-  %h3= course.name
+  %h1{:style=>"margin-bottom:2px;"}= course.course_code
+  %h3{:style=>"font-style:italic;"}= course.name
+  %hr

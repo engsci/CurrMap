@@ -65,6 +65,10 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     arel (2.0.7)
+    asin (0.1.0)
+      crack (~> 0.1.8)
+      hashie (~> 0.4.0)
+      httpi (~> 0.7.6)
     bcrypt-ruby (2.1.4)
     bson (1.2.0)
     bson_ext (1.2.0)
@@ -73,6 +77,7 @@ GEM
     colorize (0.5.8)
     compass (0.10.6)
       haml (>= 3.0.4)
+    crack (0.1.8)
     devise (1.1.2)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 0.10.7)
@@ -81,7 +86,11 @@ GEM
       abstract (>= 1.0.0)
     escape (0.0.4)
     haml (3.0.22)
+    hashie (0.4.0)
     hpricot (0.8.3)
+    httpclient (2.1.6.1)
+    httpi (0.7.9)
+      rack
     i18n (0.5.0)
     json (1.5.1)
     log4r-color (1.2)
@@ -209,6 +218,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  asin
   bson_ext (= 1.2.0)
   cancan (= 1.5.1)
   compass (>= 0.10.2)
@@ -217,6 +227,7 @@ DEPENDENCIES
   haml (= 3.0.22)
   hassle!
   hpricot (>= 0.8.3)
+  httpclient
   json
   mongo (>= 1.2.0)
   mongoid!
