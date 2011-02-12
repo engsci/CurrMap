@@ -47,7 +47,7 @@
     -if @resource.course_instances
       %dt Courses
       - @resource.course_instances.each do |c| 
-        %dd= link_to c, course_instance_path(c.course, c)#, :rel => 'facebox'
+        %dd= link_to c, course_instance_path(c.course, c)
 
     -unless @resource.amazon_info.empty?
       %dt Find it on Amazon.ca
