@@ -27,6 +27,11 @@ class TermsController < ApplicationController
   # POST /terms
   def create
     @term = Term.new(params[:term])
+    if @term.supertopcs
+      @term.supertopics = [@term.supertopics] unless @term.supertopics.is_a? Array
+    else
+      @term.supertopics = []
+    end
     respond_to do |format|
       if @term.save
         format.html { redirect_to terms_url, :notice => 'Term successfully added' }

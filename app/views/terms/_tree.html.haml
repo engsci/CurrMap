@@ -1,11 +1,14 @@
 - full ||= nil
 - query ||= nil
 
-- show_text = Proc.new do |knol|
+- show_text = Proc.new do |knol, path|
   %p
     - if full
       = link_to knol.name, term_path(knol)
       = link_to '+', new_term_path, :class => 'add-tok-node'
+      .hidden.tok-parents= path
+      .hidden.add-tok-form
+        = render 'form', :term => Term.new, :parent => [path, knol.name].join('/')
     - elsif query
       - query_str = (query + ' ' + knol.name).gsub(/\s+/, '+')
       = link_to knol.name, search_path + "?query=#{query_str}"
@@ -21,7 +24,7 @@
   %dd
     %dl
       %dt
-        - show_text.call(knol)
+        - show_text.call(knol, path)
       - if knol.subtopics.empty?
         %dd
       - else
@@ -34,6 +37,8 @@
       - if full
         = link_to parent['name'], term_path(parent['id'])
         = link_to '+', new_term_path, :class => 'add-tok-node'
+        .hidden.add-tok-node
+          = render 'form', :parent => parent['name']
       - elsif query
         - query_str = (query + ' ' + parent['name']).gsub(/\s+/, '+')
         = link_to parent['name'], search_path + "?query=#{query_str}"
@@ -42,6 +47,9 @@
   %dd
     %dl
       %dt.highlight
-        - show_text.call(root)
+        - if root.supertopics[0]
+          - show_text.call(root, root.supertopics[0]['name'])
+        - else
+          - show_text.call(root, '/')
       - root.subtopics.each do |knol|
-        - display_subs.call(knol, root.name)
+        - display_subs.call(knol, '/' + root.name)

@@ -1,12 +1,16 @@
-- semantic_form_for @term do |form|
-  -if @term.error_messages.any?
+- term ||= @term
+- parent ||= nil
+- semantic_form_for term do |form|
+  -if term.error_messages.any?
     #errorExplanation
-      %h2= "#{pluralize(@term.error_messages.count, "error")} prevented saving:"
+      %h2= "#{pluralize(term.error_messages.count, "error")} prevented saving:"
       %ul
-        - @term.error_messages.each do |msg|
+        - term.error_messages.each do |msg|
           %li= msg
-  - form.inputs "Term", :id => "term" do
+  - form.inputs "Term" do
     = form.input 'name'
+  - form.inputs do
+    = form.input 'supertopics', :value => parent, :as => :hidden
   .actions
     = form.buttons
 
