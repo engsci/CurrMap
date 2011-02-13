@@ -13,17 +13,41 @@ Currmap::Application.routes.draw do |map|
   # RESOURCES
   
   resources :resources
+  resources :textbooks, :controller => 'resources' #reqd for formtastic
+
+  # COLLECTIONS
 
   resources :collections
 
+
+  # TERMS
+
   resources :terms
 
-  match 'courses/:id/:year/', :controller => 'courses', :action => 'show'
-  match 'courses/:id/:year/:action', :controller => 'courses'
+  # COURSES and INSTANCES
 
-  resources :courses
+  resources :courses do
+    resources :instances, :controller => 'course_instances', :except => ['index'] do
+      member do
+        get 'syllabus'
+        get 'lectures'
+        get 'resources'
+        get 'evaluations'
+        get 'calendar'
+      end
+    end
+  end
 
-  resources :professors, :controller => 'people'
+  resources :course_instances, :only => ['index']
+
+  # PEOPLE
+
+  resources :people, :only => [:destroy]
+  resources :instructors, :controller => 'people'
+  #resources :authors, :controller => 'people'
+
+
+  # PAGES
 
   match 'search' => 'pages#search'
   match 'about' => 'pages#about'
