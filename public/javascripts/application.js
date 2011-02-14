@@ -32,10 +32,10 @@ jQuery(document).ajaxSend(function(event, request, settings) {
 
 jQuery.fn.highlight_terms = function(){
   var o = $(this[0])
-  
-  //highlight search term    
+
+  //highlight search term
   var query = $.getUrlVar('query');
-  
+
   if(query) {
     terms = query.split('+');
     for(x in terms){
@@ -65,7 +65,7 @@ jQuery.fn.relation_add = function(){
   		focus: function(){
   		  return false;
   		}
-    }); 
+    });
   });
 }
 
@@ -100,9 +100,9 @@ $(document).ready(function() {
   	   $('#main').highlight_terms();
   	 }
   });
- 
-  $('#main').highlight_terms();  
-  
+
+  $('#main').highlight_terms();
+
   $(".add_relation_search").relation_add();
   
   $(".resource_icon").each(function(){
