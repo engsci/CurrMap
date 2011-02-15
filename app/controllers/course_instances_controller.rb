@@ -60,12 +60,27 @@ class CourseInstancesController < ApplicationController
   end
   
   def new
-    @course_instance = CourseInstance.new
-    @course_instance.contact_hours = ContactHours.new
+    @course = CourseInstance.new
+    @course.contact_hours = ContactHours.new
+    @course.course = Course.find(params[:course_id])
+    @course.course_code = @course.course.course_code
   end
   
   def create
-    @course_instance = CourseInstance.find(params[:id])
+    @course = CourseInstance.new(params[:course_instance])
+    @course.course_code = params[:course_instance][:course_code]
+    @course.delivered_year = params[:course_instance][:delivered_year]
+    @course.course = Course.find(params[:course_id])
+    
+    respond_to do |format|
+      if @course.save && @course.update_relations(params[:course_instance])
+        format.html { redirect_to(course_instance_path(@course.course, @course), :notice => 'Course Instance was successfully created.') }
+        format.xml  { render :xml => @course, :status => :created, :location => @course }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @course.errors, :status => :unprocessable_entity }
+      end
+    end
   end
   
   def edit
