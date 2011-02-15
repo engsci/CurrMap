@@ -4,24 +4,35 @@ gem 'rails', '3.0.3'
 gem 'mongoid', :git => "http://github.com/mongoid/mongoid.git"
 gem 'mongo', '>= 1.2.0'
 gem 'bson_ext', '1.2.0'
-gem 'haml', '3.0.22'
-gem 'rails3-generators'
-gem 'compass', '>= 0.10.2'
 gem 'json'
-gem 'nokogiri', '1.4.2'
+
+# UI, etc.
+gem 'haml', '3.0.22'
+gem 'rails3-generators', :group => :development
+gem 'compass', '>= 0.10.2'
+gem 'formtastic', :git => "http://github.com/rafd/formtastic.git"
+
+# SEARCH 
 gem 'sunspot_rails', '1.2.1' 
 gem 'sunspot_mongoid', :git => "http://github.com/rafd/sunspot_mongoid.git"
-gem 'formtastic', :git => "http://github.com/rafd/formtastic.git"
+gem 'nokogiri', '1.4.2'
+
+# USERS
 gem 'devise', '1.1.2'
 gem 'cancan', '1.5.1'
 gem 'roles_mongoid', '>= 0.4.5'
 gem 'roles_generic', '>= 0.3.7'
+
+# ??
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
+
+# HEROKU
 gem 'hassle', :git => 'git://github.com/koppen/hassle.git'
+
+# APIs
 gem 'asin', :git => 'git://github.com/phoet/asin.git'
 gem 'httpclient'
-
 
 
 # Bundle edge Rails instead:
