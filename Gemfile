@@ -11,6 +11,7 @@ gem 'haml', '3.0.22'
 gem 'rails3-generators', :group => :development
 gem 'compass', '>= 0.10.2'
 gem 'formtastic', :git => "http://github.com/rafd/formtastic.git"
+gem 'cocoon', :git => "http://github.com/rafd/cocoon.git"
 
 # SEARCH 
 gem 'sunspot_rails', '1.2.1' 

@@ -50,7 +50,8 @@ form.formtastic
       
   &.course_instance, &.course
   
-      
+    #course_instance_calendar_description
+      :min-height 200px
     #details
       :margin-top 1em
       legend
@@ -65,8 +66,15 @@ form.formtastic
       input
         :width 4em
           
-    #topics
-      label
+    #main_topics
+      li label, legend
         :display none
+      .nested-fields
+        :margin 1em
+        li
+          :display inline 
+        input
+          :width 60%
+          :display inline
       
   

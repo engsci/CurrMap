@@ -16,8 +16,9 @@
     = javascript_include_tag "jquery.highlight-3.yui.js"
     = javascript_include_tag "jquery.qtip-1.0.0-rc3.min.js"
     = javascript_include_tag '/facebox/facebox', 'application', 'search', 'tooltip'
-    = javascript_include_tag 'viz.st.js'
-    = javascript_include_tag 'jit.js'
+    =# javascript_include_tag 'viz.st.js'
+    =# javascript_include_tag 'jit.js'
+    = javascript_include_tag :cocoon
     = csrf_meta_tag
   %body
     #content

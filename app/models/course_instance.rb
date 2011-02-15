@@ -7,7 +7,7 @@ class CourseInstance
   field :course_code, :type => String
   field :delivered_year, :type => Integer
   
-  attr_accessible :name, :calendar_description, :weight, :contact_hours_attributes
+  attr_accessible :name, :calendar_description, :weight, :contact_hours_attributes, :main_topics_attributes
   
   field :name, :type => String
   
@@ -18,7 +18,7 @@ class CourseInstance
   
   embeds_many :activities
   embeds_many :main_topics, :class_name => 'Topic'
-  accepts_nested_attributes_for :main_topics
+  accepts_nested_attributes_for :main_topics, :reject_if => proc { |attributes| attributes['name'].blank? }, :allow_destroy => true
 
   embeds_one :contact_hours, :class_name => 'ContactHours'
   accepts_nested_attributes_for :contact_hours

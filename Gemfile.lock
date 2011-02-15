@@ -26,6 +26,12 @@ GIT
       will_paginate (~> 3.0.pre)
 
 GIT
+  remote: http://github.com/rafd/cocoon.git
+  revision: 1fa4abe4a2181db3f0884957ebe67c30937acf40
+  specs:
+    cocoon (1.0.0)
+
+GIT
   remote: http://github.com/rafd/formtastic.git
   revision: 2ff38c3478baee0708d02cd626ca0541744bf62a
   specs:
@@ -226,6 +232,7 @@ DEPENDENCIES
   asin!
   bson_ext (= 1.2.0)
   cancan (= 1.5.1)
+  cocoon!
   compass (>= 0.10.2)
   devise (= 1.1.2)
   formtastic!

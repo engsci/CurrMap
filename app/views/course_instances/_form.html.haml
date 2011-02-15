@@ -19,9 +19,11 @@
             = c.input :practical
     .column    
       %h3 Main Topics
-      - form.inputs "Main Topics", :id => "topics" do 
-        = form.semantic_fields_for :main_topics do |topic|
-          = topic.input :name
+      - form.inputs "Main Topics", :id => "main_topics" do 
+        = form.semantic_fields_for :main_topics do |main_topic|
+          = render 'main_topic_fields', :f => main_topic
+        .links
+          = link_to_add_association 'Add Topic', form, :main_topics
    
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'instructors'}
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'resources'}
