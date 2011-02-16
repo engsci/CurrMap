@@ -19,11 +19,18 @@
             = c.input :practical
     .column    
       %h3 Main Topics
-      - form.inputs "Main Topics", :id => "main_topics" do 
+      - form.inputs "Main Topics", :id => "main_topics", :class => "embedded-fields" do 
         = form.semantic_fields_for :main_topics do |main_topic|
           = render 'main_topic_fields', :f => main_topic
         .links
           = link_to_add_association 'Add Topic', form, :main_topics
+          
+      %h3 Learning Objectives
+      - form.inputs "Learning Objectives", :id => "learning_objectives", :class => "embedded-fields" do 
+        = form.semantic_fields_for :learning_objectives do |learning_objective|
+          = render 'learning_objective_fields', :f => learning_objective
+        .links
+          = link_to_add_association 'Add Objective', form, :learning_objectives
    
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'instructors'}
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'resources'}

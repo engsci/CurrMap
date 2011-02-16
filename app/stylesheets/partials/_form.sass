@@ -47,6 +47,18 @@ form.formtastic
       :width inherit
   
   
+  .embedded-fields
+    li label, legend
+      :display none
+    .nested-fields
+      :margin 1em
+      li
+        :display inline
+      label
+        :display none
+      input
+        :width 60%
+        :display inline
       
   &.course_instance, &.course
   
@@ -66,15 +78,6 @@ form.formtastic
       input
         :width 4em
           
-    #main_topics
-      li label, legend
-        :display none
-      .nested-fields
-        :margin 1em
-        li
-          :display inline 
-        input
-          :width 60%
-          :display inline
+
       
   

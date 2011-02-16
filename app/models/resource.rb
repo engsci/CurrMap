@@ -72,7 +72,7 @@ class Textbook < Resource
   field :publisher, :type => String
   
   embeds_many :authors
-  accepts_nested_attributes_for :authors, :reject_if => proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :authors, :reject_if => proc { |attributes| attributes['name'].blank? }, :allow_destroy => true
 end
 
 # EMBEDDED

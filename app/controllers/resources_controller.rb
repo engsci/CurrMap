@@ -32,7 +32,6 @@ class ResourcesController < ApplicationController
   # GET /resources/new.xml
   def new
     @resource = Textbook.new
-    @resource.authors << Author.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,10 +42,6 @@ class ResourcesController < ApplicationController
   # GET /resources/1/edit
   def edit
     @resource = Resource.find(params[:id])
-    
-    if @resource.class == Textbook
-      @resource.authors << Author.new
-    end
   end
 
   # POST /resources
