@@ -71,3 +71,16 @@
       - course.collections.each do |c|
         %li
           = link_to c.name, c
+          
+  - unless course.prerequisite_courses.empty?
+    %h4 Prerequisite Courses
+    %ul
+    - course.prerequisite_courses.each do |c|
+      %li= link_to c, c
+
+  - unless course.postrequisite_courses.empty?
+    %h4 "Postrequisite" Courses
+    %ul
+    - course.postrequisite_courses.each do |c|
+      %li= link_to c, c
+      

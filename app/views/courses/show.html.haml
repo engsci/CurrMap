@@ -11,10 +11,22 @@
       %ul
       - @course.prerequisite_topics.each do |t|
         %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
+      
   .column
     - if @course.collections.length > 0
       %h4 Collections
       %ul
       - @course.collections.each do |c|
         %li= link_to c, c
-    
+    - if @course.prerequisite_courses.length > 0
+      %h4 Prerequisite Courses
+      %ul
+      - @course.prerequisite_courses.each do |c|
+        %li= link_to c, c
+        - if @course.prerequisite_courses.length > 0
+    - if @course.postrequisite_courses.length > 0
+      %h4 "Postrequisite" Courses
+      %ul
+      - @course.postrequisite_courses.each do |c|
+        %li= link_to c, c
+  

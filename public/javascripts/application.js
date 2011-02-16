@@ -49,13 +49,14 @@ jQuery.fn.relation_add = function(){
     var obj = $(this);
     var model = obj.data('model');
     var relation_model = obj.data('relation-model');
+    var relation_association = obj.data('relation-association');
     
     obj.autocomplete({
     	source: "/"+relation_model+"s.js",
   		minLength: 1,
   		select: function( event, ui ) {
         // add to form
-        $('#'+model+'_'+relation_model+'s_input ol').append("<li><label for=\""+model+"_"+relation_model+"_ids_"+ui.item.id+"\"><input checked=\"checked\" id=\""+model+"_"+relation_model+"_ids_"+ui.item.id+"\" name=\""+model+"["+relation_model+"_ids][]\" type=\"checkbox\" value=\""+ui.item.id+"\"> "+ui.item.label+"</label></li>");
+        $('#'+model+'_'+relation_association+'s_input ol').append("<li><label for=\""+model+"_"+relation_association+"_ids_"+ui.item.id+"\"><input checked=\"checked\" id=\""+model+"_"+relation_association+"_ids_"+ui.item.id+"\" name=\""+model+"["+relation_association+"_ids][]\" type=\"checkbox\" value=\""+ui.item.id+"\"> "+ui.item.label+"</label></li>");
         // clear search field 
         this.value = "";
         // prevent form submit

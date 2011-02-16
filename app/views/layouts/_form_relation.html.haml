@@ -8,4 +8,4 @@
     :label_method => Proc.new {|a| a.to_s || a.name }
 
 %label= "Add #{relation.titleize.singularize}:"
-%input(type="text" name="id" size="40" data-model="#{object.class.to_s.underscore}" data-relation-model="#{relation.singularize}" class="add_relation_search")
+%input(type="text" name="id" size="40" data-model="#{object.class.to_s.underscore}" data-relation-model="#{object.class.relations[relation].class_name.underscore}" data-relation-association="#{relation.singularize}" class="add_relation_search")

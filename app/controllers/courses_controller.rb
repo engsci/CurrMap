@@ -29,6 +29,9 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @courses }
+      format.js { 
+        render :json => Course.search_as_you_type(params[:term]) 
+        }
     end
   end
   
@@ -40,7 +43,7 @@ class CoursesController < ApplicationController
         if @course.respond_to?('course_instances') && @course.course_instances.length > 0
           redirect_to course_instance_path(@course, @course.course_instances.sort_by {|c| c.delivered_year }.reverse[0])
         end
-      } 
+      }
     end
   end
   

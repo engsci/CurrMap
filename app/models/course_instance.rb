@@ -64,6 +64,14 @@ class CourseInstance
     "#{self.delivered_year-1}-#{self.delivered_year}"
   end
   
+  def prerequisite_courses
+    self.course.prerequisite_courses
+  end
+  
+  def postrequisite_courses
+    self.course.postrequisite_courses
+  end
+  
   def collated_activities
     collated_activities = {}
     self.activities.each do |a|

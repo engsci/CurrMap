@@ -26,7 +26,8 @@ module SexyRelations
   end
   
   def update_relation(array_of_ids, relation)
-    new_relations = array_of_ids.map {|i| relation.to_s.classify.constantize.where(:_id => i).limit(1)[0]}
+    relation_class = self.reflect_on_association(relation).class_name.classify.constantize
+    new_relations = array_of_ids.map {|i| relation_class.where(:_id => i).limit(1)[0]}
     current_relations = self.send(relation)
     
     # remove old ones
