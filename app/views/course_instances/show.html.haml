@@ -12,6 +12,12 @@
       %ul
         - course.main_topics.each do |t|
           %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
+  - if course.learning_objectives && course.learning_objectives.length > 0
+    .learning_objectives
+      %h4 Learning Objectives
+      %ul
+        - course.learning_objectives.each do |t|
+          %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
 .column
   %h4 Misc Info
   %ul.misc_info

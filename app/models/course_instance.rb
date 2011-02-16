@@ -7,7 +7,8 @@ class CourseInstance
   field :course_code, :type => String
   field :delivered_year, :type => Integer
   
-  attr_accessible :name, :calendar_description, :weight, :contact_hours_attributes, :main_topics_attributes
+  attr_accessible :name, :calendar_description, :weight
+  attr_accessible :contact_hours_attributes, :main_topics_attributes, :learning_objectives_attributes
   
   field :name, :type => String
   
@@ -17,8 +18,13 @@ class CourseInstance
   # EMBEDDED
   
   embeds_many :activities
+  
+  
   embeds_many :main_topics, :class_name => 'Topic'
   accepts_nested_attributes_for :main_topics, :reject_if => proc { |attributes| attributes['name'].blank? }, :allow_destroy => true
+  
+  embeds_many :learning_objectives, :class_name => 'Objective'
+  accepts_nested_attributes_for :learning_objectives, :reject_if => proc { |attributes| attributes['name'].blank? }, :allow_destroy => true
 
   embeds_one :contact_hours, :class_name => 'ContactHours'
   accepts_nested_attributes_for :contact_hours
@@ -140,7 +146,7 @@ class Topic
   
   field :name, :type => String
   
-  embedded_in :course, :inverse_of => :main_topics
+  embedded_in :course_instance, :inverse_of => :main_topics
   embedded_in :activity, :inverse_of => :topics
   
   validates_presence_of :name
@@ -148,4 +154,8 @@ class Topic
   def to_s
     self.name
   end
+end
+
+class Objective < Topic
+  embedded_in :course_instance, :inverse_of => :learning_objectives
 end

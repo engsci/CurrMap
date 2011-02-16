@@ -92,7 +92,7 @@ class CourseInstancesController < ApplicationController
 
     respond_to do |format|
       if @course.update_attributes(params[:course_instance])
-        format.html { redirect_to(@course, :notice => 'Course instance was successfully updated.') }
+        format.html { redirect_to(course_instance_path(@course.course, @course), :notice => 'Course instance was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
