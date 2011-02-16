@@ -1,11 +1,20 @@
 .object
-  - if @course.course_instances.length > 0
-    %h4 Years Delivered
-    %ul
-    - @course.course_instances.each do |c|
-      %li= link_to c.year_span, course_instance_path(@course, c)
-  - if @course.collections.length > 0
-    %h4 Collections
-    %ul
-    - @course.collections.each do |c|
-      %li= link_to c, c
+  .column
+    = "Course Discontinued" if @course.discontinued
+    - if @course.course_instances.length > 0
+      %h4 Course Instances
+      %ul
+      - @course.course_instances.each do |c|
+        %li= link_to c.year_span, course_instance_path(@course, c)
+    - if @course.prerequisite_topics.length > 0
+      %h4 Prerequisite Topics
+      %ul
+      - @course.prerequisite_topics.each do |t|
+        %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
+  .column
+    - if @course.collections.length > 0
+      %h4 Collections
+      %ul
+      - @course.collections.each do |c|
+        %li= link_to c, c
+    

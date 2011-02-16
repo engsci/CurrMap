@@ -5,6 +5,13 @@
       %h3 Course
       = form.input :course_code, :input_html => { :disabled => (action_name == 'edit') }
       = form.input :name
+      = form.input :discontinued, :as => :boolean
+      %h3 Prerequisite Topics
+      - form.inputs "Prerequisite Topics", :id => "prerequisite_topics", :class => "embedded-fields" do 
+        = form.semantic_fields_for :prerequisite_topics do |prerequisite_topic|
+          = render 'prerequisite_topic_fields', :f => prerequisite_topic
+        .links
+          = link_to_add_association 'Add Topic', form, :prerequisite_topics
     .column
       =# render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'course_instances'}
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'collections'}

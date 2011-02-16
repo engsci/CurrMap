@@ -6,12 +6,16 @@ class Course
   
   field :course_code, :type => String
   
-  attr_accessible :course_code, :name
+  attr_accessible :course_code, :name, :discontinued, :prerequisite_topics_attributes
   
   field :name, :type => String
+  field :discontinued, :type => Boolean, :default => false
   
   references_and_referenced_in_many :collections, :index => true
   references_many :course_instances, :inverse_of => :course, :index => true
+  
+  embeds_many :prerequisite_topics, :class_name => 'Topic'
+  accepts_nested_attributes_for :prerequisite_topics, :reject_if => proc { |attributes| attributes['name'].blank? }, :allow_destroy => true
   
   # VALIDATIONS
   

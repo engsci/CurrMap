@@ -18,6 +18,11 @@
       %ul
         - course.learning_objectives.each do |t|
           %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
+  - if @course.course.prerequisite_topics.length > 0
+    %h4 Prerequisite Topics
+    %ul
+    - @course.course.prerequisite_topics.each do |t|
+      %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
 .column
   %h4 Misc Info
   %ul.misc_info
