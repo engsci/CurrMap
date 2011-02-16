@@ -103,14 +103,12 @@ class CourseInstancesController < ApplicationController
   
   def destroy
     @course_instance = CourseInstance.find(params[:id])
-  end
-  
-  def add_connection
-    @course_instance = CourseInstance.find(params[:id])
+    @course = @course_instance.course
+    @course_instance.destroy
     
-  end
-  
-  def remove_connection
-    @course_instance = CourseInstance.find(params[:id])
+    respond_to do |format|
+      format.html { redirect_to(@course) }
+      format.xml  { head :ok }
+    end
   end
 end
