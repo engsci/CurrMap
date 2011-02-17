@@ -9,4 +9,12 @@ module ApplicationHelper
     type = "project" if code =~ /^PROJ\d+/
     return type
   end
+  
+  def topic_path(topic)
+    url_for(:controller => "pages", :action => "search", :query => topic.name)
+  end
+  
+  def objective_path(obj)
+    topic_path(obj)
+  end
 end

@@ -1,0 +1,8 @@
+- unless object.send(relation).empty?
+  %div(class="#{relation}")
+    %h4= relation.to_s.titleize
+    %ul
+      - object.send(relation).each do |c|
+        %li
+          = link_to c, c, (link_html if defined? link_html)
+  

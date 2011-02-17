@@ -6,23 +6,10 @@
       %h4 Calendar Description
       %p= course.calendar_description
 
-  - if course.main_topics && course.main_topics.length > 0
-    .main_topics
-      %h4 Main Topics
-      %ul
-        - course.main_topics.each do |t|
-          %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
-  - if course.learning_objectives && course.learning_objectives.length > 0
-    .learning_objectives
-      %h4 Learning Objectives
-      %ul
-        - course.learning_objectives.each do |t|
-          %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
-  - if @course.course.prerequisite_topics.length > 0
-    %h4 Prerequisite Topics
-    %ul
-    - @course.course.prerequisite_topics.each do |t|
-      %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
+  = render :partial => 'relation', :locals => {:object => @course, :relation => :main_topics, :link_html => {:rel => "facebox"}}        
+  = render :partial => 'relation', :locals => {:object => @course, :relation => :learning_objectives, :link_html => {:rel => "facebox"}}        
+  = render :partial => 'relation', :locals => {:object => @course.course, :relation => :prerequisite_topics, :link_html => {:rel => "facebox"}}
+  
 .column
   %h4 Misc Info
   %ul.misc_info
@@ -44,43 +31,9 @@
       %abbr(title="Practical") P
       =course.contact_hours.practical.to_s
       
-  - unless course.instructors.empty?
-    .instructors
-      %h4 Instructors
-      %ul
-        -course.instructors.each do |p|
-          %li
-            =link_to p.name, p
-  - unless course.resources.empty?
-    .resources
-      %h4 Resources
-      %ul
-        - course.resources.each do |r|
-          %li
-            = link_to r.name || "ISBN #{r._id}", r
-            - if r.optional
-              (optional)
-            - if r.authors
-              %ul
-                - r.authors.each do |a| 
-                  %li= a
-    
-  - unless course.collections.empty?
-    %h4 Collections
-    %ul
-      - course.collections.each do |c|
-        %li
-          = link_to c.name, c
-          
-  - unless course.prerequisite_courses.empty?
-    %h4 Prerequisite Courses
-    %ul
-    - course.prerequisite_courses.each do |c|
-      %li= link_to c, c
-
-  - unless course.postrequisite_courses.empty?
-    %h4 "Postrequisite" Courses
-    %ul
-    - course.postrequisite_courses.each do |c|
-      %li= link_to c, c
+  = render :partial => 'relation', :locals => {:object => @course, :relation => :instructors}
+  = render :partial => 'relation', :locals => {:object => @course, :relation => :resources }
+  = render :partial => 'relation', :locals => {:object => @course, :relation => :collections }
+  = render :partial => 'relation', :locals => {:object => @course, :relation => :prerequisite_courses }
+  = render :partial => 'relation', :locals => {:object => @course, :relation => :postrequisite_courses }
       
