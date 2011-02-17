@@ -14,6 +14,6 @@
             - if item.class == Course
               =link_to item, course_path(item), {:title => item.name}
             - elsif item.class == CourseInstance
-              = link_to item.short_code, course_instance_path(item.course, item), {:title => item.name}
+              = link_to item.short_code, item, {:title => item.name}
             - elsif item.respond_to?("name")
               = link_to item.name, item

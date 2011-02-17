@@ -28,7 +28,7 @@
       -unless @resource.course_instances.empty?
         %dt Courses
         - @resource.course_instances.each do |c| 
-          %dd= link_to c.name, course_instance_path(c.course, c)
+          %dd= link_to c.name, c
 
 .column
   %h2 Related Courses from MIT

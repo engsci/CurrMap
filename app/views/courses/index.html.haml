@@ -22,7 +22,7 @@
                   %h5= "Semester #{semester}"
                   - courses.sort_by{|c| c.short_code}.each do |course|
                     .course
-                      =link_to course.short_code, course_instance_path(course.course, course), {:title => course.name}
+                      =link_to course.short_code, course, {:title => course.name}
                       =course.name
   #timeline
     - years = @courses_by_year_and_semester.keys
@@ -54,4 +54,4 @@
     - @courses.sort_by{|c| [c.level,c.course_code]}.each do |c|
       %dt= link_to c, c
       - c.course_instances.each do |ci|
-        %dd= link_to ci.year_span, course_instance_path(c, ci)
+        %dd= link_to ci.year_span, ci

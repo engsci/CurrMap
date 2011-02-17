@@ -17,4 +17,12 @@ module ApplicationHelper
   def objective_path(obj)
     topic_path(obj)
   end
+  
+  def course_instance_path(course_instance)
+    return polymorphic_path([course_instance.course, course_instance])
+  end
+  
+  def course_course_instance_path(course, course_instance)
+    url_for({:controller => "course_instances", :action => "show", :id => course_instance, :course_id => course})
+  end
 end

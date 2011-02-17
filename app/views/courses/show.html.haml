@@ -5,7 +5,7 @@
       %h4 Course Instances
       %ul
       - @course.course_instances.each do |c|
-        %li= link_to c.year_span, course_instance_path(@course, c)
+        %li= link_to c.year_span, c
     - if @course.prerequisite_topics.length > 0
       %h4 Prerequisite Topics
       %ul
