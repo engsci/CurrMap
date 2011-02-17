@@ -1,19 +1,8 @@
 .collection.object
   %h1= link_to @collection.name, @collection
-  %dl
-    -if @collection.parent_collections.length > 0
-      %dt Parent Collections
-      - @collection.parent_collections.each do |c|
-        %dd= link_to c.name, c
-    -if @collection.child_collections.length > 0
-      %dt Child Collections
-      - @collection.child_collections.each do |c|
-        %dd= link_to c.name, c
-    - unless @collection.courses.empty?
-      %dt Courses
-      - @collection.courses.each do |c|
-        %dd= link_to c.course_code, c
-    - unless @collection.course_instances.empty?
-      %dt Course Instances
-      - @collection.course_instances.each do |c|
-        %dd= link_to c.course_code, c
+  .column
+    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :courses}
+    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :course_instances}
+  .column
+    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :parent_collections}
+    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :child_collections}

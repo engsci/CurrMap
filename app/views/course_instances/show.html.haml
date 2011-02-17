@@ -6,9 +6,9 @@
       %h4 Calendar Description
       %p= course.calendar_description
 
-  = render :partial => 'relation', :locals => {:object => @course, :relation => :main_topics, :link_html => {:rel => "facebox"}}        
-  = render :partial => 'relation', :locals => {:object => @course, :relation => :learning_objectives, :link_html => {:rel => "facebox"}}        
-  = render :partial => 'relation', :locals => {:object => @course.course, :relation => :prerequisite_topics, :link_html => {:rel => "facebox"}}
+  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :main_topics, :link_html => {:rel => "facebox"}}        
+  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :learning_objectives, :link_html => {:rel => "facebox"}}        
+  = render :partial => 'partials/relation', :locals => {:object => @course.course, :relation => :prerequisite_topics, :link_html => {:rel => "facebox"}}
   
 .column
   %h4 Misc Info
@@ -31,9 +31,9 @@
       %abbr(title="Practical") P
       =course.contact_hours.practical.to_s
       
-  = render :partial => 'relation', :locals => {:object => @course, :relation => :instructors}
-  = render :partial => 'relation', :locals => {:object => @course, :relation => :resources }
-  = render :partial => 'relation', :locals => {:object => @course, :relation => :collections }
-  = render :partial => 'relation', :locals => {:object => @course, :relation => :prerequisite_courses }
-  = render :partial => 'relation', :locals => {:object => @course, :relation => :postrequisite_courses }
+  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :instructors}
+  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :resources }
+  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :collections }
+  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :prerequisite_courses }
+  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :postrequisite_courses }
       

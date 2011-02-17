@@ -1,21 +1,21 @@
 .resource.object
   %h1= link_to @resource.name, resource_path(@resource)
-  %dl
-    - if @resource.authors
-      %dt Authors
-      - @resource.authors.each do |a| 
-        %dd= a
+  .column
+    %dl
+      - if @resource.authors
+        %dt Authors
+        - @resource.authors.each do |a| 
+          %dd= a
 
-    - %w(publisher type isbn edition).each do |f|
-      - if @resource.send(f)
-        %dt= f.capitalize
-        %dd= @resource.send(f)
+      - %w(publisher type isbn edition).each do |f|
+        - if @resource.send(f)
+          %dt= f.capitalize
+          %dd= @resource.send(f)
 
-    -if @resource.course_instances
-      %dt Courses
-      - @resource.course_instances.each do |c| 
-        %dd= link_to c, course_instance_path(c.course, c)
-
+  .column
+    = render :partial => 'partials/relation', :locals => {:object => @resource, :relation => :course_instances}
+    
+    
     -#unless @resource.amazon_info.empty?
       %dt Find it on Amazon.ca
       - small_icon = @resource.amazon_info.images.small

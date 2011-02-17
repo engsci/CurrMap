@@ -1,32 +1,13 @@
 .object
   .column
     = "Course Discontinued" if @course.discontinued
-    - if @course.course_instances.length > 0
-      %h4 Course Instances
-      %ul
-      - @course.course_instances.each do |c|
-        %li= link_to c.year_span, c
-    - if @course.prerequisite_topics.length > 0
-      %h4 Prerequisite Topics
-      %ul
-      - @course.prerequisite_topics.each do |t|
-        %li= link_to t, {:controller => "pages", :action => "search", :query => t.name}, {:rel => "facebox"}
+
+    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :course_instances}
+    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :prerequisite_courses, :link_html => {:rel => "facebox"}}
       
   .column
-    - if @course.collections.length > 0
-      %h4 Collections
-      %ul
-      - @course.collections.each do |c|
-        %li= link_to c, c
-    - if @course.prerequisite_courses.length > 0
-      %h4 Prerequisite Courses
-      %ul
-      - @course.prerequisite_courses.each do |c|
-        %li= link_to c, c
-        - if @course.prerequisite_courses.length > 0
-    - if @course.postrequisite_courses.length > 0
-      %h4 "Postrequisite" Courses
-      %ul
-      - @course.postrequisite_courses.each do |c|
-        %li= link_to c, c
+    = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :collections}
+    = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :prerequisite_courses}
+    = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :postrequisite_courses}
+
   
