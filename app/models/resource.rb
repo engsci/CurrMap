@@ -1,7 +1,8 @@
 class Resource
   include Mongoid::Document
   include SexyRelations
-
+  include Sunspot::Mongoid
+  
   attr_accessible :name, :optional
   
   field :name, :type => String
@@ -48,17 +49,9 @@ class Resource
     end
   end
   
-  if false
-    include Sunspot::Mongoid
-    searchable do
-      text :publisher
-      text :name
-      text :authors do 
-        self.authors ? self.authors.join(" ") : nil
-      end
-      text :isbn
-    end  
-  end
+  searchable do
+    text :name
+  end  
   
 end
 
@@ -73,6 +66,15 @@ class Textbook < Resource
   
   embeds_many :authors
   accepts_nested_attributes_for :authors, :reject_if => proc { |attributes| attributes['name'].blank? }, :allow_destroy => true
+  
+  searchable do
+    text :name
+    text :publisher
+    text :authors do 
+      self.authors ? self.authors.join(" ") : nil
+    end
+  end
+  
 end
 
 # EMBEDDED

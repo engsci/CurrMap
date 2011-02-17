@@ -61,27 +61,7 @@ class OldCourseStuff
   end
 
   # SEARCH
-  include Sunspot::Mongoid
-  searchable do
-    text :name
-    text :calendar_description
-    text :course_code
-    text :short_code do
-      course_code[0,6]
-    end
-    text :department do
-      course_code[0,3]
-    end
-    text :collections do
-      collections.map(&:name).join(" ")
-    end
-    text :activities do
-      self["activities"] ? self["activities"].map {|a| a[1]["outcomes"].keys.join(" ")} : ""
-    end
-    text :main_topics do
-      self["main_topics"] ? self["main_topics"].join(" ") : ""
-    end
-  end
+  
 end if false
 
 if false

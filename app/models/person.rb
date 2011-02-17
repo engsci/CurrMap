@@ -1,6 +1,7 @@
 class Person
   include Mongoid::Document
   include SexyRelations
+  include Sunspot::Mongoid
   
   before_save :slugify
   
@@ -29,16 +30,9 @@ class Person
     end
   end
   
-  if false
-    include Sunspot::Mongoid
-    searchable do
-      text :name
-      text :course_descriptions do
-        self.courses.map(&:calendar_description).join(" ")
-      end
-      text :course_names do 
-        self.courses.map(&:name).join(" ")
-      end
+  searchable do
+    text :name do 
+      self.name
     end
   end
   
@@ -60,11 +54,25 @@ class Instructor < Person
   field :phone, :type => String
   field :website, :type => String
   field :email, :type => String
-
   
   references_and_referenced_in_many :course_instances, :index => true
   
   def years_taught
     self.course_instances.map{|x| x.delivered_year}.uniq.sort
+  end
+  
+  # SEARCH
+  
+  searchable do
+    #TODO: name shouldn't have to be here, but sunspot is inherited crappily
+    text :name do 
+      self.name
+    end
+    text :course_descriptions do
+      self.course_instances.map(&:calendar_description).join(" ")
+    end
+    text :course_names do 
+      self.course_instances.map(&:name).join(" ")
+    end
   end
 end

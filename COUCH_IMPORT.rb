@@ -180,20 +180,14 @@ end
 
 # INDEX
 
-if false
-
   puts "CLEARING SOLR INDEX"
-  Person.remove_all_from_index
-  Resource.remove_all_from_index
-  Course.remove_all_from_index
-  Collection.remove_all_from_index
+  Sunspot.remove_all
 
   puts "CREATING SOLR INDEX"
-  Sunspot.index(Person.all)
+  Sunspot.index(Instructor.all)
   Sunspot.index(Resource.all)
-  Sunspot.index(Course.all)
+  Sunspot.index(CourseInstance.all)
   Sunspot.index(Collection.all)
 
   puts "COMMITTING SOLR INDEX"
   Sunspot.commit
-end

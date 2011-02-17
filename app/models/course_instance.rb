@@ -1,6 +1,7 @@
 class CourseInstance
   include Mongoid::Document
   include SexyRelations
+  include Sunspot::Mongoid
   
   key :course_code, :delivered_year
   
@@ -93,6 +94,30 @@ class CourseInstance
       return results.map {|x| {"label" => x.to_s, "id" => x._id, "value"=> x.to_s}}
     else
       return []
+    end
+  end
+  
+  searchable do
+    text :name
+    text :calendar_description
+    text :course_code
+    text :short_code do
+      course_code[0,6]
+    end
+    text :department do
+      course_code[0,3]
+    end
+    text :collections do
+      collections.map(&:name).join(" ")
+    end
+    text :activities do
+      activities.map{|a| a.topics.join(" ")}.join(" ")
+    end
+    text :main_topics do
+      main_topics.join(" ")
+    end
+    text :learning_objectives do
+      learning_objectives.join(" ")
     end
   end
 

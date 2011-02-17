@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   def search
     @query = params[:query]
     
-    search = Sunspot.search(Course, Resource, Person, Collection) do |query|
+    search = Sunspot.search(CourseInstance, Textbook, Instructor, Collection) do |query|
       query.keywords(@query) do
         boost_fields :name => 2
         phrase_fields :name => 2
@@ -17,9 +17,9 @@ class PagesController < ApplicationController
       query.paginate(:page => 1, :per_page => 50)
     end
     @results = search.results
-    @resources = @results.select {|i| i.class == Resource }
+    @resources = @results.select {|i| i.class == Textbook }
     @people = @results.select {|i| i.class.ancestors.include? Person }
-    @courses = @results.select {|i| i.class == Course } 
+    @courses = @results.select {|i| i.class == CourseInstance } 
     @collections = @results.select {|i| i.class == Collection }
     @enable_all = false
     

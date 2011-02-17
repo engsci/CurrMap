@@ -55,9 +55,9 @@
     %ul
       - @courses.inject({}) {|result, c| result.merge({c.short_code => c})}.invert.sort_by{|c| c[1]}.each do |course, ignore|
         %li
-          = link_to course.name, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}
+          = link_to course.name, {:controller => :course_instances, :action => :show, :id => course, :course_id => course.course, :query => params[:query]}
           .author
-            = link_to course.short_code, {:controller => :courses, :action => :show, :id => course.short_code, :query => params[:query]}
+            = link_to course.short_code, {:controller => :course_instances, :action => :show, :id => course, :course_id => course.course, :query => params[:query]}
       -# %li.more= link_to "More"
 -if @resources && @resources.length > 0
   #resources.facet

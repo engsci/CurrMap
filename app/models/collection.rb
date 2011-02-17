@@ -1,6 +1,7 @@
 class Collection
   include Mongoid::Document
   include SexyRelations
+  include Sunspot::Mongoid
   
   attr_accessible :name
   
@@ -35,15 +36,10 @@ class Collection
     end
   end
   
-  if false
-    include Sunspot::Mongoid
-    searchable do
-      text :name do
-        id
-      end
-      text :course_names do 
-        self.courses.map(&:name).join(" ")
-      end
+  searchable do
+    text :name
+    text :course_names do 
+      self.courses.join(" ") + self.course_instances.map(&:name).join(" ")
     end
   end
   

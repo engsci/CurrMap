@@ -14,7 +14,7 @@ gem 'formtastic', :git => "http://github.com/rafd/formtastic.git"
 gem 'cocoon', :git => "http://github.com/rafd/cocoon.git"
 
 # SEARCH 
-gem 'sunspot_rails', '1.2.1' 
+gem 'sunspot_rails', :git => "http://github.com/rafd/sunspot.git"
 gem 'sunspot_mongoid', :git => "http://github.com/rafd/sunspot_mongoid.git"
 gem 'nokogiri', '1.4.2'
 
