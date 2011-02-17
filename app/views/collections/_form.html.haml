@@ -6,6 +6,8 @@
     .column
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @collection, :relation => 'course_instances'}
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @collection, :relation => 'courses'}
+      = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @collection, :relation => 'parent_collections'}
+      = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @collection, :relation => 'child_collections'}
       
   - form.buttons do
     = form.commit_button
