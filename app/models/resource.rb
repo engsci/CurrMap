@@ -1,7 +1,7 @@
 class Resource
   include Mongoid::Document
   include SexyRelations
-
+  
   attr_accessible :name, :optional
   
   field :name, :type => String
@@ -17,24 +17,8 @@ class Resource
     name
   end
   
-  def amazon_info
-    r_info = nil
-    
-    unless isbn.nil?
-      amz_search = ASIN.client
-      amz_response  = amz_search.lookup(isbn, {:IdType=>'ISBN', :SearchIndex=>'Books', :ResponseGroup=>'Reviews,Images,ItemAttributes'})
-      #Build a Hashie object to return
-      unless amz_response.raw.DetailPageURL.nil?
-        r_info = Hashie::Mash.new
-        r_info.URL = amz_response.raw.DetailPageURL
-        r_info.attributes = amz_response.raw.ItemAttributes
-        r_info.images!.small = amz_response.raw.SmallImage
-        r_info.images!.medium = amz_response.raw.MediumImage
-        r_info.images!.large = amz_response.raw.LargeImage
-        return r_info
-      end
-    end
-  end
+  
+ 
 
   
   # SEARCH
@@ -65,7 +49,8 @@ end
 # TYPES
 
 class Textbook < Resource  
-  attr_accessible :isbn, :edition, :publisher, :authors_attributes
+
+  attr_accessible :isbn, :edition, :publisher, :authors_attributes, :amazon_info
   
   field :isbn, :type => String
   field :edition, :type => String
@@ -73,8 +58,40 @@ class Textbook < Resource
   
   embeds_many :authors
   accepts_nested_attributes_for :authors, :reject_if => proc { |attributes| attributes['name'].blank? }, :allow_destroy => true
-end
+  
+  def amazon_info
+    require 'amazon/ecs'
+    require 'hashie'
+    
+    Amazon::Ecs.configure do |options|
+        options[:aWS_access_key_id] = 'AKIAILOZ2RM5V4SATVZQ'
+        options[:aWS_secret_key] = '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'
+    end
+    
 
+    
+    r_info = self.isbn   
+    unless self.isbn.nil?
+      r_info = amzq = Amazon::Ecs.item_search(self.isbn, {:ResponseGroup=>'Reviews,Images,ItemAttributes'})
+      tbook = amzq.first_item
+      #Build a Hashie object to return
+      unless tbook.nil?
+        r_info = Hashie::Mash.new
+        r_info.URL = tbook.get('detailpageurl')
+        r_info.attributes = Hashie::Mash.new(tbook.get_hash('itemattributes'))
+        r_info.attributes!.formattedprice = tbook.get('itemattributes/listprice/formattedprice')
+        r_info.images!.small = Hashie::Mash.new(tbook.get_hash('smallimage'))
+        r_info.images!.medium = Hashie::Mash.new(tbook.get_hash('mediumimage'))
+        r_info.images!.large = Hashie::Mash.new(tbook.get_hash('largeimage'))
+        return r_info
+      end
+    end
+    
+    r_info
+ 
+  
+  end
+end
 # EMBEDDED
 
 class Author

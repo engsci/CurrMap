@@ -32,7 +32,9 @@ gem 'ruby_parser'
 gem 'hassle', :git => 'git://github.com/koppen/hassle.git'
 
 # APIs
-gem 'asin', :git => 'git://github.com/phoet/asin.git'
+#gem 'asin', :git => 'git://github.com/phoet/asin.git'
+gem 'amazon-ecs'
+gem 'hashie'
 gem 'httpclient'
 
 

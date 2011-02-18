@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
     '%' + $1.unpack('H2' * $1.size).join('%').upcase
     end.tr(' ', '+')
   end
+  
+
 
   protect_from_forgery
   layout 'application'

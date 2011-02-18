@@ -1,39 +1,44 @@
 .column
+  = h @resource
   %h2 Textbook
-  .resource.object
-    %h3= link_to @resource.name, @resource
-    %dl
-      
-      - if @resource.authors
-        %dt Authors
-        - @resource.authors.each do |a| 
-          %dd= a
+  - if @resource.nil?
+    No textbook found for this course.
+  - else
+    .resource.object
+      %h3= link_to @resource.name, @resource
+      %dl
+        
+        - if @resource.authors
+          %dt Authors
+          - @resource.authors.each do |a| 
+            %dd= a
 
-      - %w(publisher type isbn edition).each do |f|
-        - if @resource.send(f)
-          %dt= f.capitalize
-          %dd= @resource.send(f)
-      -#unless @resource.amazon_info.empty?
-        %dt Amazon.ca Information
-        #amazon_info{:style=>'background:#dfebf9;padding:4px; height: 85px;  -moz-border-radius: 0.5em; border-radius: 0.5em;'}
-          - small_icon = @resource.amazon_info.images.small
-          - large_icon = @resource.amazon_info.images.medium
-          %table
-            %tr
-              %td
-                %img{:src=>"#{small_icon.URL}", :width=>"#{small_icon.Width}px", :height=>"#{small_icon.Height}px", :class=>"resource_icon", :rel=>"#{large_icon.URL + '##' + large_icon.Width}"}/
-              %td 
-                %dd=link_to @resource.amazon_info.attributes.Title, @resource.amazon_info.URL, {:class=>'resource_icon', :rel=>(large_icon.URL + '##' + large_icon.Width)}
-                %dd #{"Listed Price:" + @resource.amazon_info.attributes.ListPrice.FormattedPrice unless @resource.amazon_info.attributes.ListPrice.empty?}
-      -unless @resource.course_instances.empty?
-        %dt Courses
-        - @resource.course_instances.each do |c| 
-          %dd= link_to c.name, c
+        - %w(publisher type isbn edition).each do |f|
+          - if @resource.send(f)
+            %dt= f.capitalize
+            %dd= @resource.send(f)
+        -unless @resource.amazon_info.empty?
+          %dt Amazon.ca Information
+          #amazon_info{:style=>'background:#dfebf9;padding:4px; height: 85px;  -moz-border-radius: 0.5em; border-radius: 0.5em;'}
+            - small_icon = @resource.amazon_info.images.small
+            - large_icon = @resource.amazon_info.images.medium
+            %table
+              %tr
+                %td
+                  %img{:src=>"#{small_icon.url}", :width=>"#{small_icon.width}px", :height=>"#{small_icon.height}px", :class=>"resource_icon", :rel=>"#{large_icon.url + '##' + large_icon.width}"}/
+                %td 
+                  %dd=link_to @resource.amazon_info.attributes.title, @resource.amazon_info.url, {:class=>'resource_icon', :rel=>(large_icon.url + '##' + large_icon.width)}
+                  %dd #{"Listed Price:" + @resource.amazon_info.attributes.formattedprice unless @resource.amazon_info.attributes.formattedprice.empty?}
+        -unless @resource.course_instances.empty?
+          %dt Courses
+          - @resource.course_instances.each do |c| 
+            %dd= link_to c.name, c
 
 .column
   %h2 Related Courses from MIT
-  -(1..3).each do |i|
-    -unless @related_courses[i.to_s]["Title"].nil?
-      %h4{:style=>'padding-top:0px;'}= link_to @related_courses[i.to_s]["Title"], @related_courses[i.to_s]["CourseURL"], :class=>:ocw_link, :rel=>@related_courses[i.to_s]["Description"]
-      %p= @related_courses[i.to_s]["Description"][0..150] + '...'
-        
+  -if not @related_courses.empty? 
+    -(1..3).each do |num|
+      %h4{:style=>'padding-top:0px;'}= link_to @related_courses[num.to_s]["Title"], @related_courses[num.to_s]["CourseURL"], :class=>:ocw_link, :rel=>@related_courses[num.to_s]["Description"]
+      %p= @related_courses[num.to_s]["Description"][0..150] + '...'
+  -else
+    %p None Found.    

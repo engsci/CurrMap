@@ -32,7 +32,13 @@ class CourseInstancesController < ApplicationController
   def resources
     @course = CourseInstance.find(params[:id])
     
-    @resource = Resource.skip(rand(20))[0]  
+    if @course.resources.length > 0
+        @course.resources.each do |resource|
+            @resource = resource
+            break
+        end
+    end
+    
     require 'net/http'
     require 'json'
     require 'uri'
@@ -42,13 +48,16 @@ class CourseInstancesController < ApplicationController
     #Mandatory "About Us" url parameter
     our_url = "http%3a%2f%2fcurrmap.heroku.com"
 
-    ocw_search = URI.escape(@course.name)
-    ocw_url = "http://www.ocwsearch.com/api/v1/search.json?q=" + ocw_search + "&contact=" + our_url
+    #Take only the first three words of the course title for the search terms
+    ocw_search = URI.escape(@course.name.split(' ')[0..2].join(" "))
+    @ocw_url = "http://www.ocwsearch.com/api/v1/search.json?q=" + ocw_search + "&contact=" + our_url
 
-    result = Net::HTTP.get(URI.parse(ocw_url))
+    result = Net::HTTP.get(URI.parse(@ocw_url))
     ocw = JSON.parse(result)
+    @related_courses = ocw["Results"]
 
-    @related_courses = ocw["Results"]  
+      
+  
   end
   
   def evaluations
