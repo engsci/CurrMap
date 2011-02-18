@@ -6,7 +6,7 @@ $(document).ready(
         return;
       }
 
-      var formContainer = $('add-tok-form', node.parentElement.parentElement);
+      var formContainer = $('.add-tok-form', node.parentElement.parentElement);
       var anchor = document.createElement('a');
       $(anchor).attr({href: '#'});
       $(anchor).click(function(evt) {
