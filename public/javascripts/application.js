@@ -101,7 +101,7 @@ $(document).ready(function() {
   
   $(".add_relation_search").relation_add();
   
-  /*$(".resource_icon").each(function(){
+  $(".resource_icon").each(function(){
     // Create image content using websnapr thumbnail service
     var obj = $(this);
     var content = '<div style="display:block"><img src="';
@@ -118,10 +118,10 @@ $(document).ready(function() {
       },
       style: {
         tip: true, // Give it a speech bubble tip with automatic corner detection
-        name: 'cream'//,
+        name: 'cream',//,
         width: obj.data('model') + 22
       }
     });
-  });*/
+  });
 
 });
