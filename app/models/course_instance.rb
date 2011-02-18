@@ -119,6 +119,9 @@ class CourseInstance
     text :learning_objectives do
       learning_objectives.join(" ")
     end
+    text :prerequisite_topics do
+      self.course.prerequisite_topics.join(" ")
+    end
   end
 
 end
