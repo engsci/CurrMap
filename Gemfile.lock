@@ -79,6 +79,8 @@ GEM
     bson_ext (1.2.0)
     builder (2.1.2)
     cancan (1.5.1)
+    carrierwave (0.5.2)
+      activesupport (~> 3.0)
     colorize (0.5.8)
     compass (0.10.6)
       haml (>= 3.0.4)
@@ -224,6 +226,7 @@ DEPENDENCIES
   amazon-ecs
   bson_ext (= 1.2.0)
   cancan (= 1.5.1)
+  carrierwave
   cocoon!
   compass (>= 0.10.2)
   devise (= 1.1.2)

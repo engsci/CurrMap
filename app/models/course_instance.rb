@@ -30,6 +30,8 @@ class CourseInstance
   embeds_one :contact_hours, :class_name => 'ContactHours'
   accepts_nested_attributes_for :contact_hours
   
+  embeds_many :documents
+  
   # RELATIONAL
   
   references_and_referenced_in_many :resources, :index => true

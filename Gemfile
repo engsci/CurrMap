@@ -36,6 +36,9 @@ gem 'amazon-ecs'
 gem 'hashie'
 gem 'httpclient'
 
+# FILES
+gem 'carrierwave'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
