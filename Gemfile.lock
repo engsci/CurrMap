@@ -41,18 +41,6 @@ GIT
       i18n (~> 0.4)
 
 GIT
-  remote: http://github.com/rafd/sunspot.git
-  revision: 1e5e38400829b742d5b660bfd9359c38d3c7b77d
-  specs:
-    sunspot (1.2.1)
-      escape (= 0.0.4)
-      pr_geohash (~> 1.0)
-      rsolr (= 0.12.1)
-    sunspot_rails (1.2.1)
-      nokogiri
-      sunspot (= 1.2.1)
-
-GIT
   remote: http://github.com/rafd/sunspot_mongoid.git
   revision: b315b7abb8fa03cd1c3373daa69919cdac154c87
   specs:
@@ -137,7 +125,7 @@ GEM
       rake
     mongo (1.2.0)
       bson (>= 1.2.0)
-    nokogiri (1.4.2)
+    nokogiri (1.4.4)
     polyglot (0.3.1)
     pr_geohash (1.0.0)
     rack (1.2.1)
@@ -219,6 +207,13 @@ GEM
     sugar-high (0.3.5)
       mocha (>= 0.9.8)
       require_all (~> 1.2.0)
+    sunspot (1.2.1)
+      escape (= 0.0.4)
+      pr_geohash (~> 1.0)
+      rsolr (= 0.12.1)
+    sunspot_rails (1.2.1)
+      nokogiri
+      sunspot (= 1.2.1)
     thor (0.14.6)
     thrift (0.5.0)
     thrift_client (0.6.0)
@@ -248,11 +243,11 @@ DEPENDENCIES
   json
   mongo (>= 1.2.0)
   mongoid!
-  nokogiri (= 1.4.2)
+  nokogiri (= 1.4.4)
   rails (= 3.0.3)
   rails3-generators
   roles_generic (>= 0.3.7)
   roles_mongoid (>= 0.4.5)
   ruby_parser
   sunspot_mongoid!
-  sunspot_rails!
+  sunspot_rails

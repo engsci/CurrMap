@@ -47,3 +47,38 @@ module SexyRelations
   end
   
 end
+
+module Sunspot
+  module Rails
+    module Searchable
+      module ActsAsMethods
+        def searchable(options = {}, &block)
+          Sunspot.setup(self, &block)
+
+          if self.respond_to?(:sunspot_options) && sunspot_options
+            sunspot_options[:include].concat(Util::Array(options[:include]))
+          else
+            extend ClassMethods
+            include InstanceMethods
+
+            class_inheritable_hash :sunspot_options
+
+            unless options[:auto_index] == false
+              before_save :maybe_mark_for_auto_indexing
+              after_save :maybe_auto_index
+            end
+
+            unless options[:auto_remove] == false
+              after_destroy do |searchable|
+                searchable.remove_from_index
+              end
+            end
+            options[:include] = Util::Array(options[:include])
+
+            self.sunspot_options = options
+          end
+        end
+      end
+    end
+  end
+end
