@@ -43,7 +43,7 @@ class Course
       results = term.length > 1 ? (Course.where(:name => /#{term}/i) + Course.where(:_id => /#{term}/i)).uniq  : (Course.where(:name => /^#{term}/i) + Course.where(:_id => /^#{term}/i)).uniq
       return results.map {|x| {"label" => x.to_s, "id" => x._id, "value"=> x.to_s}}
     else
-      return ["hi"]
+      return []
     end
   end
   

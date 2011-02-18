@@ -3,23 +3,9 @@
   - if @course.resources.empty?
     No textbooks found for this course.
   - else
-    %ul
+    %ul.resources
       - @course.resources.each do |resource|
-        %li
-          -unless resource.amazon_info.empty?
-            #amazon_info{:style=>'background:#dfebf9;padding:4px; height: 85px;  -moz-border-radius: 0.5em; border-radius: 0.5em;'}
-              - small_icon = resource.amazon_info.images.small
-              - large_icon = resource.amazon_info.images.medium
-              %img{:src=>"#{small_icon.url}", :width=>"#{small_icon.width}px", :height=>"#{small_icon.height}px", :class=>"resource_icon", :rel=>"#{large_icon.url + '##' + large_icon.width}"}/
-              %h5= link_to resource.amazon_info.attributes.title, resource
-              = resource.authors.join(", ")
-              - unless resource.amazon_info.attributes.formattedprice.empty?
-                = link_to "#{resource.amazon_info.attributes.formattedprice} at Amazon", resource.amazon_info.URL
-              - else
-                = link_to "See it on Amazon", resource.amazon_info.URL
-          -else
-            %h5= link_to resource, resource
-            = resource.authors.join(", ")
+        %li= render :partial => 'resources/embed', :locals => {:resource => resource}
 .column
   %h4 Related Courses from MIT
   -if not @related_courses.empty? 
