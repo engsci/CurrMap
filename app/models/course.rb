@@ -13,7 +13,7 @@ class Course
   field :discontinued, :type => Boolean, :default => false
   
   references_and_referenced_in_many :collections, :index => true
-  references_many :course_instances, :inverse_of => :course, :index => true
+  references_many :course_instances, :inverse_of => :course, :index => true, :dependent => :delete
   
   references_and_referenced_in_many :prerequisite_courses, :inverse_of => :postrequisite_courses, :class_name => 'Course'
   references_and_referenced_in_many :postrequisite_courses, :inverse_of => :prerequisite_courses, :class_name => 'Course'
