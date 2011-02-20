@@ -12,7 +12,8 @@ class ConnectionError < RuntimeError
 end
 
 class Term
-  attr_reader :name, :relns, :id, :synonyms, :subtopics, :preferred, :supertopics
+  attr_reader :name, :relns, :id, :synonyms, :subtopics, :preferred,
+    :supertopics, :path
   attr_reader :error_messages
 
   def initialize(info = {})
@@ -23,6 +24,7 @@ class Term
   def from_hash(hash)
     @id          = hash['id']          || hash[:id]          || 0
     @name        = hash['name']        || hash[:name]
+    @path        = hash['path']        || hash[:path]
     @relns       = hash['relns']       || hash[:relns]
     @synonyms    = hash['synonyms']    || hash[:synonyms]
     @preferred   = hash['preferred']   || hash[:preferred]
