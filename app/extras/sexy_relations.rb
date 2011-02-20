@@ -48,6 +48,8 @@ module SexyRelations
   
 end
 
+# Monkey Patching broken libraries
+
 module Sunspot
   module Rails
     module Searchable
@@ -55,6 +57,7 @@ module Sunspot
         def searchable(options = {}, &block)
           Sunspot.setup(self, &block)
 
+          # changed this line to check whether searchable using sunspot_options not the searchable? flag
           if self.respond_to?(:sunspot_options) && sunspot_options
             sunspot_options[:include].concat(Util::Array(options[:include]))
           else
