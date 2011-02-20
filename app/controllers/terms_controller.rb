@@ -41,6 +41,10 @@ class TermsController < ApplicationController
   end
 
   def edit
+    @term = Term.find(params[:id].to_i)
+    respond_to do |format|
+      format.html
+    end
   end
 
   def update
