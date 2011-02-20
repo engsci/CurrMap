@@ -51,7 +51,7 @@
                     = link_to course, {:controller => :courses, :action => :show, :id => course}
   #all
     %dl
-    - @courses.sort_by{|c| [c.level,c.course_code]}.each do |c|
-      %dt= link_to c, c
-      - c.course_instances.each do |ci|
-        %dd= link_to ci.year_span, ci
+      - @courses.sort_by{|c| [c.level,c.course_code]}.each do |c|
+        %dt= link_to c, c
+        - c.course_instances.each do |ci|
+          %dd= link_to ci.year_span, ci
