@@ -73,17 +73,28 @@ class CourseInstance
     self.course.postrequisite_courses
   end
   
-  def collated_activities
-    collated_activities = {}
+  def activities_by_week_and_type
+    activities_by_week_and_type = {}
     self.activities.each do |a|
-      collated_activities[a.week || 0] ||= {"lectures" => [], "other" => []}
-      if a.class == Lecture
-        collated_activities[a.week || 0]["lectures"] << a
-      else
-        collated_activities[a.week || 0]["other"] << a
+      if a.week
+        activities_by_week_and_type[a.week] ||= {"lectures" => [], "other" => []}
+        if a.class == Lecture
+          activities_by_week_and_type[a.week]["lectures"] << a
+        else
+          activities_by_week_and_type[a.week]["other"] << a
+        end
       end
     end
-    return collated_activities
+    return activities_by_week_and_type
+  end
+  
+  def activities_by_type
+    activities_by_type = {}
+    self.activities.each do |a|
+      activities_by_type[a.class.to_s] ||= [] 
+      activities_by_type[a.class.to_s] << a
+    end
+    return activities_by_type
   end
 
   # SEARCH
