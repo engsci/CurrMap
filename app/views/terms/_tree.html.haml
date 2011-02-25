@@ -1,5 +1,6 @@
 - full ||= nil
 - query ||= nil
+- maxdepth ||= nil
 
 - show_text = Proc.new do |knol, path|
   %p
@@ -20,16 +21,20 @@
   - if !rels.empty?
     %p= rels.inspect
 
-- display_subs = Proc.new do |knol,path|
+- display_subs = Proc.new do |knol,path,depth|
   %dd
     %dl
       %dt
         - show_text.call(knol, path)
       - if knol.subtopics.empty?
         %dd
+      - elsif maxdepth and depth >= maxdepth
+        %dd
+          %dl
+            %dt ...
       - else
         - knol.subtopics.each do |k|
-          - display_subs.call(k, [path, knol.name].join('/'))
+          - display_subs.call(k, [path, knol.name].join('/'), depth+1)
 
 %dl
   - root.supertopics.each do |parent|
@@ -52,4 +57,4 @@
         - else
           - show_text.call(root, '/')
       - root.subtopics.each do |knol|
-        - display_subs.call(knol, '/' + root.name)
+        - display_subs.call(knol, '/' + root.name, 0)
