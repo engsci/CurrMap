@@ -91,6 +91,17 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
+    excon (0.5.6)
+    fog (0.5.3)
+      builder
+      excon (>= 0.5.2)
+      formatador (>= 0.0.16)
+      json
+      mime-types
+      net-ssh (>= 2.0.23)
+      nokogiri (>= 1.4.4)
+      ruby-hmac
+    formatador (0.0.16)
     haml (3.0.22)
     hashie (1.0.0)
     hpricot (0.8.3)
@@ -118,6 +129,7 @@ GEM
       rake
     mongo (1.2.0)
       bson (>= 1.2.0)
+    net-ssh (2.1.0)
     nokogiri (1.4.4)
     polyglot (0.3.1)
     pr_geohash (1.0.0)
@@ -230,6 +242,7 @@ DEPENDENCIES
   cocoon!
   compass (>= 0.10.2)
   devise (= 1.1.2)
+  fog
   formtastic!
   haml (= 3.0.22)
   hashie

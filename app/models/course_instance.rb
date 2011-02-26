@@ -30,7 +30,7 @@ class CourseInstance
   embeds_one :contact_hours, :class_name => 'ContactHours'
   accepts_nested_attributes_for :contact_hours
   
-  embeds_many :documents
+  references_and_referenced_in_many :documents
   
   # RELATIONAL
   
@@ -133,7 +133,7 @@ class CourseInstance
       learning_objectives.join(" ")
     end
     text :prerequisite_topics do
-      self.course.prerequisite_topics.join(" ")
+      self.course.prerequisite_topics.join(" ") if self.course
     end
   end
 

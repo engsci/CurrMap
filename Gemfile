@@ -37,6 +37,7 @@ gem 'hashie'
 gem 'httpclient'
 
 # FILES
+gem 'fog'
 gem 'carrierwave'
 
 
