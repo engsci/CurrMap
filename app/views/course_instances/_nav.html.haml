@@ -1,4 +1,4 @@
--if action_name != 'new'
+-unless ['new', 'create'].include? action_name
   %ul.nav
     %li= link_to 'Overview', {:action => 'show'}, :class => "#{"active" if action_name ==  'show'}"
     %li= link_to "Syllabus", {:action => 'syllabus'}, :class => "#{"active" if action_name ==  'syllabus'}"

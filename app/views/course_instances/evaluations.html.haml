@@ -1,3 +1,19 @@
-subset of activities list, including only evaluations (midterms/exams)
+- #evaluations = course.activities.select{|a| a.class.ancestors.include?(Assignment)}.sort_by{|a| a.number}
+                
+- unless @course.activities.empty?
+  .activities
+    - week = 0
+    - @course.activities_by_type.select{|k,v| k.constantize.ancestors.include?(Assignment)}.each do |type, activities|
+      .week.no-others
+        %h4= type.pluralize.underscore.humanize.titlecase
+        .lectures
+          - activities.sort_by{|a| a.number}.each do |a|
+            - type = a.class.to_s
+            .activity.lecture(title="Lecture #{a.number}")
+              %h5= "#{type.underscore.humanize.titlecase} #{a.number}"
+              .outcomes
+                - a.topics.each do |o|
+                  = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
+-#subset of activities list, including only evaluations (midterms/exams)
 
-downloads of tests + exams + solutions
+-#downloads of tests + exams + solutions

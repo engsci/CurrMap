@@ -1,9 +1,10 @@
 .object
   .column
     = "Course Discontinued" if @course.discontinued
-
-    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :course_instances}
-    = render :partial => 'partials/relation', :locals => {:object => @collection, :relation => :prerequisite_courses, :link_html => {:rel => "facebox"}}
+   
+    = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :prerequisite_topics, :link_html => {:rel => "facebox"}}
+    = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :course_instances}
+    = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :prerequisite_courses, :link_html => {:rel => "facebox"}}
       
   .column
     = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :collections}

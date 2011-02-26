@@ -40,9 +40,9 @@ class CoursesController < ApplicationController
     
     respond_to do |format|
       format.html {
-        if @course.respond_to?('course_instances') && @course.course_instances.length > 0
-          redirect_to @course.course_instances.sort_by {|c| c.delivered_year }.reverse[0]
-        end
+        #if @course.respond_to?('course_instances') && @course.course_instances.length > 0
+        #  redirect_to @course.course_instances.sort_by {|c| c.delivered_year }.reverse[0]
+        #end
       }
     end
   end

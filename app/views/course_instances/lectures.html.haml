@@ -2,7 +2,7 @@
 - if course.respond_to?(:activities) && course.activities
   .activities
     - week = 0
-    -course.collated_activities.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week, activities|
+    -course.activities_by_week_and_type.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week, activities|
       .week(class="#{"no-others" if activities["other"].length == 0}")
         %h4= "Week #{week}"
         .lectures

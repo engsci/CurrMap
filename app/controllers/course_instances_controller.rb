@@ -74,7 +74,7 @@ class CourseInstancesController < ApplicationController
     
     respond_to do |format|
       if @course.save && @course.update_relations(params[:course_instance])
-        format.html { redirect_to(@course, :notice => 'Course Instance was successfully created.') }
+        format.html { redirect_to(@course.course, :notice => 'Course Instance was successfully created.') }
         format.xml  { render :xml => @course, :status => :created, :location => @course }
       else
         format.html { render :action => "new" }

@@ -71,7 +71,7 @@
       %h3 Activities
       .activities
         - week = 0
-        -course.collated_activities.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week|
+        -course.activities_by_week_and_type.sort{|a,b| (a[0] || 1.0/0) <=> (b[0] || 1.0/0) }.each do |week|
           .week(class="#{"no-others" if week[1]["other"].length == 0}")
             %h4= "Week #{week[0]}"
             .lectures
