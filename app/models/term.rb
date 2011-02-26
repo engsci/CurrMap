@@ -93,6 +93,10 @@ class Term
       end
     end
 
+    def search query
+      get_resource "Search/#{query}", :fuzzy => true
+    end
+
     def root
       Term.new(get_resource 'Knowledge')
     end
@@ -122,20 +126,24 @@ class Term
       URI.parse("http://#{ENV['TOK_HOST']}:#{ENV['TOK_PORT']}/#{path}")
     end
 
-    def get_resource(path)
+    def get_resource(path, params=nil)
       uri = get_uri(path)
-      req = Net::HTTP::Get.new(uri.path)
+      path = uri.path
+      if params
+        path << "?" << params.map {|k,v| "#{k}=#{v}"}.join('&')
+      end
+      req = Net::HTTP::Get.new(path)
       res = request(req)
       Marshal.load(res.body)
     end
 
-    def put_to(path)
+    def put_to(path, params=nil)
       uri = get_uri(path)
-      full_path = uri.path
-      if !uri.query.nil?
-        full_path << "?" << uri.query
+      path = uri.path
+      if params
+        path << "?" << params.map {|k,v| "#{k}=#{v}"}.join('&')
       end
-      req = Net::HTTP::Put.new(full_path)
+      req = Net::HTTP::Put.new(path)
       req.basic_auth ENV['TOK_USER'], ENV['TOK_PASS']
       res = request(req)
       Marshal.load(res.body)

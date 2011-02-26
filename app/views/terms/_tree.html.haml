@@ -11,7 +11,7 @@
       .hidden.add-tok-form
         = render 'form', :term => Term.new, :parent => [path, knol.name].join('/')
     - elsif query
-      - query_str = (query + ' ' + knol.name).gsub(/\s+/, '+')
+      - query_str = (query + ' "' + knol.name + '"').gsub(/\s+/, '+')
       = link_to knol.name, search_path + "?query=#{query_str}"
     - else
       = knol.name

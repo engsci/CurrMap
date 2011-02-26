@@ -1,3 +1,4 @@
+// Make tree editing forms toggleable
 $(document).ready(
   function() {
     $('.add-tok-node').replaceWith(function() {
@@ -20,5 +21,12 @@ $(document).ready(
       });
       anchor.innerHTML = '+';
       return anchor;
+    });
+});
+// Autocomplete for term names
+$(document).ready(
+  function() {
+    $('.termComplete').autocomplete({
+      source: '/terms/search.json'
     });
 });

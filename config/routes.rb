@@ -22,6 +22,7 @@ Currmap::Application.routes.draw do |map|
 
   # TERMS
 
+  match 'terms/search' => 'terms#search'
   resources :terms
 
   # COURSES and INSTANCES
