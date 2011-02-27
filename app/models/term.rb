@@ -31,6 +31,7 @@ class Term
     @supertopics = hash['supertopics'] || hash[:supertopics]
     subtopics    = hash['subtopics']   || hash[:subtopics]
     @subtopics   = subtopics.map { |sub| Term.new(sub) } if subtopics
+    @synonyms.instance_eval { def to_s; self.join(', '); end } if @synonyms
   end
 
   def to_key

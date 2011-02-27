@@ -1,3 +1,2 @@
-%h2= @term.name
-= render 'tree', :root => @term, :full => true
+= render :partial => 'display', :term => @term
 = render 'form'

@@ -1,0 +1,9 @@
+- term ||= @term
+%h2= term.name
+%p.quiet= term.path
+- if term.synonyms
+  %h3 Synonyms
+  %ul
+    - term.synonyms.each do |syn|
+      %li=syn
+= render 'tree', :root => term, :full => true
