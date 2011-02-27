@@ -11,7 +11,7 @@ class FlashSessionCookieMiddleware
       req = Rack::Request.new(env)
       ActionController::Base.logger = Logger.new(STDOUT)
       ActionController::Base.logger.debug "session_key: #{@session_key}"
-      ActionController::Base.logger.debug  "param: #{req.params[@session_key]]}"
+      ActionController::Base.logger.debug  "param: #{req.params[@session_key]}"
       env['HTTP_COOKIE'] = [@session_key, req.params[@session_key]].join('=').freeze unless req.params[@session_key].nil?
       env['HTTP_ACCEPT'] = "#{req.params['_http_accept']}".freeze unless req.params['_http_accept'].nil?
     end
