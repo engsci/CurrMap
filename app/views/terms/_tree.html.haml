@@ -15,10 +15,12 @@
       = link_to knol.name, search_path + "?query=#{query_str}"
     - else
       = knol.name
-      %p.quiet= "Synonyms: #{knol.synonyms.join(', ')}"
+      - if knol.synonyms
+        %p.quiet= "Synonyms: #{knol.synonyms.join(', ')}"
     - if knol.preferred != knol.name
       = "(#{knol.preferred})"
-  %p.quiet= "Synonyms: #{knol.synonyms.join(', ')}"
+  - if knol.synonyms and !knol.synonyms.empty?
+    %p.quiet= "Synonyms: #{knol.synonyms.join(', ')}"
   - rels = knol.relns.reject {|k,v| k.to_s.match(/subtopics$/)}
   - if !rels.empty?
     %p= rels.inspect
