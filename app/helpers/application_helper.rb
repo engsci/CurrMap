@@ -28,8 +28,6 @@ module ApplicationHelper
   
   
   def file_uploadify(object)
-    session_key_name = Rails.application.config.session_options[:key]
-    logger.debug "FORM TOKEN: #{form_authenticity_token}"
     %Q{
 
     <script type='text/javascript'>
@@ -48,8 +46,8 @@ module ApplicationHelper
           buttonText      : 'Add Files',
           scriptData      : {
             '_http_accept': 'application/javascript',
-            '#{session_key_name}' : '#{cookies[session_key_name]}',
-            '#{request_forgery_protection_token}'  : '#{form_authenticity_token}',
+            "#{Rails.application.config.session_options[:key]}" : "#{cookies[session_key_name]}",
+            "#{request_forgery_protection_token}"  : "#{form_authenticity_token}",
             'model' : '#{object.class.to_s}',
             'id' : '#{params[:id]}'
           },
