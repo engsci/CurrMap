@@ -4,5 +4,8 @@
     %ul
       - object.send(relation).each do |c|
         %li
-          = link_to c, c, (link_html if defined? link_html)
+          - if relation.to_s == 'documents'
+            = link_to c, c.file_url, (link_html if defined? link_html)
+          - else
+            = link_to c, c, (link_html if defined? link_html)
   
