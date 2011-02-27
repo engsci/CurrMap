@@ -47,8 +47,8 @@ module ApplicationHelper
           buttonText      : 'Add Files',
           scriptData      : {
             '_http_accept': 'application/javascript',
-            "#{session_key_name}" : "#{cookies[session_key_name]}",
-            "#{request_forgery_protection_token}"  : "#{form_authenticity_token}",
+            "#{session_key_name}" : "#{u cookies[session_key_name]}",
+            "#{request_forgery_protection_token}"  : "#{u form_authenticity_token}",
             'model' : '#{object.class.to_s}',
             'id' : '#{params[:id]}'
           },
