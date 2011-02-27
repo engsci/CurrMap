@@ -39,6 +39,7 @@ gem 'httpclient'
 # FILES
 gem 'fog'
 gem 'carrierwave'
+gem 'flash_cookie_session'
 
 
 # Bundle edge Rails instead:

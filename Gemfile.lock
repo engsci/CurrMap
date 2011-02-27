@@ -92,6 +92,8 @@ GEM
       abstract (>= 1.0.0)
     escape (0.0.4)
     excon (0.5.6)
+    flash_cookie_session (1.1.0)
+      rails (~> 3.0)
     fog (0.5.3)
       builder
       excon (>= 0.5.2)
@@ -242,6 +244,7 @@ DEPENDENCIES
   cocoon!
   compass (>= 0.10.2)
   devise (= 1.1.2)
+  flash_cookie_session
   fog
   formtastic!
   haml (= 3.0.22)
