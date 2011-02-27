@@ -7,4 +7,8 @@ class Document
   #validates_presence_of :file
   
   references_and_referenced_in_many :course_instances
+  
+  def to_s
+    self.file_filename
+  end
 end

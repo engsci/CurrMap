@@ -38,7 +38,7 @@
       
       %h3 Documents
       .documents
-      - form.inputs "Documents", :id => "documents" do
+      - form.inputs "Documents", :id => "documents", :class => "embedded-files" do
         = form.semantic_fields_for :documents do |document|
           = render 'partials/document', :f => document
       = file_uploadify
