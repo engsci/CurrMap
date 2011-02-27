@@ -29,6 +29,7 @@ module ApplicationHelper
   
   def file_uploadify(object)
     session_key_name = Rails.application.config.session_options[:key]
+    logger.debug "FORM TOKEN: #{form_authenticity_token}"
     %Q{
 
     <script type='text/javascript'>
