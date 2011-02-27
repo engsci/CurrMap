@@ -14,15 +14,13 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new(params[:document])
     
+    @parent = params[:model].constantize.find(params[:id])
+    
     respond_to do |format|
-      if @document.save
-        logger.debug "SAVED HAPPY"
-        
+      if @document.save && @parent.documents << @document
         format.html{ redirect_to(documents_path, :notice => 'Document succesfully created.') }
         format.js
       else
-        logger.debug "ERRORRRRR"
-        logger.debug "#{@document.errors.inspect}"
         format.html { render :action => "new" }
         format.js
       end

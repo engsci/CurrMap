@@ -27,7 +27,7 @@ module ApplicationHelper
   end
   
   
-  def file_uploadify
+  def file_uploadify(object)
     session_key_name = Rails.application.config.session_options[:key]
     %Q{
 
@@ -48,7 +48,9 @@ module ApplicationHelper
           scriptData      : {
             '_http_accept': 'application/javascript',
             '#{session_key_name}' : encodeURIComponent('#{u(cookies[session_key_name])}'),
-            'authenticity_token'  : encodeURIComponent('#{u(form_authenticity_token)}')
+            'authenticity_token'  : encodeURIComponent('#{u(form_authenticity_token)}'),
+            'model' : '#{object.class.to_s}',
+            'id' : '#{params[:id]}'
           },
           onComplete      : function(a, b, c, response){ eval(response) }
         });

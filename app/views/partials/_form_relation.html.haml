@@ -1,11 +1,20 @@
 -# object = @course
 -# relation = collections
-
 %h3= "Related #{relation.titleize}"
-- form.inputs relation.capitalize, :id => relation, :class => 'relation' do
-  = form.input relation.to_sym, :as => :check_boxes, |
-    :collection => [object.send(relation)].flatten, |
-    :label_method => Proc.new {|a| a.to_s || a.name }
+- unless relation == 'documents'
+  - form.inputs relation.capitalize, :id => relation, :class => 'relation' do
+    = form.input relation.to_sym, :as => :check_boxes, |
+      :collection => [object.send(relation)].flatten, |
+      :label_method => Proc.new {|a| a.to_s || a.name }
 
-%label= "Add #{relation.titleize.singularize}:"
-%input(type="text" name="id" size="40" data-model="#{object.class.to_s.underscore}" data-relation-model="#{object.class.relations[relation].class_name.underscore}" data-relation-association="#{relation.singularize}" class="add_relation_search")
+  %label= "Add #{relation.titleize.singularize}:"
+  %input(type="text" name="id" size="40" data-model="#{object.class.to_s.underscore}" data-relation-model="#{object.class.relations[relation].class_name.underscore}" data-relation-association="#{relation.singularize}" class="add_relation_search")
+- else
+  - form.inputs relation.capitalize, :id => relation, :class => 'relation' do
+    = form.input relation.to_sym, :as => :check_boxes, |
+      :collection => [object.send(relation)].flatten, |
+      :label_method => Proc.new {|a| a.to_s || a.name }
+
+  = form.file_field :file, :class => 'file_upload'
+  =# f.hidden_field :file 
+  =# f.check_box :remove_file

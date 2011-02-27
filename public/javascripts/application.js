@@ -56,7 +56,7 @@ jQuery.fn.relation_add = function(){
   		minLength: 1,
   		select: function( event, ui ) {
         // add to form
-        $('#'+model+'_'+relation_association+'s_input ol').append("<li><label for=\""+model+"_"+relation_association+"_ids_"+ui.item.id+"\"><input checked=\"checked\" id=\""+model+"_"+relation_association+"_ids_"+ui.item.id+"\" name=\""+model+"["+relation_association+"_ids][]\" type=\"checkbox\" value=\""+ui.item.id+"\"> "+ui.item.label+"</label></li>");
+        add_field(model, relation_association, ui.item.id, ui.item.label)
         // clear search field 
         this.value = "";
         // prevent form submit
@@ -68,6 +68,10 @@ jQuery.fn.relation_add = function(){
     }); 
   });
 }
+
+add_field = function(model, relation_association, id, label){
+  $('#'+model+'_'+relation_association+'s_input ol').append("<li><label for=\""+model+"_"+relation_association+"_ids_"+id+"\"><input checked=\"checked\" id=\""+model+"_"+relation_association+"_ids_"+id+"\" name=\""+model+"["+relation_association+"_ids][]\" type=\"checkbox\" value=\""+id+"\"> "+label+"</label></li>");
+};
 
 $(document).ready(function() {
   //adds facebox links to main content
