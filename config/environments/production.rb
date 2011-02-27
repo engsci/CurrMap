@@ -48,6 +48,4 @@ Currmap::Application.configure do
   
   config.action_mailer.default_url_options = { :host => 'currmap.myego.ca' }
   
-  config.action_controller.session = { :expires => 3000 }
-  
 end
