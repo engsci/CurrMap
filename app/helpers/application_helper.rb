@@ -47,8 +47,8 @@ module ApplicationHelper
           buttonText      : 'Add Files',
           scriptData      : {
             '_http_accept': 'application/javascript',
-            '#{session_key_name}' : encodeURIComponent('#{u(cookies[session_key_name])}'),
-            'authenticity_token'  : encodeURIComponent('#{u(form_authenticity_token)}')
+            '#{session_key_name}' : encodeURIComponent(encodeURIComponent('#{u(cookies[session_key_name])}')),
+            'authenticity_token'  : encodeURIComponent(encodeURIComponent'#{u(form_authenticity_token)}'))
           },
           onComplete      : function(a, b, c, response){ eval(response) }
         });
