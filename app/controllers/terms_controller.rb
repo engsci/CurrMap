@@ -1,4 +1,7 @@
 class TermsController < ApplicationController
+  load_and_authorize_resource :only => [
+    :index, :show, :new, :create, :edit, :update
+  ]
 
   # GET /terms
   def index
@@ -11,6 +14,7 @@ class TermsController < ApplicationController
 
   def show
     @term = Term.find(params[:id].to_i)
+
     respond_to do |format|
       format.html
     end
@@ -71,6 +75,9 @@ class TermsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def unauthorized
   end
 
   def search
