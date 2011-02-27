@@ -1,5 +1,5 @@
 .nested-fields
-  = f.file_field :file
+  = f.file_field :file, :class => 'file_upload'
   = f.hidden_field :file 
   = f.check_box :remove_file
   =# link_to_remove_association "Remove", f

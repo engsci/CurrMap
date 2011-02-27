@@ -37,9 +37,11 @@
       = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'collections'}
       
       %h3 Documents
+      .documents
       - form.inputs "Documents", :id => "documents" do
         = form.semantic_fields_for :documents do |document|
           = render 'partials/document', :f => document
+      = file_uploadify
 
   - form.buttons do
     = form.commit_button

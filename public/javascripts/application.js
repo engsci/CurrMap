@@ -123,5 +123,13 @@ $(document).ready(function() {
       }
     });
   });
-
+  
+    /*$('.file_upload').uploadify({
+      'uploader'  : '/uploadify/uploadify.swf',
+      'script'    : '/uploadify/uploadify.php',
+      'cancelImg' : '/uploadify/cancel.png',
+      'folder'    : '/uploads',
+      'auto'      : true
+    });
+    */
 });

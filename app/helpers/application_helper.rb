@@ -25,4 +25,36 @@ module ApplicationHelper
   def course_course_instance_path(course, course_instance)
     url_for({:controller => "course_instances", :action => "show", :id => course_instance, :course_id => course})
   end
+  
+  
+  def file_uploadify
+    session_key_name = Rails.application.config.session_options[:key]
+    %Q{
+
+    <script type='text/javascript'>
+      $(document).ready(function() {
+        $('.file_upload').uploadify({
+          script          : '#{documents_path}',
+          fileDataName    : 'document[file]',
+          uploader        : '/uploadify/uploadify.swf',
+          cancelImg       : '/uploadify/cancel.png',
+          fileDesc        : 'Files',
+          fileExt         : '*.pdf',
+          sizeLimit       : #{10.megabytes},
+          queueSizeLimit  : 24,
+          multi           : true,
+          auto            : true,
+          buttonText      : 'Add Files',
+          scriptData      : {
+            '_http_accept': 'application/javascript',
+            '#{session_key_name}' : encodeURIComponent('#{u(cookies[session_key_name])}'),
+            'authenticity_token'  : encodeURIComponent('#{u(form_authenticity_token)}')
+          },
+          onComplete      : function(a, b, c, response){ eval(response) }
+        });
+      });
+    </script>
+
+    }.gsub(/[\n ]+/, ' ').strip.html_safe
+  end
 end

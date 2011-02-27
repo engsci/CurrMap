@@ -6,6 +6,9 @@ Currmap::Application.routes.draw do |map|
   resources :users
   match 'unauthorized' => "pages#unauthorized"
 
+  # FILES
+  
+  resources :documents
   
   # RESOURCES
   
