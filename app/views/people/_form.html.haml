@@ -7,7 +7,7 @@
         = form.inputs :phone, :website, :email
     .column
       - if @person.class == Instructor
-        = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @person, :relation => 'course_instances'}
+        = render :partial => 'partials/form_relation', :locals => {:form => form, :object => @person, :relation => 'course_instances'}
   
   - form.buttons do
     = form.commit_button

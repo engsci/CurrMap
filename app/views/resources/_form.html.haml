@@ -14,7 +14,7 @@
           = render 'author_fields', :f => author
         .links
           = link_to_add_association 'Add Author', form, :authors
-      = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @resource, :relation => 'course_instances'}
+      = render :partial => 'partials/form_relation', :locals => {:form => form, :object => @resource, :relation => 'course_instances'}
        
   - form.buttons do
     = form.commit_button

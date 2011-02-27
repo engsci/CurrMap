@@ -13,9 +13,9 @@
         .links
           = link_to_add_association 'Add Topic', form, :prerequisite_topics
     .column
-      =# render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'course_instances'}
-      = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'collections'}
-      = render :partial => 'layouts/form_relation', :locals => {:form => form, :object => @course, :relation => 'prerequisite_courses'}
+      =# render :partial => 'partials/form_relation', :locals => {:form => form, :object => @course, :relation => 'course_instances'}
+      = render :partial => 'partials/form_relation', :locals => {:form => form, :object => @course, :relation => 'collections'}
+      = render :partial => 'partials/form_relation', :locals => {:form => form, :object => @course, :relation => 'prerequisite_courses'}
           
   - form.buttons do
     = form.commit_button
