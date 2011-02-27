@@ -49,7 +49,7 @@ module ApplicationHelper
           scriptData      : {
             '_http_accept': 'application/javascript',
             '#{session_key_name}' : '#{cookies[session_key_name]}',
-            'authenticity_token'  : '#{form_authenticity_token}',
+            '#{request_forgery_protection_token}'  : '#{form_authenticity_token}',
             'model' : '#{object.class.to_s}',
             'id' : '#{params[:id]}'
           },
