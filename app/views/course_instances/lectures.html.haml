@@ -11,7 +11,7 @@
               %h5= "Lecture #{a.number}"
               .outcomes
                 - a.topics.each do |o|
-                  = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
+                  = link_to o, {:controller => "pages", :action => "search", :query => o.to_s}, {:rel => "facebox"}
         .others
           - activities["other"].each do |a|
             - type = a.class.to_s.downcase
@@ -19,4 +19,4 @@
               %h5= "#{type.titlecase} #{a.number}"
               .outcomes
                 - a.topics.each do |o|
-                  = link_to o, {:controller => "pages", :action => "search", :query => o}, {:rel => "facebox"}
+                  = link_to o, {:controller => "pages", :action => "search", :query => o.to_s}, {:rel => "facebox"}
