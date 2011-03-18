@@ -5,7 +5,12 @@ class TermsController < ApplicationController
 
   # GET /terms
   def index
-    @yggdrasil = Term.root
+    begin
+      @yggdrasil = Term.root
+    rescue ConnectionError
+      respond_to {|f| f.html { render :blank } }
+      return
+    end
 
     respond_to do |format|
       format.html # index.html.haml
@@ -13,7 +18,12 @@ class TermsController < ApplicationController
   end
 
   def show
-    @term = Term.find(params[:id].to_i)
+    begin
+      @term = Term.find(params[:id].to_i)
+    rescue ConnectionError
+      respond_to {|f| f.html { render :blank } }
+      return
+    end
 
     respond_to do |format|
       format.html

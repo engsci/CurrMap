@@ -114,8 +114,6 @@ class Term
       put_to "Relation/#{item1}/#{reln}/#{item2}"
     end
 
-    protected
-
     def strip_path(path)
       path.gsub %r{ (^/) | (/$) }xms, ''
     end
@@ -129,7 +127,7 @@ class Term
 
     def get_resource(path, params=nil)
       uri = get_uri(path)
-      path = uri.path
+      path = uri.to_s
       if params
         path << "?" << params.map {|k,v| "#{k}=#{v}"}.join('&')
       end
@@ -156,6 +154,8 @@ class Term
           http.request(req)
         end
       rescue Errno::ECONNREFUSED
+        handle_error(req, res)
+      rescue Errno::ETIMEDOUT
         handle_error(req, res)
       end
       if not res.kind_of? Net::HTTPSuccess
