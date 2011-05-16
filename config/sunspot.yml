@@ -11,7 +11,7 @@ test:
     log_level: OFF
 production:
   solr:
-    hostname: 68.68.99.19
+    hostname: ENV['SOLR_SERVER']
     port: 8983
     log_level: WARNING
   auto_commit_after_request: true

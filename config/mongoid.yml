@@ -20,6 +20,6 @@ production:
   <<: *defaults
   host: flame.mongohq.com
   port: 27075
-  username: mongodb
-  password: gogomongo
-  database: currmap
+  username: ENV['MONGOHQ_USER']
+  password: ENV['MONGOHQ_PASSWORD']
+  database: ENV['MONGHQ_DB']
