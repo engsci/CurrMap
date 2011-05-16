@@ -1,0 +1,64 @@
+- full ||= nil
+- query ||= nil
+- maxdepth ||= nil
+
+- show_text = Proc.new do |knol, path|
+  %p
+    - if full
+      = link_to knol.name, term_path(knol)
+      = link_to '+', new_term_path, :class => 'add-tok-node'
+      .hidden.tok-parents= path
+      .hidden.add-tok-form
+        = render 'form', :term => Term.new, :parent => [path, knol.name].join('/')
+    - elsif query
+      - query_str = (query + ' "' + knol.name + '"').gsub(/\s+/, '+')
+      = link_to knol.name, search_path + "?query=#{query_str}"
+    - else
+      = knol.name
+      - if knol.synonyms
+        %p.quiet= "Synonyms: #{knol.synonyms.join(', ')}"
+    - if knol.preferred != knol.name
+      = "(#{knol.preferred})"
+  - if knol.synonyms and !knol.synonyms.empty?
+    %p.quiet= "Synonyms: #{knol.synonyms.join(', ')}"
+  - rels = knol.relns.reject {|k,v| k.to_s.match(/subtopics$/)}
+  - if !rels.empty?
+    %p= rels.inspect
+
+- display_subs = Proc.new do |knol,path,depth|
+  %dd
+    %dl
+      %dt
+        - show_text.call(knol, path)
+      - if knol.subtopics.empty?
+        %dd
+      - elsif maxdepth and depth >= maxdepth
+        %dd
+          %dl
+            %dt ...
+      - else
+        - knol.subtopics.each do |k|
+          - display_subs.call(k, [path, knol.name].join('/'), depth+1)
+
+%dl
+  - root.supertopics.each do |parent|
+    %dt
+      - if full
+        = link_to parent['name'], term_path(parent['id'])
+        = link_to '+', new_term_path, :class => 'add-tok-node'
+        .hidden.add-tok-node
+          = render 'form', :parent => parent['name']
+      - elsif query
+        - query_str = (query + ' ' + parent['name']).gsub(/\s+/, '+')
+        = link_to parent['name'], search_path + "?query=#{query_str}"
+      - else
+        = parent['name']
+  %dd
+    %dl
+      %dt.highlight
+        - if root.supertopics[0]
+          - show_text.call(root, root.supertopics[0]['name'])
+        - else
+          - show_text.call(root, '/')
+      - root.subtopics.each do |knol|
+        - display_subs.call(knol, '/' + root.name, 0)

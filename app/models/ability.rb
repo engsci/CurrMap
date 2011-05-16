@@ -11,6 +11,8 @@ class Ability
     end
     if user.has_role?(:admin)
       can :manage, :all
+    else
+      cannot [:read, :update, :manage, :create], Term
     end
 
     # Define abilities for the passed in user here. For example:

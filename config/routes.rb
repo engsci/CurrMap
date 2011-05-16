@@ -14,17 +14,22 @@ Currmap::Application.routes.draw do |map|
   
   resources :resources
   resources :textbooks, :controller => 'resources' #reqd for formtastic
-  
+
   # COLLECTIONS
-  
-  resources :collections  
-  
-  
+
+  resources :collections
+
+
+  # TERMS
+
+  match 'terms/search' => 'terms#search'
+  resources :terms
+
   # COURSES and INSTANCES
-  
+
   resources :courses do
     resources :instances, :controller => 'course_instances', :except => ['index'] do
-      member do 
+      member do
         get 'syllabus'
         get 'lectures'
         get 'resources'
@@ -33,18 +38,18 @@ Currmap::Application.routes.draw do |map|
       end
     end
   end
-  
+
   resources :course_instances, :only => ['index']
-  
+
   # PEOPLE
-  
+
   resources :people, :only => [:destroy]
   resources :instructors, :controller => 'people'
   #resources :authors, :controller => 'people'
-  
-  
+
+
   # PAGES
-  
+
   match 'search' => 'pages#search'
   match 'about' => 'pages#about'
   match 'contact' => 'pages#contact'
@@ -101,7 +106,7 @@ Currmap::Application.routes.draw do |map|
   # just remember to delete public/index.html.
 
   root :to => "pages#index"
-  
+
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

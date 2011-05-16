@@ -22,6 +22,7 @@
     =# javascript_include_tag 'viz.st.js'
     =# javascript_include_tag 'jit.js'
     = javascript_include_tag :cocoon
+    = javascript_include_tag 'terms.js'
     = csrf_meta_tag
   %body
     #content
@@ -33,7 +34,7 @@
           %li= link_to "Instructors", instructors_path, :class => "#{"active" if controller_name == "people"}"
           %li= link_to "Resources", resources_path, :class => "#{"active" if controller_name == "resources"}"
           %li= link_to "Collections", collections_path, :class => "#{"active" if controller_name == "collections"}"
-            
+
         %form(action="/search" method="get" id="search")
           %input(type="text" name="query" value="#{params[:query] || 'Search...'}" size="40" id="ferret_search")
           %input(type="submit" value="Search" id="ferret_submit")
@@ -46,7 +47,7 @@
           = render :partial => 'course_instances/nav'
         = render :partial => 'layouts/sidebar'
         = yield :sidebar
-        
+
       #main
         - if notice
           .notice= notice
@@ -66,6 +67,6 @@
           %li= link_to "Help", :controller => "/pages", :action => :help
           %li= link_to "Contact", :controller => "/pages", :action => :contact
       =# render :partial => 'layouts/feedback'
-          
 
-      
+
+
