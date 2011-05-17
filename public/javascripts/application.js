@@ -136,6 +136,7 @@ $(document).ready(function() {
       'auto'      : true
     });
     */
+    var filters = [];
     
     $('#activities').isotope({
       // options
@@ -151,9 +152,17 @@ $(document).ready(function() {
     });
     
     
-    $('#filters a').click(function(){
+    $('.filters a').click(function(){
       var filter = $(this).attr('data-filter');
-      $('#activities').isotope({ filter: filter + ',.week' });
+      
+      if($(this).hasClass('active'))
+        filter = '*';
+        
+      else
+        $('.filters a').removeClass('active');
+        
+      $(this).toggleClass('active');
+      $('#activities').isotope({ filter: '.week,'+filter });
       return false;
     });
 });

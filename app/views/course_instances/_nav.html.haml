@@ -2,7 +2,17 @@
   %ul.nav
     %li= link_to 'Overview', {:action => 'show'}, :class => "#{"active" if action_name ==  'show'}"
     %li= link_to 'Topics', {:action => 'topics'}, :class => "#{"active" if action_name ==  'topics'}"
-    %li= link_to 'Activities', {:action => 'activities'}, :class => "#{"active" if action_name ==  'activities'}"
+    %li
+      = link_to 'Activities', {:action => 'activities'}, :class => "#{"active" if action_name ==  'activities'}"
+      
+      -if action_name ==  'activities'
+        %ul.filters
+          -# %w(lecture tutorial practical lab assignment problem\ set project quiz midterm test exam).each do |activity_type|
+          %li= link_to 'Lectures', '#', :'data-filter' => ".lecture"
+          %li= link_to 'Tutorials', '#', :'data-filter' => ".tutorial"
+          %li= link_to 'Problem Sets', '#', :'data-filter' => ".problem_set"
+        
+    
     %li= link_to "Resources", {:action => 'resources'}, :class => "#{"active" if action_name ==  'resources'}"
   - if @course.course.course_instances.length > 0
     %h2 Available Years

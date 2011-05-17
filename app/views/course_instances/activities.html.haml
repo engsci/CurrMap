@@ -1,14 +1,3 @@
-%ul
-  - %w(lecture tutorial practical lab assignment problem\ set project quiz midterm test exam).each do |activity_type|
-    %li= link_to activity_type.pluralize.titlecase, "#"
-
-%dl#filters 
-  %dt Show
-  %dd= link_to 'reset', '#', :'data-filter' => "*"
-  %dd= link_to 'pset', '#', :'data-filter' => ".problem_set"
-  %dd= link_to 'lecture', '#', :'data-filter' => ".lecture"
-  %dd= link_to 'tutorial', '#', :'data-filter' => ".tutorial"
-
 #activities
   - 14.times do |x|
     %h4.week.item(data-week="#{x}" class="header")
