@@ -136,4 +136,24 @@ $(document).ready(function() {
       'auto'      : true
     });
     */
+    
+    $('#activities').isotope({
+      // options
+      itemSelector : '.item',
+      layoutMode : 'fitRows',
+      animationEngine : 'jquery',
+      getSortData : {
+        week : function(e) {
+          return parseInt(e.attr('data-week'),10);
+        }
+      },
+      sortBy: 'week'
+    });
+    
+    
+    $('#filters a').click(function(){
+      var filter = $(this).attr('data-filter');
+      $('#activities').isotope({ filter: filter + ',.week' });
+      return false;
+    });
 });
