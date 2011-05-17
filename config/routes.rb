@@ -30,11 +30,9 @@ Currmap::Application.routes.draw do |map|
   resources :courses do
     resources :instances, :controller => 'course_instances', :except => ['index'] do
       member do
-        get 'syllabus'
-        get 'lectures'
+        get 'activities'
+        get 'topics'
         get 'resources'
-        get 'evaluations'
-        get 'calendar'
       end
     end
   end

@@ -136,4 +136,32 @@ $(document).ready(function() {
       'auto'      : true
     });
     */
+    var filters = [];
+    
+    $('#activities').isotope({
+      // options
+      itemSelector : '.item',
+      layoutMode : 'fitRows',
+      animationEngine : 'jquery',
+      getSortData : {
+        activity_sort : function(e) {
+          return parseInt(e.attr('data-week'),10)*100 + parseInt(e.attr('data-number') || 0,10);
+        }
+      },
+      sortBy: 'activity_sort'
+    });
+    
+    
+    $('.filters a').click(function(){
+      var filter = $(this).attr('data-filter');
+      
+      if($(this).hasClass('active'))
+        filter = '*';
+      else
+        $('.filters a').removeClass('active');
+        
+      $(this).toggleClass('active');
+      $('#activities').isotope({ filter: '.week,'+filter });
+      return false;
+    });
 });

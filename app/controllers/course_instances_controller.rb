@@ -20,13 +20,13 @@ class CourseInstancesController < ApplicationController
   def overview
      @course = CourseInstance.find(params[:id])  
   end
-
-  def syllabus
-    @course = CourseInstance.find(params[:id])
-  end
   
-  def lectures
-    @course = CourseInstance.find(params[:id])
+  def topics
+     @course = CourseInstance.find(params[:id])
+  end
+
+  def activities
+     @course = CourseInstance.find(params[:id])
   end
   
   def resources
@@ -51,13 +51,7 @@ class CourseInstancesController < ApplicationController
 
   end
   
-  def evaluations
-    @course = CourseInstance.find(params[:id])
-  end
-  
-  def calendar
-    @course = CourseInstance.find(params[:id])
-  end
+  #### CRUD follows
   
   def new
     @course = CourseInstance.new
