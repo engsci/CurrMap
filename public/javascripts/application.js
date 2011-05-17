@@ -144,11 +144,11 @@ $(document).ready(function() {
       layoutMode : 'fitRows',
       animationEngine : 'jquery',
       getSortData : {
-        week : function(e) {
-          return parseInt(e.attr('data-week'),10);
+        activity_sort : function(e) {
+          return parseInt(e.attr('data-week'),10)*100 + parseInt(e.attr('data-number') || 0,10);
         }
       },
-      sortBy: 'week'
+      sortBy: 'activity_sort'
     });
     
     
@@ -157,7 +157,6 @@ $(document).ready(function() {
       
       if($(this).hasClass('active'))
         filter = '*';
-        
       else
         $('.filters a').removeClass('active');
         
