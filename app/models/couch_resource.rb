@@ -1,4 +1,4 @@
-require 'app/extras/orm'
+require 'app/extras/orm.rb'
 
 class CouchResource < CouchDoc
 end
