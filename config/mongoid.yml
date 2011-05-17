@@ -20,6 +20,6 @@ production:
   <<: *defaults
   host: flame.mongohq.com
   port: 27075
-  username: ENV['MONGOHQ_USER']
-  password: ENV['MONGOHQ_PASSWORD']
-  database: ENV['MONGOHQ_DB']
+  username: <%= ENV['MONGOHQ_USER'] %>
+  password: <%= ENV['MONGOHQ_PASSWORD'] %>
+  database: <%= ENV['MONGOHQ_DB'] %>
