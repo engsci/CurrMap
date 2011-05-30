@@ -5,7 +5,7 @@
   %p
     = f.label :email
     %br/
-    = f.text_field :email
+    = f.text_field :email, :class => "required email"
   %p
     = f.label :password
     %i (leave blank if you don't want to change it)
@@ -14,12 +14,12 @@
   %p
     = f.label :password_confirmation
     %br/
-    = f.password_field :password_confirmation
+    = f.password_field :password_confirmation, :equalTo => "#user_password"
   %p
     = f.label :current_password
     %i (we need your current password to confirm your changes)
     %br/
-    = f.password_field :current_password
+    = f.password_field :current_password, :minlength => 6
   %p= f.submit "Update"
 %h3 Cancel my account
 %p

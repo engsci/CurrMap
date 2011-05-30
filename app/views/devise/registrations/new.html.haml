@@ -8,14 +8,14 @@
   %p
     = f.label :email
     %br/
-    = f.text_field :email
+    = f.text_field :email, :class => "required email"
   %p
     = f.label :password
     %br/
-    = f.password_field :password
+    = f.password_field :password, :class => "required", :minlength => 6
   %p
     = f.label :password_confirmation
     %br/
-    = f.password_field :password_confirmation
+    = f.password_field :password_confirmation, :class => "required", :equalTo => "#user_password"
   %p= f.submit "Sign up"
 = render :partial => "devise/shared/links"

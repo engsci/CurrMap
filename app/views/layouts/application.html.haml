@@ -9,6 +9,7 @@
     = stylesheet_link_tag '/facebox/facebox.css', :media => 'screen'
     = stylesheet_link_tag 'jquery-ui-theme/jquery-ui-1.8.5.custom.css', :media => 'screen'
     = stylesheet_link_tag '/uploadify/uploadify.css', :media => 'screen'
+    = stylesheet_link_tag 'application', 'thickbox'
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"
@@ -24,7 +25,13 @@
     =# javascript_include_tag 'jit.js'
     = javascript_include_tag :cocoon
     = javascript_include_tag 'terms.js'
+    = javascript_include_tag 'jquery.validate.min'
     = csrf_meta_tag
+    %script
+      $(document).ready(function(){
+      $("#user_new").validate();
+      $("#user_edit").validate();
+      });
   %body
     #content
       #header
