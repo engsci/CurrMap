@@ -24,12 +24,13 @@
     =# javascript_include_tag 'jit.js'
     = javascript_include_tag :cocoon
     = javascript_include_tag 'terms.js'
-    = javascript_include_tag 'jquery.validate.min'
+    = javascript_include_tag :defaults, 'rails.validations'
     = csrf_meta_tag
     %script
       $(document).ready(function(){
       $("#user_new").validate();
       $("#user_edit").validate();
+      $("#person_edit").validate();
       });
   %body
     #content

@@ -13,6 +13,9 @@ class Person
   
   field :name, :type => String 
   
+  validates_uniqueness_of :name
+  validates_presence_of :name
+  
   # METHODS
   
   def to_s
@@ -51,6 +54,14 @@ class Instructor < Person
   
   attr_accessible :phone, :website, :email
   
+  validates_format_of :phone, :with => /^[0-9]{3,3}-[0-9]{3,3}-[0-9]{4,4}$/,
+      :message => "Phone number is not valid (xxx-xxx-xxxx)."
+  validates_format_of :website, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix,
+      :message => "Website URL is not valid (http:// or https:// in front).", 
+      :if => :website_filled?
+  validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, 
+      :message => "Email is not valid (foo@example.com)."
+  
   field :phone, :type => String
   field :website, :type => String
   field :email, :type => String
@@ -75,4 +86,9 @@ class Instructor < Person
       self.course_instances.map(&:name).join(" ")
     end
   end
+  
+  private 
+  def website_filled?
+    !website.blank?
+  end 
 end
