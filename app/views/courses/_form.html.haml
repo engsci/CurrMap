@@ -1,4 +1,4 @@
-= semantic_form_for @course do |form|
+= semantic_form_for @course, :validate => true do |form|
   = form.semantic_errors :state 
   = form.inputs do
     .column

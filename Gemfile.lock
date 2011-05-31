@@ -82,6 +82,8 @@ GEM
     cancan (1.5.1)
     carrierwave (0.5.2)
       activesupport (~> 3.0)
+    client_side_validations (3.0.4)
+      activesupport (~> 3.0.0)
     colorize (0.5.8)
     compass (0.10.6)
       haml (>= 3.0.4)
@@ -244,6 +246,7 @@ DEPENDENCIES
   bson_ext (= 1.2.0)
   cancan (= 1.5.1)
   carrierwave
+  client_side_validations
   cocoon!
   compass (>= 0.10.2)
   devise (= 1.1.2)
