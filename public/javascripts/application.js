@@ -74,6 +74,11 @@ add_field = function(model, relation_association, id, label){
 };
 
 $(document).ready(function() {
+  
+  /* 
+      FACEBOX  
+  */
+  
   //adds facebox links to main content
   $('a[rel*=facebox]').facebox();
 
@@ -83,6 +88,11 @@ $(document).ready(function() {
       $('#facebox a[rel*=facebox]').facebox();
     }
   );
+
+
+  /* 
+      TABS
+  */
 
   //add tabs
   $(".mini-tabs").tabs();
@@ -101,9 +111,21 @@ $(document).ready(function() {
   	 }
   });
 
+  /* 
+      HIGHLIGHT
+  */
+
   $('#main').highlight_terms();
 
+  /*
+      FORM: RELATION ADDER
+  */
+
   $(".add_relation_search").relation_add();
+  
+  /*
+      RESOURCE: QTIP OVERLAY
+  */
   
   $(".resource_icon").each(function(){
     // Create image content using websnapr thumbnail service
@@ -136,6 +158,12 @@ $(document).ready(function() {
       'auto'      : true
     });
     */
+    
+    
+    /*
+        ISOTOPE: ACTIVITY FILTERING
+    */
+    
     var filters = [];
     
     $('#activities').isotope({
@@ -164,4 +192,12 @@ $(document).ready(function() {
       $('#activities').isotope({ filter: '.week,'+filter });
       return false;
     });
+    
+    
+    /*
+        VALIDATIONS
+    */
+    
+    $("#user_new").validate();
+    $("#user_edit").validate();
 });

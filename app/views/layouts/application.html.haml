@@ -2,6 +2,8 @@
 %html(xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en")
   %head
     %title Currmap
+    
+    -# STYLESHEETS
     = formtastic_stylesheet_link_tag
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
     =# stylesheet_link_tag 'formtastic.css', 'formtastic_changes.css', :media => 'screen, projection'
@@ -9,29 +11,24 @@
     = stylesheet_link_tag '/facebox/facebox.css', :media => 'screen'
     = stylesheet_link_tag 'jquery-ui-theme/jquery-ui-1.8.5.custom.css', :media => 'screen'
     = stylesheet_link_tag '/uploadify/uploadify.css', :media => 'screen'
-    = stylesheet_link_tag 'application', 'thickbox'
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+    
+    -# JAVASCRIPTS
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"
-    = javascript_include_tag 'rails.js'
-    = javascript_include_tag "jquery.highlight-3.yui.js"
-    = javascript_include_tag "jquery.qtip-1.0.0-rc3.min.js"
-    = javascript_include_tag "jquery.isotope.min.js"
+    = javascript_include_tag "jquery.highlight-3.yui.js", "jquery.qtip-1.0.0-rc3.min.js", "jquery.isotope.min.js", 'jquery.validate.min.js'
     = javascript_include_tag '/facebox/facebox'
-    = javascript_include_tag '/uploadify/swfobject.js', '/uploadify/jquery.uploadify.v2.1.4.min.js'
-    = javascript_include_tag  'application', 'search', 'tooltip'
-    =# javascript_include_tag 'viz.st.js'
-    =# javascript_include_tag 'jit.js'
     = javascript_include_tag :cocoon
-    = javascript_include_tag 'terms.js'
-    = javascript_include_tag 'jquery.validate.min'
+    = javascript_include_tag '/uploadify/swfobject.js', '/uploadify/jquery.uploadify.v2.1.4.min.js'
+    = javascript_include_tag  'rails', 'search', 'tooltip', 'application', 'terms'
+    
+    - # VIZ
+    = #javascript_include_tag 'viz.st.js'
+    = #javascript_include_tag 'jit.js'
+    
     = csrf_meta_tag
-    %script
-      $(document).ready(function(){
-      $("#user_new").validate();
-      $("#user_edit").validate();
-      });
+
   %body
     #content
       #header
