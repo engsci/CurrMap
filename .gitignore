@@ -9,3 +9,4 @@ public/stylesheets/*.css
 futon4mongo/**
 sublime_proj
 public/uploads/**
+.rvmrc
