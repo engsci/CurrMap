@@ -2,9 +2,11 @@
   = form.inputs do
     .column
       %h3 Person
-      = form.inputs :name
+      = form.inputs :name, :title, :degrees
       - if @person.class == Instructor
         = form.inputs :phone, :website, :email
+      = form.inputs :name => "Bio" do
+        = form.text_area :bio
     .column
       - if @person.class == Instructor
         = render :partial => 'partials/form_relation', :locals => {:form => form, :object => @person, :relation => 'course_instances'}
