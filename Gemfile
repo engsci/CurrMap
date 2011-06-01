@@ -10,8 +10,11 @@ gem 'json'
 gem 'haml', '3.0.22'
 gem 'rails3-generators', :group => :development
 gem 'compass', '>= 0.10.2'
+
+# FORMS
 gem 'formtastic', :git => "http://github.com/rafd/formtastic.git"
 gem 'cocoon', :git => "http://github.com/rafd/cocoon.git"
+gem 'client_side_validations'
 
 # SEARCH 
 gem 'sunspot_rails'
@@ -27,6 +30,7 @@ gem 'roles_generic', '>= 0.3.7'
 # ??
 gem 'hpricot', '>= 0.8.3'
 gem 'ruby_parser'
+gem 'rubytree'
 
 # HEROKU
 gem 'hassle', :git => 'git://github.com/koppen/hassle.git'

@@ -1,7 +1,7 @@
 .person.object
   %h1= link_to @person.name, @person
   %dl
-    - %w(phone website email).each do |f|
+    - %w(title degrees phone website email bio).each do |f|
       - if @person.send(f) && @person.send(f).length > 0
         %dt= f.capitalize
         - info = @person.send(f)

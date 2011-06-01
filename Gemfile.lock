@@ -82,6 +82,8 @@ GEM
     cancan (1.5.1)
     carrierwave (0.5.2)
       activesupport (~> 3.0)
+    client_side_validations (3.0.4)
+      activesupport (~> 3.0.0)
     colorize (0.5.8)
     compass (0.10.6)
       haml (>= 3.0.4)
@@ -210,6 +212,7 @@ GEM
     ruby-hmac (0.4.0)
     ruby_parser (2.0.5)
       sexp_processor (~> 3.0)
+    rubytree (0.8.1)
     scribe (0.2.2)
       rake
       thrift_client
@@ -244,6 +247,7 @@ DEPENDENCIES
   bson_ext (= 1.2.0)
   cancan (= 1.5.1)
   carrierwave
+  client_side_validations
   cocoon!
   compass (>= 0.10.2)
   devise (= 1.1.2)
@@ -264,5 +268,6 @@ DEPENDENCIES
   roles_generic (>= 0.3.7)
   roles_mongoid (>= 0.4.5)
   ruby_parser
+  rubytree
   sunspot_mongoid!
   sunspot_rails
