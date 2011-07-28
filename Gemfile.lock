@@ -7,16 +7,6 @@ GIT
       rack
 
 GIT
-  remote: http://github.com/mongoid/mongoid.git
-  revision: efb1e13abfc5d7a908b01ebf1c50ba3277924ea5
-  specs:
-    mongoid (2.0.0.rc.7)
-      activemodel (~> 3.0)
-      mongo (~> 1.2)
-      tzinfo (~> 0.3.22)
-      will_paginate (~> 3.0.pre)
-
-GIT
   remote: http://github.com/rafd/cocoon.git
   revision: 1fa4abe4a2181db3f0884957ebe67c30937acf40
   specs:
@@ -134,6 +124,11 @@ GEM
       rake
     mongo (1.2.0)
       bson (>= 1.2.0)
+    mongoid (2.0.0)
+      activemodel (~> 3.0)
+      mongo (~> 1.2)
+      tzinfo (~> 0.3.22)
+      will_paginate (~> 3.0.pre)
     net-ssh (2.1.0)
     nokogiri (1.4.4)
     nokogiri (1.4.4-x86-mingw32)
@@ -235,7 +230,7 @@ GEM
     tzinfo (0.3.24)
     warden (0.10.7)
       rack (>= 1.0.0)
-    will_paginate (3.0.pre2)
+    will_paginate (3.0.pre4)
 
 PLATFORMS
   ruby
@@ -244,25 +239,25 @@ PLATFORMS
 DEPENDENCIES
   amazon-ecs
   bson_ext (= 1.2.0)
-  cancan (= 1.5.1)
+  cancan (>= 1.5.1)
   carrierwave
   client_side_validations
   cocoon!
   compass (>= 0.10.2)
-  devise (= 1.1.2)
+  devise (>= 1.1.2)
   flash_cookie_session
   fog
   formtastic!
-  haml (= 3.0.22)
+  haml (>= 3.0.22)
   hashie
   hassle!
   hpricot (>= 0.8.3)
   httpclient
   json
   mongo (>= 1.2.0)
-  mongoid!
+  mongoid
   nokogiri (= 1.4.4)
-  rails (= 3.0.3)
+  rails (>= 3.0.3)
   rails3-generators
   roles_generic (>= 0.3.7)
   roles_mongoid (>= 0.4.5)
