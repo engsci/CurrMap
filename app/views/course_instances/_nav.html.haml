@@ -14,6 +14,7 @@
         
     
     %li= link_to "Resources", {:action => 'resources'}, :class => "#{"active" if action_name ==  'resources'}"
+    %li= link_to "Edit Preview", {:action => 'editpreview'}, :class => "#{"active" if action_name ==  'editpreview'}"
   - if @course.course.course_instances.length > 0
     %h2 Available Years
     %ul

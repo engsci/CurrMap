@@ -33,6 +33,7 @@ Currmap::Application.routes.draw do |map|
         get 'activities'
         get 'topics'
         get 'resources'
+        get 'editpreview'
       end
     end
   end

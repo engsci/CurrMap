@@ -23,6 +23,10 @@
     = javascript_include_tag '/uploadify/swfobject.js', '/uploadify/jquery.uploadify.v2.1.4.min.js'
     = javascript_include_tag  'rails', 'search', 'tooltip', 'application', 'terms'
     
+    - if action_name ==  'editpreview'
+      = stylesheet_link_tag 'ace.css'
+      = javascript_include_tag 'require.js', :'data-main'=>"/javascripts/ace-main"
+    
     - # VIZ
     = #javascript_include_tag 'viz.st.js'
     = #javascript_include_tag 'jit.js'

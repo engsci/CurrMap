@@ -51,6 +51,10 @@ class CourseInstancesController < ApplicationController
 
   end
   
+  def editpreview
+    @course = CourseInstance.find(params[:id])
+  end
+  
   #### CRUD follows
   
   def new

@@ -1,4 +1,4 @@
-require 'app/extras/orm.rb'
+require './app/extras/orm.rb'
 
 class CouchCourse < CouchDoc
   if false
