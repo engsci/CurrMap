@@ -31,7 +31,6 @@ Currmap::Application.routes.draw do |map|
     resources :instances, :controller => 'course_instances', :except => ['index'] do
       member do
         get 'activities'
-        get 'topics'
         get 'resources'
         get 'editpreview'
       end
