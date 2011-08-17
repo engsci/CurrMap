@@ -207,6 +207,7 @@ GEM
     ruby-hmac (0.4.0)
     ruby_parser (2.0.5)
       sexp_processor (~> 3.0)
+    rubytree (0.8.1)
     scribe (0.2.2)
       rake
       thrift_client
@@ -262,5 +263,6 @@ DEPENDENCIES
   roles_generic (>= 0.3.7)
   roles_mongoid (>= 0.4.5)
   ruby_parser
+  rubytree
   sunspot_mongoid!
   sunspot_rails

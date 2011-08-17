@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
         redirect_to unauthorized_url
     else
-        redirect_to new_user_session_url
+        redirect_to new_user_session_url (:next => request.path)
     end
   end
   def url_escape(string)
@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
   layout 'application'
+  
+  def after_sign_in_path_for(resource_or_scope)
+    params[:user]["next"] || super
+  end 
 end
