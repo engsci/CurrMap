@@ -11,28 +11,7 @@
   = render :partial => 'partials/relation', :locals => {:object => @course.course, :relation => :prerequisite_topics, :link_html => {:rel => "facebox"}}
   
 .column
-  %h4 Misc Info
-  %ul.misc_info
-    %li
-      %strong Year Level
-      = course.level
-    %li
-      %strong Weight
-      = course.weight
-    %li
-      %strong Semester
-      = {"F"=>"Fall", "W"=>"Winter", "Y"=>"Year"}[course.semester]
-    %li 
-      %strong Contact Hours 
-      %abbr(title='Lecture') L
-      =course.contact_hours.lecture.to_s + " "
-      %abbr(title="Tutorial") T
-      =course.contact_hours.tutorial.to_s + " "
-      %abbr(title="Practical") P
-      =course.contact_hours.practical.to_s
-      
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :instructors}
-  = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :resources }
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :collections }
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :prerequisite_courses }
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :postrequisite_courses }
