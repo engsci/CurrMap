@@ -45,3 +45,7 @@ gem 'fog'
 gem 'carrierwave'
 gem 'flash_cookie_session'
 
+
+# ADMIN
+gem 'taps', :group => :development
+
