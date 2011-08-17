@@ -8,8 +8,7 @@
 
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :main_topics, :link_html => {:rel => "facebox"}}        
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :learning_objectives, :link_html => {:rel => "facebox"}}        
-  = render :partial => 'partials/relation', :locals => {:object => @course.course, :relation => :prerequisite_topics, :link_html => {:rel => "facebox"}}
-  
+    
 .column
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :instructors}
   = render :partial => 'partials/relation', :locals => {:object => @course, :relation => :collections }

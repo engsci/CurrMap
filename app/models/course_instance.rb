@@ -198,7 +198,6 @@ class Topic
   
   embedded_in :course_instance, :inverse_of => :main_topics
   embedded_in :activity, :inverse_of => :topics
-  embedded_in :course, :inverse_of => :prerequisite_topics
   
   validates_presence_of :name
   
