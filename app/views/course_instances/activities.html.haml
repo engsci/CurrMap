@@ -1,8 +1,10 @@
 #activities
-  %h4.week.item(data-week="99")= "Not Classified"
-  - (1..13).each do |x|
-    %h4.week.item(data-week="#{x}")
-      = "Week " + x.to_s
+  - @course.activities.map{|x| x.week }.uniq.each do |x|
+    - if x == nil
+      %h4.week.item(data-week="99")= "Not Classified"
+    - else
+      %h4.week.item(data-week="#{x}")
+        = "Week " + x.to_s
   - @course.activities.each do |activity|
     %div.activity.item(class="#{activity.class.to_s.underscore}" data-week="#{activity.week || 99}" data-number="#{activity.number || 0}")
       - type = activity.class.to_s
