@@ -6,7 +6,7 @@
       %h4.week.item(data-week="#{x}")
         = "Week " + x.to_s
   - @course.activities.each do |activity|
-    %div.activity.item(class="#{activity.class.to_s.underscore}" data-week="#{activity.week || 99}" data-number="#{activity.number || 0}")
+    %div.activity.item(class="#{activity.class.ancestors.take_while{|x| x != Activity }.map{|t| t.to_s.underscore}.join(" ")}" data-week="#{activity.week || 99}" data-number="#{activity.number || 0}")
       - type = activity.class.to_s
       %h5= "#{type.underscore.humanize.titlecase} #{activity.number}"
       .outcomes

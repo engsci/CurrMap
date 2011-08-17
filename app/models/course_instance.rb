@@ -173,19 +173,20 @@ class Tutorial < Session
 end
 class Practical < Session
 end
-class Assignment < Activity
+class Lab < Session
 end
-class ProblemSet < Assignment
+
+class Assessment < Activity
 end
-class Project < Assignment
+class ProblemSet < Assessment
 end
-class Evaluation < Activity
+class Project < Assessment
 end
-class Quiz < Evaluation
+class Quiz < Assessment
 end
-class Midterm < Evaluation
+class Midterm < Assessment
 end
-class Exam < Evaluation
+class Exam < Assessment
 end
 
 class Topic

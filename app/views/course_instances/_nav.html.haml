@@ -4,12 +4,11 @@
     %li
       = link_to 'Activities', {:action => 'activities'}, :class => "#{"active" if action_name ==  'activities'}"
       
-      -if action_name ==  'activities'
+      -if action_name == 'activities'
         %ul.filters
           -# %w(lecture tutorial practical lab assignment problem\ set project quiz midterm test exam).each do |activity_type|
-          %li= link_to 'Lectures', '#', :'data-filter' => ".lecture"
-          %li= link_to 'Tutorials', '#', :'data-filter' => ".tutorial"
-          %li= link_to 'Problem Sets', '#', :'data-filter' => ".problem_set"
+          - %w(Lecture Tutorial Problem\ Set Lab Assessment).each do |activity_type|
+            %li= link_to "#{activity_type.pluralize} (#{@course.activities.select{|x| x.class.ancestors.include?(activity_type.delete(" ").constantize)}.length})", "#", :'data-filter' =>".#{activity_type.delete(" ").underscore}"
         
     
     %li= link_to "Resources", {:action => 'resources'}, :class => "#{"active" if action_name ==  'resources'}"
